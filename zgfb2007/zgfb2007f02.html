@@ -1,0 +1,1074 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFB2007F02</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFB2007F02</h2>
+<h3> Description: Include ZGFB2007F02</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFB2007F02<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;HANDLE_DATA_CHANGED<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;ER_DATA_CHANGED<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM HANDLE_DATA_CHANGED    USING       RR_DATA_CHANGED<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_ALV_CHANGED_DATA_PROTOCOL.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_MOD_CELLS&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_MODI.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;RR_DATA_CHANGED-&gt;MT_GOOD_CELLS&nbsp;INTO&nbsp;LS_MOD_CELLS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;LS_MOD_CELLS-FIELDNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'REMARK'&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'BUKRS'&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'MATNR'&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'PFONA'&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'DATAB'&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'DATBI'&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'REXNO'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_OUTTAB&nbsp;ASSIGNING&nbsp;FIELD-SYMBOL(&lt;FS_OUTTAB&gt;)&nbsp;INDEX&nbsp;LS_MOD_CELLS-ROW_ID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_EDITED&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS_OUTTAB&gt;-CHANGED&nbsp;=&nbsp;ABAP_TRUE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;HANDLE_TOOLBAR<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM HANDLE_TOOLBAR USING I_OBJECT TYPE REF TO CL_ALV_EVENT_TOOLBAR_SET<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_INTERACTIVE&nbsp;.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;USING&nbsp;E_OBJECT&nbsp;E_INTERACTIVE&nbsp;.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;&nbsp;CHECK&nbsp;GV_MODE&nbsp;=&nbsp;GC_MODE-DIS.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;LS_TOOLBAR&nbsp;TYPE&nbsp;STB_BUTTON.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;sample<br />
+***&nbsp;&nbsp;CLEAR&nbsp;LS_TOOLBAR.<br />
+***&nbsp;&nbsp;MOVE&nbsp;'EXCH'&nbsp;TO&nbsp;LS_TOOLBAR-FUNCTION.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#EC&nbsp;NOTEXT<br />
+***&nbsp;&nbsp;MOVE&nbsp;2&nbsp;TO&nbsp;LS_TOOLBAR-BUTN_TYPE.<br />
+***&nbsp;&nbsp;MOVE&nbsp;ICON_CALCULATION&nbsp;TO&nbsp;LS_TOOLBAR-ICON.<br />
+***&nbsp;&nbsp;MOVE&nbsp;'Payment&nbsp;in&nbsp;Other&nbsp;Currencies'(202)&nbsp;TO&nbsp;LS_TOOLBAR-QUICKINFO.<br />
+***&nbsp;&nbsp;MOVE&nbsp;'&nbsp;'&nbsp;TO&nbsp;LS_TOOLBAR-TEXT.<br />
+***&nbsp;&nbsp;MOVE&nbsp;'&nbsp;'&nbsp;TO&nbsp;LS_TOOLBAR-DISABLED.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#EC&nbsp;NOTEXT<br />
+***&nbsp;&nbsp;APPEND&nbsp;LS_TOOLBAR&nbsp;TO&nbsp;I_OBJECT-&gt;MT_TOOLBAR.<br />
+<br />
+<br />
+***FUNCTION<br />
+***ICON<br />
+***QUICKINFO<br />
+***BUTN_TYPE<br />
+***DISABLED<br />
+***TEXT<br />
+***CHECKED<br />
+<br />
+*&nbsp;---&nbsp;my&nbsp;own<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CLEAR:&nbsp;LS_TOOLBAR.<br />
+&nbsp;&nbsp;LS_TOOLBAR-FUNCTION&nbsp;=&nbsp;'INSL'.<br />
+&nbsp;&nbsp;LS_TOOLBAR-BUTN_TYPE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;LS_TOOLBAR-ICON&nbsp;=&nbsp;ICON_INSERT_ROW.<br />
+&nbsp;&nbsp;LS_TOOLBAR-QUICKINFO&nbsp;=&nbsp;TEXT-T01.<br />
+&nbsp;&nbsp;LS_TOOLBAR-TEXT&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;LS_TOOLBAR-DISABLED&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_TOOLBAR&nbsp;TO&nbsp;I_OBJECT-&gt;MT_TOOLBAR.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;LS_TOOLBAR.<br />
+&nbsp;&nbsp;LS_TOOLBAR-FUNCTION&nbsp;=&nbsp;'DELL'.<br />
+&nbsp;&nbsp;LS_TOOLBAR-BUTN_TYPE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;LS_TOOLBAR-ICON&nbsp;=&nbsp;ICON_DELETE_ROW.<br />
+&nbsp;&nbsp;LS_TOOLBAR-QUICKINFO&nbsp;=&nbsp;TEXT-T02.<br />
+&nbsp;&nbsp;LS_TOOLBAR-TEXT&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;LS_TOOLBAR-DISABLED&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_TOOLBAR&nbsp;TO&nbsp;I_OBJECT-&gt;MT_TOOLBAR.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;HANDLE_USER_COMMAND<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;E_UCOMM<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;SENDER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM HANDLE_USER_COMMAND   USING P_UCOMM TYPE SY-UCOMM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SENDER&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_SEL_ROW&nbsp;TYPE&nbsp;LVC_S_ROW.<br />
+&nbsp;&nbsp;CASE&nbsp;P_UCOMM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'INSL'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GS_OUTTAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_EDITED&nbsp;=&nbsp;ABAP_TRUE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_IF_SELECTED&nbsp;USING&nbsp;GC_INS&nbsp;CHANGING&nbsp;GV_ANSWER.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GV_ANSWER&nbsp;&lt;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-APPENDED&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-FROM_DB&nbsp;=&nbsp;ABAP_FALSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-BUKRS&nbsp;=&nbsp;'M410'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GV_ANSWER&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;"&nbsp;INSERT,&nbsp;GT_SELECTED_ROWS&nbsp;TYPE&nbsp;LVC_T_ROW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_SELECTED_ROWS&nbsp;INTO&nbsp;LS_SEL_ROW&nbsp;INDEX&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;GS_OUTTAB&nbsp;INTO&nbsp;GT_OUTTAB&nbsp;INDEX&nbsp;&nbsp;LS_SEL_ROW-INDEX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;GV_ANSWER&nbsp;=&nbsp;0.&nbsp;"&nbsp;APPEND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GS_OUTTAB&nbsp;TO&nbsp;GT_OUTTAB[].<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;REFRESH_GRID.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'DELL'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_EDITED&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_IF_SELECTED&nbsp;USING&nbsp;GC_DEL&nbsp;CHANGING&nbsp;GV_ANSWER.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GV_ANSWER&nbsp;&gt;=&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;1&nbsp;when&nbsp;one&nbsp;or&nbsp;more&nbsp;rows&nbsp;selected<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DELETE_SELECTED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;REFRESH_GRID.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;REFRESH_GRID<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM REFRESH_GRID .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_ROW_ID&nbsp;TYPE&nbsp;LVC_S_ROW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_COL_ID&nbsp;TYPE&nbsp;LVC_S_COL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_ROW_NO&nbsp;TYPE&nbsp;LVC_S_ROID.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GCL_GRID-&gt;GET_CURRENT_CELL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ES_ROW_ID&nbsp;=&nbsp;LS_ROW_ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ES_COL_ID&nbsp;=&nbsp;LS_COL_ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ES_ROW_NO&nbsp;=&nbsp;LS_ROW_NO.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_STABLE&nbsp;TYPE&nbsp;LVC_S_STBL.<br />
+&nbsp;&nbsp;LS_STABLE-ROW&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;LS_STABLE-COL&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GCL_GRID-&gt;REFRESH_TABLE_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_STABLE&nbsp;=&nbsp;LS_STABLE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GCL_GRID-&gt;SET_CURRENT_CELL_VIA_ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_ROW_ID&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_ROW_ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_COLUMN_ID&nbsp;=&nbsp;LS_COL_ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_ROW_NO&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_ROW_NO.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Always&nbsp;call&nbsp;FLUSH&nbsp;to&nbsp;make&nbsp;sure&nbsp;the&nbsp;changes&nbsp;are&nbsp;sent&nbsp;to&nbsp;the&nbsp;frontend<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_CFW=&gt;FLUSH.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_GRID_0100<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_GRID_0100 .<br />
+<br />
+&nbsp;&nbsp;CLEAR:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_UI_FUNCTIONS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_UI_FUNCTIONS[],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_LVC_FCAT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"for&nbsp;Field&nbsp;catalog<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_LVC_FCAT[].&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"for&nbsp;Field&nbsp;catalog<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;Custom&nbsp;Container&nbsp;Object<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GCL_CONTAINER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_NAME&nbsp;=&nbsp;'CUSTOM1'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;Grid&nbsp;Object<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GCL_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PARENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GCL_CONTAINER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_APPL_EVENTS&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;LAYOUT_ATTRIBUTE_0100&nbsp;CHANGING&nbsp;GS_LAYO.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Grid&nbsp;Layout<br />
+&nbsp;&nbsp;PERFORM&nbsp;TOOLBAR_PART_0100&nbsp;&nbsp;USING&nbsp;'GT_UI_FUNCTIONS'.&nbsp;&nbsp;"&nbsp;Tool&nbsp;Bar<br />
+&nbsp;&nbsp;PERFORM&nbsp;FORM_FCAT&nbsp;TABLES&nbsp;GT_LVC_FCAT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_F4.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;PERFORM&nbsp;SET_ALV_SORTS.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;EVENT_HANDLER_REGISTER_0100.<br />
+&nbsp;&nbsp;PERFORM&nbsp;ALV_DISPLAY_PART_0100.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV&nbsp;Display<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;LAYOUT_ATTRIBUTE_0100<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;GS_LAYO<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM LAYOUT_ATTRIBUTE_0100  CHANGING PS_LVC_LAYO TYPE LVC_S_LAYO.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;PS_LVC_LAYO-CWIDTH_OPT&nbsp;=&nbsp;'X'.&nbsp;&nbsp;"Optimize&nbsp;column&nbsp;width<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PS_LVC_LAYO-ZEBRA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;"Alternating&nbsp;line&nbsp;color&nbsp;(striped)<br />
+&nbsp;&nbsp;PS_LVC_LAYO-SEL_MODE&nbsp;&nbsp;&nbsp;=&nbsp;'D'.&nbsp;&nbsp;"Selection&nbsp;mode<br />
+&nbsp;&nbsp;PS_LVC_LAYO-CTAB_FNAME&nbsp;=&nbsp;'COLTAB'.<br />
+&nbsp;&nbsp;PS_LVC_LAYO-STYLEFNAME&nbsp;=&nbsp;'CELLTAB'.<br />
+&nbsp;&nbsp;PS_LVC_LAYO-SMALLTITLE&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;PS_LVC_LAYO-NO_ROWMARK&nbsp;=&nbsp;'&nbsp;'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;PS_LVC_LAYO-NO_MERGING&nbsp;=&nbsp;ABAP_TRUE.<br />
+<br />
+*&nbsp;&nbsp;ALV_COL_STYLE_MERGE(4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;X&nbsp;VALUE&nbsp;'00000400',<br />
+*&nbsp;&nbsp;PS_LVC_LAYO-NO_HGRIDLN&nbsp;=&nbsp;abap_true.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;GS_VARIANT-REPORT&nbsp;=&nbsp;SY-REPID.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;APPEND_EXCLUDE_FUNCTIONS<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;&lt;TABLE&gt;<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_LOC_UND<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM APPEND_EXCLUDE_FUNCTIONS   TABLES PT_TABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;P_VALUE&nbsp;&nbsp;TYPE&nbsp;&nbsp;ANY.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_EXCLUDE&nbsp;TYPE&nbsp;UI_FUNC.<br />
+<br />
+&nbsp;&nbsp;LS_EXCLUDE&nbsp;=&nbsp;P_VALUE.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_EXCLUDE&nbsp;TO&nbsp;PT_TABLE.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;TOOLBAR_PART_0100<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;P_<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM TOOLBAR_PART_0100  USING P_T_UI_FUNCTIONS.<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;:&nbsp;&lt;TABLE&gt;&nbsp;TYPE&nbsp;UI_FUNCTIONS.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;L_TABLE_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;FELD-NAME.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;P_T_UI_FUNCTIONS&nbsp;'[]'&nbsp;INTO&nbsp;&nbsp;L_TABLE_NAME.<br />
+&nbsp;&nbsp;ASSIGN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(L_TABLE_NAME)&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;&lt;TABLE&gt;.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;APPEND_EXCLUDE_FUNCTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES&nbsp;&nbsp;&lt;TABLE&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;:&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_LOC_UNDO,&nbsp;"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_AUF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;????&nbsp;&AUF<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_AVERAGE,&nbsp;&nbsp;"&nbsp;&AVERAGE<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_BACK_CLASSIC,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_CALL_ABC,&nbsp;"&nbsp;&ABC<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_CALL_CHAIN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_CALL_CRBATCH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_CALL_CRWEB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_CALL_LINEITEMS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_CALL_MASTER_DATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_CALL_MORE,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_CALL_REPORT,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_CALL_XINT,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_CALL_XXL,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_COL_INVISIBLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_COL_OPTIMIZE,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_CURRENT_VARIANT,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_DATA_SAVE,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_DELETE_FILTER,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_DESELECT_ALL,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_DETAIL,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_EXPCRDATA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_EXPCRDESIG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_EXPCRTEMPL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_EXPMDB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_EXTEND,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_F4,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_FILTER,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_FIND,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_FIX_COLUMNS,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_GRAPH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_HELP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_INFO,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_LOAD_VARIANT,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_LOC_COPY,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;?&nbsp;??<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_HTML,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_LOC_COPY_ROW,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;?&nbsp;??<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_LOC_CUT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;??<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_LOC_DELETE_ROW,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;???<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_LOC_INSERT_ROW,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;???<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_LOC_MOVE_ROW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_LOC_APPEND_ROW,&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;????<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_LOC_PASTE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;????<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_LOC_PASTE_NEW_ROW,&nbsp;"&nbsp;????<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_MAINTAIN_VARIANT,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_MAXIMUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_MINIMUM,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_PC_FILE,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_PRINT,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_PRINT_BACK,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_PRINT_PREV,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_REPREP,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_SAVE_VARIANT,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_SELECT_ALL,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_SEND,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_SEPARATOR,<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_SORT,<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_SORT_ASC,<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_SORT_DSC,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_SUBTOT,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_SUM,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_TO_OFFICE,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_TO_REP_TREE,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_UNFIX_COLUMNS,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_VIEWS,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_VIEW_CRYSTAL,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_VIEW_EXCEL,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_VIEW_GRID,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_WORD_PROCESSOR,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_REFRESH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_GUI_ALV_GRID=&gt;MC_FC_CHECK.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;FORM_FCAT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GT_LVC_FCAT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM FORM_FCAT  TABLES PT_FCAT_ALV TYPE LVC_T_FCAT.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_FCAT&nbsp;TYPE&nbsp;LVC_S_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_POS&nbsp;&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;PT_FCAT_ALV,&nbsp;PT_FCAT_ALV[].<br />
+<br />
+&nbsp;&nbsp;LV_POS&nbsp;=&nbsp;LV_POS&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;LS_FCAT-COL_POS&nbsp;=&nbsp;LV_POS.<br />
+&nbsp;&nbsp;LS_FCAT-FIELDNAME&nbsp;=&nbsp;'BUKRS'.<br />
+&nbsp;&nbsp;LS_FCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;LS_FCAT-EDIT&nbsp;=&nbsp;ABAP_FALSE.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_L&nbsp;=&nbsp;TEXT-L01.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_M&nbsp;=&nbsp;TEXT-M01.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_S&nbsp;=&nbsp;TEXT-S01.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_FCAT&nbsp;TO&nbsp;PT_FCAT_ALV.&nbsp;CLEAR&nbsp;LS_FCAT.<br />
+<br />
+&nbsp;&nbsp;LV_POS&nbsp;=&nbsp;LV_POS&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;LS_FCAT-COL_POS&nbsp;=&nbsp;LV_POS.<br />
+&nbsp;&nbsp;LS_FCAT-FIELDNAME&nbsp;=&nbsp;'MATNR'.<br />
+&nbsp;&nbsp;LS_FCAT-JUST&nbsp;=&nbsp;'L'.<br />
+&nbsp;&nbsp;LS_FCAT-EDIT&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-F4AVAILABL&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-REF_FIELD&nbsp;=&nbsp;'MATNR'.<br />
+&nbsp;&nbsp;LS_FCAT-REF_TABLE&nbsp;=&nbsp;'MARA'.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_L&nbsp;=&nbsp;TEXT-L02.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_M&nbsp;=&nbsp;TEXT-M02.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_S&nbsp;=&nbsp;TEXT-S02.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_FCAT&nbsp;TO&nbsp;PT_FCAT_ALV.&nbsp;CLEAR&nbsp;LS_FCAT.<br />
+<br />
+&nbsp;&nbsp;LV_POS&nbsp;=&nbsp;LV_POS&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;LS_FCAT-COL_POS&nbsp;=&nbsp;LV_POS.<br />
+&nbsp;&nbsp;LS_FCAT-FIELDNAME&nbsp;=&nbsp;'PFONA'.<br />
+&nbsp;&nbsp;LS_FCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_L&nbsp;=&nbsp;TEXT-L03.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_M&nbsp;=&nbsp;TEXT-M03.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_S&nbsp;=&nbsp;TEXT-S03.<br />
+&nbsp;&nbsp;LS_FCAT-EDIT&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-F4AVAILABL&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_FCAT&nbsp;TO&nbsp;PT_FCAT_ALV.&nbsp;CLEAR&nbsp;LS_FCAT.<br />
+<br />
+&nbsp;&nbsp;LV_POS&nbsp;=&nbsp;LV_POS&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;LS_FCAT-COL_POS&nbsp;=&nbsp;LV_POS.<br />
+&nbsp;&nbsp;LS_FCAT-FIELDNAME&nbsp;=&nbsp;'REXNO'.<br />
+&nbsp;&nbsp;LS_FCAT-OUTPUTLEN&nbsp;=&nbsp;100.<br />
+&nbsp;&nbsp;LS_FCAT-COL_OPT&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-JUST&nbsp;=&nbsp;'L'.<br />
+&nbsp;&nbsp;LS_FCAT-EDIT&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-LOWERCASE&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_L&nbsp;=&nbsp;TEXT-L04.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_M&nbsp;=&nbsp;TEXT-M04.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_S&nbsp;=&nbsp;TEXT-S04.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_FCAT&nbsp;TO&nbsp;PT_FCAT_ALV.&nbsp;CLEAR&nbsp;LS_FCAT.<br />
+<br />
+&nbsp;&nbsp;LV_POS&nbsp;=&nbsp;LV_POS&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;LS_FCAT-COL_POS&nbsp;=&nbsp;LV_POS.<br />
+&nbsp;&nbsp;LS_FCAT-FIELDNAME&nbsp;=&nbsp;'DATAB'.<br />
+&nbsp;&nbsp;LS_FCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_L&nbsp;=&nbsp;TEXT-L05.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_M&nbsp;=&nbsp;TEXT-M05.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_S&nbsp;=&nbsp;TEXT-S05.<br />
+&nbsp;&nbsp;LS_FCAT-LOWERCASE&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-EDIT&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-F4AVAILABL&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-REF_FIELD&nbsp;=&nbsp;'DATUM'.<br />
+&nbsp;&nbsp;LS_FCAT-REF_TABLE&nbsp;=&nbsp;'SYST'.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_FCAT&nbsp;TO&nbsp;PT_FCAT_ALV.&nbsp;CLEAR&nbsp;LS_FCAT.<br />
+<br />
+&nbsp;&nbsp;LV_POS&nbsp;=&nbsp;LV_POS&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;LS_FCAT-COL_POS&nbsp;=&nbsp;LV_POS.<br />
+&nbsp;&nbsp;LS_FCAT-FIELDNAME&nbsp;=&nbsp;'DATBI'.<br />
+&nbsp;&nbsp;LS_FCAT-JUST&nbsp;=&nbsp;'C'.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_L&nbsp;=&nbsp;TEXT-L06.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_M&nbsp;=&nbsp;TEXT-M06.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_S&nbsp;=&nbsp;TEXT-S06.<br />
+&nbsp;&nbsp;LS_FCAT-LOWERCASE&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-EDIT&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-F4AVAILABL&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-REF_FIELD&nbsp;=&nbsp;'DATUM'.<br />
+&nbsp;&nbsp;LS_FCAT-REF_TABLE&nbsp;=&nbsp;'SYST'.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_FCAT&nbsp;TO&nbsp;PT_FCAT_ALV.&nbsp;CLEAR&nbsp;LS_FCAT.<br />
+<br />
+&nbsp;&nbsp;LV_POS&nbsp;=&nbsp;LV_POS&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;LS_FCAT-COL_POS&nbsp;=&nbsp;LV_POS.<br />
+&nbsp;&nbsp;LS_FCAT-FIELDNAME&nbsp;=&nbsp;'REMARK'.<br />
+&nbsp;&nbsp;LS_FCAT-OUTPUTLEN&nbsp;=&nbsp;128.<br />
+&nbsp;&nbsp;LS_FCAT-COL_OPT&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-LOWERCASE&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-JUST&nbsp;=&nbsp;'L'.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_L&nbsp;=&nbsp;TEXT-L07.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_M&nbsp;=&nbsp;TEXT-M07.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_S&nbsp;=&nbsp;TEXT-S07.<br />
+&nbsp;&nbsp;LS_FCAT-LOWERCASE&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-EDIT&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_FCAT&nbsp;TO&nbsp;PT_FCAT_ALV.&nbsp;CLEAR&nbsp;LS_FCAT.<br />
+<br />
+&nbsp;&nbsp;LV_POS&nbsp;=&nbsp;LV_POS&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;LS_FCAT-COL_POS&nbsp;=&nbsp;LV_POS.<br />
+&nbsp;&nbsp;LS_FCAT-FIELDNAME&nbsp;=&nbsp;'MSG'.<br />
+&nbsp;&nbsp;LS_FCAT-LOWERCASE&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_FCAT-JUST&nbsp;=&nbsp;'L'.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_L&nbsp;=&nbsp;TEXT-L08.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_M&nbsp;=&nbsp;TEXT-M08.<br />
+&nbsp;&nbsp;LS_FCAT-SCRTEXT_S&nbsp;=&nbsp;TEXT-S08.<br />
+&nbsp;&nbsp;LS_FCAT-EDIT&nbsp;=&nbsp;ABAP_FALSE.<br />
+&nbsp;&nbsp;LS_FCAT-LOWERCASE&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_FCAT&nbsp;TO&nbsp;PT_FCAT_ALV.&nbsp;CLEAR&nbsp;LS_FCAT.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;EVENT_HANDLER_REGISTER_0100<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM EVENT_HANDLER_REGISTER_0100 .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_INPUT&nbsp;TYPE&nbsp;INT4.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GCL_GRID-&gt;REGISTER_EDIT_EVENT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_EVENT_ID&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_EVT_MODIFIED.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;IF&nbsp;GV_MODE&nbsp;=&nbsp;GC_MODE-DIS.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LV_INPUT&nbsp;=&nbsp;1.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;ELSE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;LV_INPUT&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GCL_GRID-&gt;SET_READY_FOR_INPUT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_READY_FOR_INPUT&nbsp;=&nbsp;LV_INPUT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--Creating&nbsp;an&nbsp;instance&nbsp;for&nbsp;the&nbsp;event&nbsp;handler<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GR_EVENT_HANDLER.<br />
+   </div>
+   <div class="codeComment">
+*--Registering&nbsp;handler&nbsp;methods&nbsp;to&nbsp;handle&nbsp;ALV&nbsp;Grid&nbsp;events<br />
+***&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;GR_EVENT_HANDLER-&gt;HANDLE_USER_COMMAND&nbsp;FOR&nbsp;GCL_GRID.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;GR_EVENT_HANDLER-&gt;HANDLE_DATA_CHANGED&nbsp;FOR&nbsp;GCL_GRID.<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;GR_EVENT_HANDLER-&gt;HANDLE_HOTSPOT_CLICK&nbsp;FOR&nbsp;GCL_GRID.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;GR_EVENT_HANDLER-&gt;HANDLE_ONF4&nbsp;FOR&nbsp;GCL_GRID.<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;GR_EVENT_HANDLER-&gt;HANDLE_TOOLBAR&nbsp;FOR&nbsp;GCL_GRID.<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;GR_EVENT_HANDLER-&gt;HANDLE_USER_COMMAND&nbsp;FOR&nbsp;GCL_GRID.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;GR_EVENT_HANDLER-&gt;HANDLE_BUTTON_CLICK01&nbsp;FOR&nbsp;GCL_GRID.<br />
+<br />
+   </div>
+   <div class="code">
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;ALV_DISPLAY_PART_0100<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM ALV_DISPLAY_PART_0100 .<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GCL_GRID-&gt;SET_TABLE_FOR_FIRST_DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_LAYOUT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_LAYO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_TOOLBAR_EXCLUDING&nbsp;=&nbsp;GT_UI_FUNCTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_SAVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_DEFAULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS_VARIANT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_VARIANT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_SORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_SORT[]<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_OUTTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_OUTTAB[]<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_FIELDCATALOG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_LVC_FCAT[].<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_F4<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_F4 .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_F4&nbsp;TYPE&nbsp;LVC_S_F4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_F4&nbsp;TYPE&nbsp;LVC_T_F4.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;sorted&nbsp;table,&nbsp;so&nbsp;append&nbsp;order&nbsp;matters<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;LS_F4.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;datab<br />
+&nbsp;&nbsp;LS_F4-FIELDNAME&nbsp;=&nbsp;'DATAB'.<br />
+&nbsp;&nbsp;LS_F4-REGISTER&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_F4-GETBEFORE&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_F4-CHNGEAFTER&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_F4&nbsp;TO&nbsp;LT_F4.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;LS_F4.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;datbi<br />
+&nbsp;&nbsp;LS_F4-FIELDNAME&nbsp;=&nbsp;'DATBI'.<br />
+&nbsp;&nbsp;LS_F4-REGISTER&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_F4-GETBEFORE&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_F4-CHNGEAFTER&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_F4&nbsp;TO&nbsp;LT_F4.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;LS_F4.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;matnr<br />
+&nbsp;&nbsp;LS_F4-FIELDNAME&nbsp;=&nbsp;'MATNR'.<br />
+&nbsp;&nbsp;LS_F4-REGISTER&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_F4-GETBEFORE&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_F4-CHNGEAFTER&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_F4&nbsp;TO&nbsp;LT_F4.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;LS_F4.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;pfona<br />
+&nbsp;&nbsp;LS_F4-FIELDNAME&nbsp;=&nbsp;'PFONA'.<br />
+&nbsp;&nbsp;LS_F4-REGISTER&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_F4-GETBEFORE&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;LS_F4-CHNGEAFTER&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_F4&nbsp;TO&nbsp;LT_F4.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;LS_F4.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GCL_GRID-&gt;REGISTER_F4_FOR_FIELDS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_F4&nbsp;=&nbsp;LT_F4[].<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;HANDLE_ONF4<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;E_FIELDNAME<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;E_FIELDVALUE<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;ES_ROW_NO<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;ER_EVENT_DATA<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;ET_BAD_CELLS<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;E_DISPLAY<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;SENDER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM HANDLE_ONF4  USING    PV_FIELDNAME TYPE LVC_FNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_FIELDVALUE&nbsp;TYPE&nbsp;LVC_VALUE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ROW_NO&nbsp;TYPE&nbsp;LVC_S_ROID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PR_EVENT_DATA&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_ALV_EVENT_DATA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PT_BAD_CELLS&nbsp;TYPE&nbsp;LVC_T_MODI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_DISPLAY&nbsp;TYPE&nbsp;CHAR01<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_SENDER&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_MODIFIED&nbsp;TYPE&nbsp;LVC_S_MODI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_F4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;DDSHRETVAL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_F4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;DDSHRETVAL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_OUTTAB&nbsp;&nbsp;&nbsp;TYPE&nbsp;GTY_OUTTAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MATNR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT2002H-MATNR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;FIELD-SYMBOLS:&nbsp;&lt;FT_F4&gt;&nbsp;TYPE&nbsp;LVC_T_MODI.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CLEAR:&nbsp;GS_OUTTAB.<br />
+&nbsp;&nbsp;CASE&nbsp;PV_FIELDNAME.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'MATNR'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'PFONA'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_OUTTAB&nbsp;ASSIGNING&nbsp;FIELD-SYMBOL(&lt;FS_OUTTAB&gt;)&nbsp;INDEX&nbsp;PS_ROW_NO-ROW_ID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;F4_PFONA&nbsp;CHANGING&nbsp;&lt;FS_OUTTAB&gt;-PFONA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;REFRESH_GRID.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'DATAB'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'DATBI'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CHECK_IF_SELECTED<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GC_INS<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;GV_ANSWER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_IF_SELECTED  USING PV_MODE CHANGING PV_ANSWER.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_SELECTED&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;PV_ANSWER.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GT_SELECTED_ROWS.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GCL_GRID-&gt;GET_SELECTED_ROWS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_INDEX_ROWS&nbsp;=&nbsp;GT_SELECTED_ROWS.<br />
+<br />
+&nbsp;&nbsp;LV_SELECTED&nbsp;=&nbsp;LINES(&nbsp;GT_SELECTED_ROWS[]&nbsp;).<br />
+&nbsp;&nbsp;PV_ANSWER&nbsp;=&nbsp;LV_SELECTED.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;PV_MODE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;GC_INS.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;single&nbsp;line&nbsp;selection&nbsp;allowed<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_SELECTED&nbsp;&gt;&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;WITH&nbsp;TEXT-T08&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;GC_DEL.&nbsp;&nbsp;"&nbsp;Multi&nbsp;line&nbsp;selection&nbsp;allowed<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_SELECTED&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;WITH&nbsp;TEXT-T09&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DELETE_SELECTED<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DELETE_SELECTED .<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;FS_OUTTAB&gt;&nbsp;TYPE&nbsp;GTY_OUTTAB.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_SELECTED_ROWS&nbsp;INTO&nbsp;DATA(LS_ROWS).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_OUTTAB&nbsp;ASSIGNING&nbsp;&lt;FS_OUTTAB&gt;&nbsp;INDEX&nbsp;LS_ROWS-INDEX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS_OUTTAB&gt;-DELETED&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;DELETE&nbsp;GT_OUTTAB&nbsp;WHERE&nbsp;DELETED&nbsp;=&nbsp;ABAP_TRUE.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;F4_PFONA<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM F4_PFONA CHANGING PV_DYNFIELD.<br />
+<br />
+&nbsp;&nbsp;TYPES&nbsp;:&nbsp;BEGIN&nbsp;OF&nbsp;GTY_HELP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PFONA&nbsp;TYPE&nbsp;ZGFT0004-PFONA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GTY_HELP.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_HELP&nbsp;&nbsp;&nbsp;TYPE&nbsp;GTY_HELP&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_RETURN&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;DDSHRETVAL.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT0004<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;=&nbsp;'M410'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@LT_HELP.<br />
+<br />
+&nbsp;&nbsp;SORT&nbsp;LT_HELP&nbsp;BY&nbsp;PFONA.<br />
+&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;LT_HELP&nbsp;COMPARING&nbsp;PFONA.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;LT_HELP[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'F4IF_INT_TABLE_VALUE_REQUEST'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETFIELD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'PFONA'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNPPROG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-CPROG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNPNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-DYNNR<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNPROFIELD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PV_DYNFIELD<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE_ORG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'S'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE_TAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_HELP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN_TAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_RETURN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETER_ERROR&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_VALUES_FOUND&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_RETURN&nbsp;INTO&nbsp;DATA(LS_RETURN)&nbsp;INDEX&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;PV_DYNFIELD&nbsp;=&nbsp;LS_RETURN-FIELDVAL.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;MODIFY_CELL_TAB<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM MODIFY_CELL_TAB .<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_OUTTAB&nbsp;ASSIGNING&nbsp;FIELD-SYMBOL(&lt;FS&gt;)&nbsp;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_CELLTAB,&nbsp;GT_CELLTAB[],&nbsp;&lt;FS&gt;-CELLTAB.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;BUKRS<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-FIELDNAME&nbsp;=&nbsp;'BUKRS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_DISABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;GS_CELLTAB&nbsp;INTO&nbsp;TABLE&nbsp;GT_CELLTAB.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;MATNR<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-FIELDNAME&nbsp;=&nbsp;'MATNR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&lt;FS&gt;-APPENDED&nbsp;=&nbsp;ABAP_TRUE&nbsp;AND&nbsp;&lt;FS&gt;-FROM_DB&nbsp;=&nbsp;ABAP_FALSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_ENABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_DISABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;GS_CELLTAB&nbsp;INTO&nbsp;TABLE&nbsp;GT_CELLTAB.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;PFONA<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-FIELDNAME&nbsp;=&nbsp;'PFONA'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&lt;FS&gt;-APPENDED&nbsp;=&nbsp;ABAP_TRUE&nbsp;AND&nbsp;&lt;FS&gt;-FROM_DB&nbsp;=&nbsp;ABAP_FALSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_ENABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_DISABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;GS_CELLTAB&nbsp;INTO&nbsp;TABLE&nbsp;GT_CELLTAB.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;REXNO<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-FIELDNAME&nbsp;=&nbsp;'REXNO'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&lt;FS&gt;-APPENDED&nbsp;=&nbsp;ABAP_TRUE&nbsp;AND&nbsp;&lt;FS&gt;-FROM_DB&nbsp;=&nbsp;ABAP_FALSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_ENABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_DISABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;GS_CELLTAB&nbsp;INTO&nbsp;TABLE&nbsp;GT_CELLTAB.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;DATAB<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-FIELDNAME&nbsp;=&nbsp;'DATAB'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&lt;FS&gt;-APPENDED&nbsp;=&nbsp;ABAP_TRUE&nbsp;AND&nbsp;&lt;FS&gt;-FROM_DB&nbsp;=&nbsp;ABAP_FALSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_ENABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_DISABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;GS_CELLTAB&nbsp;INTO&nbsp;TABLE&nbsp;GT_CELLTAB.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;DATBI<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-FIELDNAME&nbsp;=&nbsp;'MATNR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_ENABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;GS_CELLTAB&nbsp;INTO&nbsp;TABLE&nbsp;GT_CELLTAB.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;REMARK<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-FIELDNAME&nbsp;=&nbsp;'REMARK'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_ENABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;GS_CELLTAB&nbsp;INTO&nbsp;TABLE&nbsp;GT_CELLTAB.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;MSG<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-FIELDNAME&nbsp;=&nbsp;'MSG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_CELLTAB-STYLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;CL_GUI_ALV_GRID=&gt;MC_STYLE_DISABLED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;GS_CELLTAB&nbsp;INTO&nbsp;TABLE&nbsp;GT_CELLTAB.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS&gt;-CELLTAB&nbsp;=&nbsp;GT_CELLTAB[].<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

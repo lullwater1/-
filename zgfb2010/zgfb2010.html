@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFB2010</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFB2010</h2>
+<h3> Description: [Global FTA] Pending Item Management</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;PROGRAM&nbsp;ID&nbsp;&nbsp;:&nbsp;ZGFB2006<br />
+*&nbsp;Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[Global&nbsp;FTA]&nbsp;Pending&nbsp;Item&nbsp;Management<br />
+*&nbsp;Created&nbsp;By&nbsp;&nbsp;:&nbsp;KPMG<br />
+*&nbsp;Created&nbsp;On&nbsp;&nbsp;:&nbsp;2025.&nbsp;08.&nbsp;14.<br />
+*&nbsp;Category&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Master<br />
+*&nbsp;Description&nbsp;:&nbsp;[Global&nbsp;FTA]&nbsp;Pending&nbsp;Item&nbsp;Management<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFICATION&nbsp;LOG<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Date.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description.<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;2025.08.14&nbsp;|&nbsp;E04070&nbsp;|&nbsp;Initially&nbsp;created<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zgfb2010  NO STANDARD PAGE HEADING MESSAGE-ID zgfmc.<br />
+<br />
+include <a href ="zgfb2010cls.html">zgfb2010cls</a>.<br />
+include <a href ="zgfb2010top.html">zgfb2010top</a>.<br />
+include <a href ="zgfb2010scr.html">zgfb2010scr</a>.<br />
+include <a href ="zgfb2010o01.html">zgfb2010o01</a>.<br />
+include <a href ="zgfb2010i01.html">zgfb2010i01</a>.<br />
+include <a href ="zgfb2010f01.html">zgfb2010f01</a>.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;INITIALIZATION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;tab_screen_set.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_init.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;PERFORM&nbsp;tab_screen_postion_set.<br />
+&nbsp;&nbsp;PERFORM&nbsp;change_cocd.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;set_mode.<br />
+&nbsp;&nbsp;CASE&nbsp;gv_dynnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'101'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;p_bukrs1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'102'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;p_bukrs2.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_data.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+END-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;check_input_validity&nbsp;CHANGING&nbsp;gv_ret.<br />
+&nbsp;&nbsp;CHECK&nbsp;gv_ret&nbsp;&lt;&gt;&nbsp;'E'.<br />
+&nbsp;&nbsp;IF&nbsp;gt_outtab&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;100.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s000&nbsp;WITH&nbsp;TEXT-t12&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;0100&nbsp;--&gt;&nbsp;[Global&nbsp;FTA]&nbsp;Pending&nbsp;Item&nbsp;Management<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;T01&nbsp;Inquiry<br />
+*&nbsp;T02&nbsp;Registration<br />
+*&nbsp;T03&nbsp;Company&nbsp;Code<br />
+*&nbsp;T04&nbsp;Period<br />
+*&nbsp;T05&nbsp;Plant<br />
+*&nbsp;T06&nbsp;Supplier<br />
+*&nbsp;T07&nbsp;Material<br />
+*&nbsp;T08&nbsp;Save<br />
+*&nbsp;T09&nbsp;OK<br />
+*&nbsp;T10&nbsp;Cancel<br />
+*&nbsp;T11&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;save?<br />
+*&nbsp;T12&nbsp;No&nbsp;data&nbsp;to&nbsp;display.<br />
+*&nbsp;T13&nbsp;Status<br />
+*&nbsp;T14&nbsp;Year<br />
+*&nbsp;T15&nbsp;Material&nbsp;Group<br />
+*&nbsp;T16&nbsp;Conversion&nbsp;Rate(%)<br />
+*&nbsp;T17&nbsp;Message&nbsp;after&nbsp;processing<br />
+*&nbsp;T18&nbsp;Insert&nbsp;a&nbsp;row<br />
+*&nbsp;T19&nbsp;Delete&nbsp;rows<br />
+*&nbsp;T20&nbsp;No&nbsp;row&nbsp;selected<br />
+*&nbsp;T21&nbsp;Natural&nbsp;number&nbsp;only&nbsp;ranging&nbsp;from&nbsp;0&nbsp;to&nbsp;100&nbsp;allowed<br />
+*&nbsp;T22&nbsp;Non-numeric&nbsp;included<br />
+*&nbsp;T23&nbsp;The&nbsp;fiscal&nbsp;year&nbsp;you&nbsp;entered&nbsp;is&nbsp;abnormal<br />
+*&nbsp;T24&nbsp;Successfully&nbsp;saved<br />
+*&nbsp;T25&nbsp;None&nbsp;saved<br />
+*&nbsp;T26&nbsp;~<br />
+*&nbsp;T27&nbsp;Period_from&nbsp;cannot&nbsp;be&nbsp;greater&nbsp;than&nbsp;Period_to<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZGFMC<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

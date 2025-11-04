@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFB2005</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFB2005</h2>
+<h3> Description: [Global FTA] User Authorization List</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;PROGRAM&nbsp;ID&nbsp;&nbsp;:&nbsp;ZGFB2005<br />
+*&nbsp;Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[Global&nbsp;FTA]&nbsp;User&nbsp;Athorization&nbsp;List<br />
+*&nbsp;Created&nbsp;By&nbsp;&nbsp;:&nbsp;KPMG<br />
+*&nbsp;Created&nbsp;On&nbsp;&nbsp;:&nbsp;2025.&nbsp;08.&nbsp;04.<br />
+*&nbsp;Category&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Master<br />
+*&nbsp;Description&nbsp;:&nbsp;User&nbsp;Athorization&nbsp;List<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFICATION&nbsp;LOG<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Date.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description.<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;2025.08.04&nbsp;|&nbsp;E04025&nbsp;|&nbsp;Initially&nbsp;created<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zgfb2005 NO STANDARD PAGE HEADING MESSAGE-ID zgfmc.<br />
+<br />
+include <a href ="zgfb2005cls.html">zgfb2005cls</a>.<br />
+include <a href ="zgfb2005t01.html">zgfb2005t01</a>.<br />
+include <a href ="zgfb2005scr.html">zgfb2005scr</a>.<br />
+include <a href ="zgfb2005alv.html">zgfb2005alv</a>.<br />
+include <a href ="zgfb2005f01.html">zgfb2005f01</a>.<br />
+include <a href ="zgfb2005f02.html">zgfb2005f02</a>.<br />
+include <a href ="zgfb2005o01.html">zgfb2005o01</a>.<br />
+include <a href ="zgfb2005i01.html">zgfb2005i01</a>.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;INITIALIZATION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+<br />
+AT SELECTION-SCREEN.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;START-OF-SELECTION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;s_bukrs-low.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;AUTHORITY_CHECK&nbsp;CHANGING&nbsp;GV_RET.<br />
+&nbsp;&nbsp;CHECK&nbsp;GV_RET&nbsp;&lt;&gt;&nbsp;'E'.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_data.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;END-OF-SELECTION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+END-OF-SELECTION.<br />
+&nbsp;&nbsp;CHECK&nbsp;gt_outtab[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;0100.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;0100&nbsp;--&gt;&nbsp;[Global&nbsp;FTA]&nbsp;User&nbsp;Authorization&nbsp;List<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;M01&nbsp;No&nbsp;data&nbsp;to&nbsp;display<br />
+*&nbsp;M02&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;save?<br />
+*&nbsp;M03&nbsp;Confirm&nbsp;to&nbsp;save<br />
+*&nbsp;M04&nbsp;Yes<br />
+*&nbsp;M05&nbsp;No<br />
+*&nbsp;M06&nbsp;Successfully&nbsp;saved<br />
+*&nbsp;M07&nbsp;No&nbsp;data&nbsp;to&nbsp;save<br />
+*&nbsp;M08&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;exit&nbsp;without&nbsp;save?<br />
+*&nbsp;N02&nbsp;EmpID<br />
+*&nbsp;N03&nbsp;EmpNm<br />
+*&nbsp;N05&nbsp;EnNm<br />
+*&nbsp;N06&nbsp;Pos<br />
+*&nbsp;N07&nbsp;e-mail<br />
+*&nbsp;N08&nbsp;PnDept<br />
+*&nbsp;N09&nbsp;Dept<br />
+*&nbsp;N10&nbsp;HR&nbsp;st.<br />
+*&nbsp;N13&nbsp;CoCd<br />
+*&nbsp;N14&nbsp;Auth<br />
+*&nbsp;N16&nbsp;CoNm<br />
+*&nbsp;T01&nbsp;Search&nbsp;Criteria<br />
+*&nbsp;T02&nbsp;Employee&nbsp;ID<br />
+*&nbsp;T03&nbsp;Employee&nbsp;Name<br />
+*&nbsp;T04&nbsp;C/R<br />
+*&nbsp;T05&nbsp;English&nbsp;Name<br />
+*&nbsp;T06&nbsp;Position<br />
+*&nbsp;T07&nbsp;E-Mail&nbsp;Address<br />
+*&nbsp;T08&nbsp;Parent&nbsp;Department<br />
+*&nbsp;T09&nbsp;Department&nbsp;Name<br />
+*&nbsp;T10&nbsp;HR&nbsp;Status<br />
+*&nbsp;T11&nbsp;Remark<br />
+*&nbsp;T12&nbsp;Changed<br />
+*&nbsp;T13&nbsp;Company&nbsp;Code<br />
+*&nbsp;T14&nbsp;Authorization<br />
+*&nbsp;T15&nbsp;Company&nbsp;Code<br />
+*&nbsp;T16&nbsp;Company&nbsp;Name<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;S_AUTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authorization&nbsp;Name<br />
+*&nbsp;S_BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Company&nbsp;Code<br />
+*&nbsp;S_EID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Employee&nbsp;ID<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZGFMC<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*157&nbsp;&nbsp;&nbsp;No&nbsp;available&nbsp;company&nbsp;selected.<br />
+*158&nbsp;&nbsp;&nbsp;You&nbsp;have&nbsp;no&nbsp;authorization&nbsp;for&nbsp;the&nbsp;company&nbsp;you've&nbsp;selected.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFB2011TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFB2011TOP</h2>
+<h3> Description: Include ZGFB2006TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;ZGFB2006TOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;Report&nbsp;ZGFB2006<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES:<br />
+&nbsp;&nbsp;zgft2003.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;CONSTANTS<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CONSTANTS: BEGIN OF gc_mode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dis&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;'A',&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;upd&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;'B',&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gc_mode.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;DATA&nbsp;TABLE<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF gty_outtab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seq&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;icon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;icon_d,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bukrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;bukrs,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gjahr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft2003-gjahr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lifnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft2003-lifnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zconr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft2003-zconr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zconr_c&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;char3,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;land1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;land1,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;char255,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from_db&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;abap_bool,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;appended&nbsp;&nbsp;&nbsp;TYPE&nbsp;abap_bool,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;changed&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;abap_bool,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;savable&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;abap_bool,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;duplicated&nbsp;TYPE&nbsp;abap_bool,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deleted&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;abap_bool,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coltab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_scol,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;celltab&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_styl.<br />
+TYPES: END OF gty_outtab.<br />
+<br />
+DATA: gt_outtab     TYPE TABLE OF gty_outtab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_outtab_del&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;gty_outtab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;gty_outtab.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;GLOBAL&nbsp;VARIABLE&nbsp;FOR&nbsp;MY&nbsp;OWN&nbsp;USE<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: GT_zgft2003_INITIAL TYPE TABLE OF zgft2003.<br />
+<br />
+DATA:<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;gv_rate_old&nbsp;type&nbsp;char3,<br />
+*&nbsp;&nbsp;gv_rate_new&nbsp;type&nbsp;char3,<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gv_max_seq&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;gv_answer&nbsp;&nbsp;TYPE&nbsp;char1,<br />
+&nbsp;&nbsp;gv_ok&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-ucomm,<br />
+&nbsp;&nbsp;gt_fcode&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;sy-ucomm,<br />
+&nbsp;&nbsp;gv_saved&nbsp;&nbsp;&nbsp;TYPE&nbsp;abap_bool,<br />
+&nbsp;&nbsp;gv_bukrs&nbsp;&nbsp;&nbsp;TYPE&nbsp;bukrs,<br />
+&nbsp;&nbsp;gv_butxt&nbsp;&nbsp;&nbsp;TYPE&nbsp;butxt,<br />
+&nbsp;&nbsp;gv_mode&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c,&nbsp;"&nbsp;##/##<br />
+&nbsp;&nbsp;gv_dynnr&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-dynnr,<br />
+&nbsp;&nbsp;gv_repid&nbsp;&nbsp;&nbsp;LIKE&nbsp;sy-repid,<br />
+&nbsp;&nbsp;gv_ucomm&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-ucomm.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;ALV<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA:<br />
+&nbsp;&nbsp;gs_celltab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_s_styl,<br />
+&nbsp;&nbsp;gt_celltab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_styl,<br />
+<br />
+&nbsp;&nbsp;gr_event_handler&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_event_handler,<br />
+<br />
+&nbsp;&nbsp;gt_selected_rows&nbsp;TYPE&nbsp;lvc_t_row,<br />
+&nbsp;&nbsp;gs_variant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;disvariant,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;LCL_GRID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;LCL_DEF_GRID,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;lcl_grid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid,<br />
+<br />
+&nbsp;&nbsp;gt_lvc_fcat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_fcat,&nbsp;"&nbsp;Fieldcatalog<br />
+&nbsp;&nbsp;gt_ui_functions&nbsp;&nbsp;TYPE&nbsp;ui_functions,&nbsp;"&nbsp;ToolBar<br />
+&nbsp;&nbsp;gs_layo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_s_layo,<br />
+&nbsp;&nbsp;lcl_container&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_custom_container.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

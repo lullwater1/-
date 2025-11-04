@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFB2009TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFB2009TOP</h2>
+<h3> Description: Include ZGFB2006TOP</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;ZGFB2010TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES:zgft2009.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;CONSTANTS<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CONSTANTS: BEGIN OF gc_mode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dis&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;'A',&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sen&nbsp;TYPE&nbsp;c&nbsp;VALUE&nbsp;'B',&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gc_mode.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;ALV&nbsp;DATA&nbsp;TABLE<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF gty_outtab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bukrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft2009-bukrs,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Company&nbsp;code<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lifnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft2009-lifnr,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Supplier<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lifnm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lfa1-name1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Supplier&nbsp;name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mtroh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft2009-mtroh,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Material<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maktx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;maktx,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Material&nbsp;Description<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ccno&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft2009-ccno,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CO&nbsp;Number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sd_date&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft2009-sd_date,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Sending&nbsp;Date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_status&nbsp;&nbsp;TYPE&nbsp;zgft2009-e_status,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Status<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sdate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft8000-datab,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Sdate&nbsp;(Key=ZGFT2022-CCNO,BUKRS)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft8000-datbi,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Edate&nbsp;(Key=ZGFT2022-CCNO,BUKRS)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rt_date&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft2009-rt_date,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Recent&nbsp;purchase&nbsp;Date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rdays&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft2009-rdays,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Remaining&nbsp;Days<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pdays&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft2009-pdays,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Pending&nbsp;Days<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zuname_en&nbsp;TYPE&nbsp;zgft7000-zuname_en,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Person&nbsp;in&nbsp;charge<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;smtp_addr&nbsp;TYPE&nbsp;zgft7000-smtp_addr,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;E-mail&nbsp;Address<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f_seq&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;zgft2009-f_seq,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gty_outtab.<br />
+<br />
+<br />
+DATA: gt_outtab TYPE TABLE OF gty_outtab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab&nbsp;TYPE&nbsp;gty_outtab.<br />
+<br />
+DATA: gt_2009 TYPE TABLE OF gty_outtab.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;GLOBAL&nbsp;VARIABLE&nbsp;FOR&nbsp;MY&nbsp;OWN&nbsp;USE<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+DATA:<br />
+&nbsp;&nbsp;gv_ok&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-ucomm,<br />
+&nbsp;&nbsp;gt_fcode&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;sy-ucomm,<br />
+&nbsp;&nbsp;gv_saved&nbsp;TYPE&nbsp;abap_bool,<br />
+&nbsp;&nbsp;gv_bukrs&nbsp;TYPE&nbsp;bukrs,<br />
+&nbsp;&nbsp;gr_lifnr&nbsp;TYPE&nbsp;RANGE&nbsp;OF&nbsp;zgft2009-lifnr,<br />
+&nbsp;&nbsp;gv_butxt&nbsp;TYPE&nbsp;butxt,<br />
+&nbsp;&nbsp;gv_mode&nbsp;&nbsp;TYPE&nbsp;c,&nbsp;"&nbsp;##/##<br />
+&nbsp;&nbsp;gv_dynnr&nbsp;TYPE&nbsp;sy-dynnr,<br />
+&nbsp;&nbsp;gv_repid&nbsp;LIKE&nbsp;sy-repid,<br />
+&nbsp;&nbsp;gv_ucomm&nbsp;TYPE&nbsp;sy-ucomm,<br />
+&nbsp;&nbsp;gv_answer.<br />
+<br />
+DATA: gv_ret(1) TYPE c.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;ALV<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA:<br />
+&nbsp;&nbsp;gs_celltab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_s_styl,<br />
+&nbsp;&nbsp;gt_celltab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_styl,<br />
+<br />
+&nbsp;&nbsp;gr_event_handler&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_event_handler,<br />
+<br />
+&nbsp;&nbsp;gt_selected_rows&nbsp;TYPE&nbsp;lvc_t_row,<br />
+&nbsp;&nbsp;gs_variant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;disvariant,<br />
+&nbsp;&nbsp;lcl_grid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid,<br />
+<br />
+&nbsp;&nbsp;gt_lvc_fcat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_fcat,&nbsp;"&nbsp;Fieldcatalog<br />
+&nbsp;&nbsp;gt_ui_functions&nbsp;&nbsp;TYPE&nbsp;ui_functions,&nbsp;"&nbsp;ToolBar<br />
+&nbsp;&nbsp;gs_layo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_s_layo,<br />
+&nbsp;&nbsp;lcl_container&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_custom_container.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>
