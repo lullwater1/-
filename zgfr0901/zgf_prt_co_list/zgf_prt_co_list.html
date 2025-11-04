@@ -1,0 +1,589 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGF_PRT_CO_LIST</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for function ZGF_PRT_CO_LIST</h2>
+<h3> Description: [Global FTA] Print C/O(KO PDF file)</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="code">
+FUNCTION ZGF_PRT_CO_LIST.<br />
+   </div>
+   <div class="codeComment">
+*"----------------------------------------------------------------------<br />
+*"*"Local Interface:<br />
+*"  IMPORTING<br />
+*"     VALUE(I_BUKRS) TYPE  BUKRS<br />
+*"     VALUE(I_PARTNER) TYPE  LIFNR<br />
+*"     VALUE(I_CO_NUMBER) TYPE  ZKGE_CCNO<br />
+*"     VALUE(I_FLAG) TYPE  CHAR1 DEFAULT ' '<br />
+*"  EXPORTING<br />
+*"     VALUE(E_RETURN) TYPE  CHAR1<br />
+*"     VALUE(E_RETURNMSG) TYPE  CHAR100<br />
+*"     VALUE(E_ATTACH) TYPE  XSTRING<br />
+*"     VALUE(E_ATTACH_NAME) TYPE  CHAR100<br />
+*"----------------------------------------------------------------------<br />
+<br />
+
+<div class="codeComment">*       <a href ="global-zgf_prt_co_list.html">Global data declarations</a></div><br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CONSTANTS:&nbsp;LC_SFNAME&nbsp;TYPE&nbsp;TDSFNAME&nbsp;VALUE&nbsp;'ZGF_SF0002_TEST'.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_TDSFNAME&nbsp;TYPE&nbsp;TDSFNAME.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_ZGFT0004&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT0004,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_F_BINARY&nbsp;TYPE&nbsp;XSTRING,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RETURN&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RTNMSG&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_ZGFT7001&nbsp;TYPE&nbsp;ZGFT7001,&nbsp;&nbsp;"&nbsp;Supplier's&nbsp;information<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_ZGFS0123&nbsp;TYPE&nbsp;ZGFS0123,&nbsp;&nbsp;"&nbsp;Subcontractor&nbsp;Confirmation&nbsp;(HEAD)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_ZGFS0125&nbsp;TYPE&nbsp;ZGFS0125,&nbsp;&nbsp;"&nbsp;Subcontractor&nbsp;Confirmation&nbsp;(Writer)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ZGFS0124&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0124,&nbsp;"&nbsp;Subcontractor&nbsp;Confirmation&nbsp;(ITEM)<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_CCNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT0550-CCNO.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;OTF_TAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ITCOO&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,&nbsp;"u01##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PDF_FSIZE&nbsp;&nbsp;&nbsp;TYPE&nbsp;&nbsp;I,&nbsp;"U01##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_ATTACH&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;XSTRING,&nbsp;"u01##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PDF_TABLE&nbsp;&nbsp;&nbsp;TYPE&nbsp;&nbsp;RCL_BAG_TLINE,&nbsp;"U01##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_NAME(100)&nbsp;TYPE&nbsp;C.&nbsp;"u01##<br />
+&nbsp;&nbsp;DATA:&nbsp;BEGIN&nbsp;OF&nbsp;PDF_LINE_TAB&nbsp;OCCURS&nbsp;0,"u01##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LINE(134)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;PDF_LINE_TAB.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* --- SET RETURN VALUES<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;E_RETURN&nbsp;=&nbsp;'E'.<br />
+&nbsp;&nbsp;E_RETURNMSG&nbsp;=&nbsp;TEXT-M07.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* --- Get ZGFT0004 to exclude<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT0004<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_ZGFT0004.<br />
+<br />
+&nbsp;&nbsp;SORT&nbsp;LT_ZGFT0004&nbsp;BY&nbsp;BUKRS&nbsp;PFONA.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***  GV_OBJID = 'ZGF_DO_KO'. " ###(##)###_#<br />
+***  GV_WEB_VER = ABAP_TRUE.<br />
+***  CLEAR: GV_F_BINARY.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;call&nbsp;function&nbsp;<a&nbsp;href&nbsp;="../zgf_get_prt_do/zgf_get_prt_do.html">'ZGF_GET_PRT_DO'</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;I_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_PARTNER&nbsp;&nbsp;&nbsp;=&nbsp;I_PARTNER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_CO_NUMBER&nbsp;=&nbsp;I_CO_NUMBER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_RETURN&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;E_RETURN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_RETURNMSG&nbsp;=&nbsp;E_RETURNMSG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ES_ZGFT7001&nbsp;=&nbsp;LS_ZGFT7001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ES_ZGFS0123&nbsp;=&nbsp;LS_ZGFS0123<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ES_ZGFS0125&nbsp;=&nbsp;LS_ZGFS0125<br />
+   </div>
+   <div class="codeComment">
+*     EV_F_BINARY = GV_F_BINARY<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124&nbsp;=&nbsp;LT_ZGFS0124<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_ZGFT0004&nbsp;=&nbsp;LT_ZGFT0004.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;E_RETURN&nbsp;=&nbsp;'E'.&nbsp;EXIT.&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;I_FLAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;ABAP_TRUE.&nbsp;&nbsp;&nbsp;"&nbsp;called&nbsp;by&nbsp;erp<br />
+   </div>
+   <div class="codeComment">
+* --- Get function name<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SSFCOMPOP-TDIMMED&nbsp;&nbsp;=&nbsp;ABAP_TRUE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SSFCOMPOP-TDDELETE&nbsp;=&nbsp;ABAP_TRUE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SSFCOMPOP-XSFCMODE&nbsp;=&nbsp;ABAP_TRUE.<br />
+   </div>
+   <div class="codeComment">
+* ---<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CONTROL_PARAMETERS-NO_DIALOG&nbsp;&nbsp;=&nbsp;ABAP_FALSE.&nbsp;&nbsp;"###.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CONTROL_PARAMETERS-GETOTF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ABAP_FALSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CONTROL_PARAMETERS-PREVIEW&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ABAP_TRUE.&nbsp;"SPACE."<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;ABAP_FALSE.&nbsp;"&nbsp;Default,&nbsp;called&nbsp;by&nbsp;web<br />
+   </div>
+   <div class="codeComment">
+* --- Get function name<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SSFCOMPOP-TDIMMED&nbsp;&nbsp;=&nbsp;ABAP_TRUE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SSFCOMPOP-TDDELETE&nbsp;=&nbsp;ABAP_TRUE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SSFCOMPOP-XSFCMODE&nbsp;=&nbsp;ABAP_TRUE.<br />
+   </div>
+   <div class="codeComment">
+* ---<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CONTROL_PARAMETERS-NO_DIALOG&nbsp;&nbsp;=&nbsp;ABAP_FALSE.&nbsp;&nbsp;"###.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CONTROL_PARAMETERS-GETOTF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_CONTROL_PARAMETERS-PREVIEW&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ABAP_FALSE.&nbsp;"SPACE."<br />
+&nbsp;&nbsp;ENDCASE.<br />
+   </div>
+   <div class="codeComment">
+*  ---<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GS_JOB_OUTPUT_INFO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_JOB_OUTPUT_INFO-SPOOLIDS[],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_JOB_OUTPUT_INFO-FAXIDS[],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_JOB_OUTPUT_INFO-MAILIDS[],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_JOB_OUTPUT_INFO-OTFDATA[].<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SSF_FUNCTION_MODULE_NAME'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FORMNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LC_SFNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FM_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_TDSFNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_FORM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_FUNCTION_MODULE&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*  CALL FUNCTION '/1BCDWB/SF00000269'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;LV_TDSFNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTROL_PARAMETERS&nbsp;&nbsp;&nbsp;=&nbsp;GS_CONTROL_PARAMETERS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUTPUT_OPTIONS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_SSFCOMPOP<br />
+   </div>
+   <div class="codeComment">
+*     USER_SETTINGS        = ' '<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_CCNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;I_CO_NUMBER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_KG7001&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_ZGFT7001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_HEAD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_ZGFS0123<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ETC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LS_ZGFS0125<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOCUMENT_OUTPUT_INFO&nbsp;=&nbsp;GS_DOCUMENT_OUTPUT_INFO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JOB_OUTPUT_INFO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GS_JOB_OUTPUT_INFO<br />
+   </div>
+   <div class="codeComment">
+*     JOB_OUTPUT_OPTIONS   =<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ITEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_ZGFS0124<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FORMATTING_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERNAL_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEND_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USER_CANCELED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;I_FLAG&nbsp;=&nbsp;ABAP_FALSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0&nbsp;."AND&nbsp;LT_OTF0[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTF_TAB[]&nbsp;=&nbsp;GS_JOB_OUTPUT_INFO-OTFDATA[].<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_RETURN&nbsp;=&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_RETURNMSG&nbsp;=&nbsp;TEXT-E49.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERT_OTF'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FORMAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'PDF'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BIN_FILESIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PDF_FSIZE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;OTF_TAB<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LINES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PDF_TABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERR_MAX_LINEWIDTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERR_FORMAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERR_CONV_NOT_POSSIBLE&nbsp;=&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;LV_MAX&nbsp;TYPE&nbsp;I.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_MAX&nbsp;=&nbsp;1024&nbsp;*&nbsp;20000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PDF_LINE_TAB[]&nbsp;=&nbsp;PDF_TABLE[].<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SCMS_BINARY_TO_XSTRING'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+***          INPUT_LENGTH = '99999'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INPUT_LENGTH&nbsp;=&nbsp;LV_MAX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUFFER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;T_ATTACH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BINARY_TAB&nbsp;&nbsp;&nbsp;=&nbsp;PDF_LINE_TAB.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_RETURN&nbsp;=&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_ATTACH&nbsp;=&nbsp;T_ATTACH.<br />
+   </div>
+   <div class="codeComment">
+*## ##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;TEXT-M09&nbsp;'_'&nbsp;I_CO_NUMBER&nbsp;'.pdf'&nbsp;INTO&nbsp;T_NAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_ATTACH_NAME&nbsp;=&nbsp;T_NAME.<br />
+   </div>
+   <div class="codeComment">
+****// [KG] ### ### ## ##<br />
+***      INSERT ZKGT7003 FROM TABLE LT_KG7003.<br />
+***      COMMIT WORK.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_RETURN&nbsp;=&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_RETURNMSG&nbsp;=&nbsp;TEXT-E49.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* --- SET RETURN VALUES<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;E_RETURN&nbsp;=&nbsp;'S'.<br />
+&nbsp;&nbsp;E_RETURNMSG&nbsp;=&nbsp;TEXT-M08.<br />
+<br />
+ENDFUNCTION.<br />
+   </div>
+   <div class="codeComment">
+*****************************************************************************<br />
+   </div>
+   <div class="code">
+FORM MAKE_LOG TABLES PT_KG7003 STRUCTURE ZGFT7003<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;PV_LOG_ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_CO_NUMBER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_PARTNER.<br />
+<br />
+&nbsp;&nbsp;WAIT&nbsp;UP&nbsp;TO&nbsp;1&nbsp;SECONDS.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;PV_CO_NUMBER&nbsp;SY-DATUM&nbsp;SY-UZEIT&nbsp;INTO&nbsp;PV_LOG_ID.<br />
+&nbsp;&nbsp;PT_KG7003-Z_ID&nbsp;=&nbsp;&nbsp;PV_LOG_ID.<br />
+&nbsp;&nbsp;PT_KG7003-CCNO&nbsp;=&nbsp;PV_CO_NUMBER.<br />
+&nbsp;&nbsp;PT_KG7003-LIFNR&nbsp;&nbsp;=&nbsp;PV_PARTNER.<br />
+&nbsp;&nbsp;PT_KG7003-ERDAT&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;PT_KG7003-ERZET&nbsp;=&nbsp;SY-UZEIT.<br />
+&nbsp;&nbsp;PT_KG7003-ERNAM&nbsp;=&nbsp;SY-UNAME.<br />
+&nbsp;&nbsp;APPEND&nbsp;PT_KG7003.<br />
+&nbsp;&nbsp;CLEAR&nbsp;&nbsp;PT_KG7003.<br />
+   </div>
+   <div class="codeComment">
+*  LIFNR  = PV_PARTNER.<br />
+<br />
+   </div>
+   <div class="code">
+ENDFORM.<br />
+<br />
+FORM MAKE_SUPPLIER USING PV_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_PARTNER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;PS_ZKGT7001&nbsp;STRUCTURE&nbsp;ZGFT7001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_KG7001_SM&nbsp;STRUCTURE&nbsp;ZGFT7001.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;PS_ZKGT7001.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;PS_ZKGT7001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT7001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;EQ&nbsp;PV_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;LIFNR&nbsp;EQ&nbsp;PV_PARTNER.<br />
+&nbsp;&nbsp;IF&nbsp;PS_ZKGT7001&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_KG7001_SM&nbsp;=&nbsp;PS_ZKGT7001.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM MAKE_SUPPLIER_TO USING PV_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;PS_HEAD&nbsp;STRUCTURE&nbsp;ZGFS0123.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_ZKGT0014&nbsp;LIKE&nbsp;ZGFT0014&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_ZKGT0014&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;LT_ZKGT0014.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LT_ZKGT0014,LT_ZKGT0014[].<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_ZKGT0014<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT0014<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;EQ&nbsp;PV_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;DATAB&nbsp;EQ&nbsp;(&nbsp;SELECT&nbsp;MAX(&nbsp;DATAB&nbsp;)&nbsp;FROM&nbsp;ZGFT0014<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;EQ&nbsp;PV_BUKRS&nbsp;).<br />
+&nbsp;&nbsp;IF&nbsp;LT_ZKGT0014[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;LS_ZKGT0014.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_ZKGT0014&nbsp;INTO&nbsp;LS_ZKGT0014&nbsp;INDEX&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;LS_ZKGT0014&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_HEAD-NAME1&nbsp;=&nbsp;LS_ZKGT0014-NAME1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_HEAD-J_1KFREPRE&nbsp;=&nbsp;LS_ZKGT0014-J_1KFREPRE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_HEAD-STREET&nbsp;=&nbsp;LS_ZKGT0014-ADDRESS.<br />
+   </div>
+   <div class="codeComment">
+*ls_head-CITY1<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PS_HEAD-SMTP_ADDR&nbsp;=&nbsp;LS_ZKGT0014-SMTP_ADDR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_HEAD-STCD2&nbsp;=&nbsp;LS_ZKGT0014-STCEG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_HEAD-TELF1&nbsp;=&nbsp;LS_ZKGT0014-TELF1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_HEAD-TELFX&nbsp;=&nbsp;LS_ZKGT0014-TELFX.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+<br />
+FORM MAKE_SIGNATURE TABLES PT_KGT8000 STRUCTURE GS_KGT8000<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PT_ZKGS0031&nbsp;STRUCTURE&nbsp;ZGFS0031<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PT_SUPPL&nbsp;STRUCTURE&nbsp;GS_SUPPL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;PS_ETC&nbsp;STRUCTURE&nbsp;ZGFS0125<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_KG7001_SM&nbsp;STRUCTURE&nbsp;ZGFT7001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_PARTNER.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;T_ZUNAME&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT7000-ZUNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_ZORGPO&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT7000-ZORGPO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_F_BINARY&nbsp;&nbsp;TYPE&nbsp;ZGFT7000-F_BINARY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_F_NAME&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT7000-F_NAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_PERNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT7000-PERNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_F_SEQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT7000-F_SEQ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_ATTACH&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;XSTRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_NAME(100)&nbsp;TYPE&nbsp;C.<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;:&nbsp;&lt;LS_KGT8000&gt;&nbsp;LIKE&nbsp;PT_KGT8000.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_KG7001&nbsp;LIKE&nbsp;ZGFT7001&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;PT_KGT8000&nbsp;ASSIGNING&nbsp;&lt;LS_KGT8000&gt;.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*// -- ### CBO  ### ZGFT7001<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;LT_KG7001,LT_KG7001[].<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_KG7001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT7001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;LIFNR&nbsp;=&nbsp;&lt;LS_KGT8000&gt;-LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;BUKRS&nbsp;=&nbsp;&lt;LS_KGT8000&gt;-BUKRS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&nbsp;LT_KG7001[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_KG7001&nbsp;WITH&nbsp;KEY&nbsp;LIFNR&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&lt;LS_KGT8000&gt;-LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;=&nbsp;&lt;LS_KGT8000&gt;-BUKRS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-NAME1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_KG7001-NAME1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-TELF1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_KG7001-TELF2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-TELFX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_KG7001-TELFX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-SMTP_ADDR&nbsp;&nbsp;=&nbsp;LT_KG7001-SMTP_ADDR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-ADDRESS&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_KG7001-ADDRESS2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-STCEG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_KG7001-STCEG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-STCEG3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_KG7001-STCEG2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-J_1KFREPRE&nbsp;=&nbsp;LT_KG7001-J_1KFREPRE2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE:&nbsp;&lt;LS_KGT8000&gt;-CCNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;PT_ZKGS0031-CCNO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-IDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;PT_ZKGS0031-IDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-NAME1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;PT_ZKGS0031-BUTXT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-STCEG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;PT_ZKGS0031-STCEG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-STCEG3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;PT_ZKGS0031-STCEG3,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-J_1KFREPRE&nbsp;TO&nbsp;PT_ZKGS0031-ZREPRE1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-TELF1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;PT_ZKGS0031-TELF1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-TELFX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;PT_ZKGS0031-TELFX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-SMTP_ADDR&nbsp;&nbsp;TO&nbsp;PT_ZKGS0031-ZEMAIL1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-ADDRESS&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;PT_ZKGS0031-CITY1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*// --  ###<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE:&nbsp;&lt;LS_KGT8000&gt;-CCNO&nbsp;&nbsp;TO&nbsp;PT_ZKGS0031-CCNO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LS_KGT8000&gt;-IDATE&nbsp;TO&nbsp;PT_ZKGS0031-IDATE.<br />
+   </div>
+   <div class="codeComment">
+*    READ TABLE LT_SUPPL WITH KEY LIFNR = L_SUPPL.<br />
+*    IF SY-SUBRC = 0.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PT_ZKGS0031-NAME2&nbsp;=&nbsp;PT_SUPPL-NAME1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PT_ZKGS0031-STCEG2&nbsp;=&nbsp;PT_SUPPL-STCEG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PT_ZKGS0031-ZREPRE2&nbsp;=&nbsp;PT_SUPPL-J_1KFREPRE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PT_ZKGS0031-TELF2&nbsp;=&nbsp;PT_SUPPL-TELF1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PT_ZKGS0031-TELFX2&nbsp;=&nbsp;PT_SUPPL-TELFX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PT_ZKGS0031-CITY2&nbsp;=&nbsp;PT_SUPPL-STRAS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PT_ZKGS0031-ZEMAIL2&nbsp;=&nbsp;PT_SUPPL-SMTP_ADDR.<br />
+   </div>
+   <div class="codeComment">
+*    ENDIF.<br />
+<br />
+*-- #### ## / ## / ###<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&lt;LS_KGT8000&gt;-F_SEQ&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZUNAME&nbsp;ZORGPO&nbsp;F_BINARY&nbsp;PERNR&nbsp;F_SEQ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(T_ZUNAME,&nbsp;T_ZORGPO,&nbsp;T_F_BINARY,&nbsp;T_PERNR,&nbsp;T_F_SEQ)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT7000<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;&nbsp;=&nbsp;PV_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;LIFNR&nbsp;&nbsp;=&nbsp;PV_PARTNER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;PERNR&nbsp;&nbsp;=&nbsp;&lt;LS_KGT8000&gt;-ERNAM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;F_SEQ&nbsp;&nbsp;=&nbsp;&lt;LS_KGT8000&gt;-F_SEQ.<br />
+   </div>
+   <div class="codeComment">
+*       AND   ERDAT &lt;= &lt;LS_KGT8000&gt;-IDATE.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ZUNAME&nbsp;ZORGPO&nbsp;F_BINARY&nbsp;PERNR&nbsp;F_SEQ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(T_ZUNAME,&nbsp;T_ZORGPO,&nbsp;T_F_BINARY,&nbsp;T_PERNR,&nbsp;T_F_SEQ)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT7000<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;&nbsp;=&nbsp;PV_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;LIFNR&nbsp;&nbsp;=&nbsp;PV_PARTNER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;PERNR&nbsp;&nbsp;=&nbsp;&lt;LS_KGT8000&gt;-ERNAM<br />
+   </div>
+   <div class="codeComment">
+*       AND   F_SEQ  = &lt;LS_KGT8000&gt;-F_SEQ.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;ERDAT&nbsp;&lt;=&nbsp;&lt;LS_KGT8000&gt;-IDATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* ###### ##### ##### ## ### ### ###<br />
+* #### ## ### ### ## ##### #####<br />
+* #### #### #....<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;T_ZUNAME&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;ZUNAME&nbsp;ZORGPO&nbsp;F_BINARY&nbsp;PERNR&nbsp;F_SEQ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(T_ZUNAME,&nbsp;T_ZORGPO,&nbsp;T_F_BINARY,&nbsp;T_PERNR,&nbsp;T_F_SEQ)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UP&nbsp;TO&nbsp;1&nbsp;ROWS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT7000<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;&nbsp;&nbsp;=&nbsp;PV_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;=&nbsp;PV_PARTNER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;&nbsp;Z_INDEX&nbsp;=&nbsp;'Y'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDER&nbsp;BY&nbsp;F_SEQ&nbsp;DESCENDING.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDSELECT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'FTA'&nbsp;PV_BUKRS&nbsp;&lt;LS_KGT8000&gt;-LIFNR&nbsp;T_PERNR&nbsp;T_F_SEQ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;T_F_NAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PT_ZKGS0031-ZIMANM&nbsp;=&nbsp;T_F_NAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PT_ZKGS0031-ZUNAME&nbsp;=&nbsp;T_ZUNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PT_ZKGS0031-ZORGPO&nbsp;=&nbsp;T_ZORGPO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;PS_ETC.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_ETC-UNAME&nbsp;&nbsp;=&nbsp;PT_ZKGS0031-ZUNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_ETC-ZIMANM&nbsp;=&nbsp;PT_ZKGS0031-ZIMANM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_ETC-ZORGPO&nbsp;=&nbsp;PT_ZKGS0031-ZORGPO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_ETC-ADDRESS&nbsp;=&nbsp;PT_ZKGS0031-CITY2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_ETC-NAME1&nbsp;=&nbsp;LS_KG7001_SM-NAME1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PS_ETC-IDATE&nbsp;=&nbsp;PT_ZKGS0031-IDATE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;PT_ZKGS0031.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;&nbsp;PT_ZKGS0031.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+* Message class: ZGFMC<br />
+*000   & & & &<br />
+*001   No data found<br />
+*004   Failed to save data. &1<br />
+*006   No data in question: &1<br />
+*018    &1 data saved successfully!<br />
+*019   No data to save<br />
+*028   &1 is required.<br />
+*047   &1 data is already registered.<br />
+*123   The Hscode(&1)does not have a decision criterion within the agreement(&2)<br />
+*124   &1 Mail has been sent.<br />
+*125   &1 Mail sending failure reason: &2<br />
+*126   &1 data was retrieved.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

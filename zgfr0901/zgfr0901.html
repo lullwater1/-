@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0901</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0901</h2>
+<h3> Description: [Global FTA] Suppliers Decalaration Collected Ratio Management</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;PROGRAM&nbsp;ID&nbsp;&nbsp;:&nbsp;ZGFR0901<br />
+*&nbsp;Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;####&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+*&nbsp;Created&nbsp;By&nbsp;&nbsp;:&nbsp;KPMG<br />
+*&nbsp;Created&nbsp;On&nbsp;&nbsp;:&nbsp;0000-00-00<br />
+*&nbsp;Category&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Report<br />
+*&nbsp;Description&nbsp;:&nbsp;####&nbsp;###&nbsp;###&nbsp;###&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFICATION&nbsp;LOG<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Date.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description.<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT  ZGFR0901 NO STANDARD PAGE HEADING MESSAGE-ID ZGFMC.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;INCLUDE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+include <a href ="zgfr0901cls.html">ZGFR0901CLS</a>.<br />
+include <a href ="zgfr0901t01.html">ZGFR0901T01</a>.<br />
+include <a href ="zgfr0901f01.html">ZGFR0901F01</a>.<br />
+include <a href ="zgfr0901o01.html">ZGFR0901O01</a>.<br />
+include <a href ="zgfr0901i01.html">ZGFR0901I01</a>.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;SET_INIT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;INITIALIZATION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;SSCRFIELDS-FUNCTXT_01&nbsp;=&nbsp;TEXT-I06.<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN&nbsp;OUTPUT.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;LIST_BOX_SET.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;PERFORM&nbsp;LINK_ITEM.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CHANGE_COCD.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN&nbsp;ON&nbsp;VALUE-REQUEST&nbsp;FOR<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR P_MONTH.<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_F4_MONTH&nbsp;CHANGING&nbsp;P_MONTH.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;START-OF-SELECTION.<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250908,&nbsp;begin<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;p_bukrs.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250908,&nbsp;end<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;S_LIFNR-LOW&nbsp;&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;S_MATNR-LOW&nbsp;IS&nbsp;&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PROGRESS_INDICATOR(ZGF_FORM_SUB_ROUTINE)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'130'&nbsp;'30'&nbsp;'#####'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFTP_FALSE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFTP_FALSE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFTP_FALSE.<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;INITIAL_SET.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;S_LIFNR-LOW&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;S_MATNR-LOW&nbsp;IS&nbsp;&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PROGRESS_INDICATOR(ZGF_FORM_SUB_ROUTINE)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'130'&nbsp;'50'&nbsp;'###&nbsp;###'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFTP_FALSE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFTP_FALSE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFTP_FALSE.<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_DATA.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;S_LIFNR-LOW&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;S_MATNR-LOW&nbsp;IS&nbsp;&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PROGRESS_INDICATOR(ZGF_FORM_SUB_ROUTINE)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'130'&nbsp;'80'&nbsp;'##&nbsp;###'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFTP_FALSE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFTP_FALSE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFTP_FALSE.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;DATA_PROCESS.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_HEADER[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S001&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DESCRIBE&nbsp;TABLE&nbsp;GT_HEADER&nbsp;LINES&nbsp;GV_LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S999&nbsp;WITH&nbsp;GV_LINE&nbsp;.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;'0100'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;T001&nbsp;--&gt;&nbsp;&<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;B01&nbsp;Optional&nbsp;conditions<br />
+*&nbsp;B02&nbsp;Including&nbsp;additional&nbsp;data&nbsp;Y/N<br />
+*&nbsp;B03&nbsp;Inquiry&nbsp;standard<br />
+*&nbsp;C01&nbsp;Domestic<br />
+*&nbsp;C02&nbsp;import<br />
+*&nbsp;C03&nbsp;Including&nbsp;direct&nbsp;transaction<br />
+*&nbsp;C04&nbsp;Including&nbsp;non-paid&nbsp;toll<br />
+*&nbsp;C05&nbsp;Vendor<br />
+*&nbsp;C06&nbsp;Material<br />
+*&nbsp;E01&nbsp;Agreement&nbsp;master&nbsp;effective&nbsp;accordiance&nbsp;to&nbsp;input&nbsp;Agee<br />
+*&nbsp;E02&nbsp;Supplier&nbsp;list&nbsp;is&nbsp;not&nbsp;availavle&nbsp;on&nbsp;input&nbsp;standard<br />
+*&nbsp;I01&nbsp;@5B@<br />
+*&nbsp;I02&nbsp;@5D@<br />
+*&nbsp;I03&nbsp;@5C@<br />
+*&nbsp;I04&nbsp;@01@<br />
+*&nbsp;I06&nbsp;Supplier&nbsp;declaration&nbsp;batch&nbsp;download&nbsp;(&nbsp;Input&nbsp;month&nbsp;Standard&nbsp;)<br />
+*&nbsp;L01&nbsp;All<br />
+*&nbsp;M01&nbsp;Yes<br />
+*&nbsp;M02&nbsp;No<br />
+*&nbsp;S01&nbsp;Supplier&nbsp;declaration&nbsp;collected<br />
+*&nbsp;S02&nbsp;Supplier&nbsp;declaration&nbsp;non-collected<br />
+*&nbsp;S03&nbsp;Supplier&nbsp;declaration&nbsp;collected&nbsp;but&nbsp;determining&nbsp;standard&nbsp;or&nbsp;origin&nbsp;status&nbsp;is&nbsp;a&nbsp;blank<br />
+*&nbsp;S04&nbsp;HS&nbsp;Code&nbsp;is&nbsp;a&nbsp;blank<br />
+*&nbsp;S05&nbsp;Blanket&nbsp;period&nbsp;extension&nbsp;needed<br />
+*&nbsp;S06&nbsp;Origin&nbsp;status&nbsp;modification<br />
+*&nbsp;T01&nbsp;Plant<br />
+*&nbsp;T02&nbsp;Total&nbsp;material&nbsp;code&nbsp;number<br />
+*&nbsp;T03&nbsp;Number&nbsp;of&nbsp;material&nbsp;collected&nbsp;supplier&nbsp;declaration(&nbsp;including&nbsp;Agreement&nbsp;)<br />
+*&nbsp;T04&nbsp;Number&nbsp;of&nbsp;material&nbsp;non-collected&nbsp;supplier&nbsp;declaration(&nbsp;including&nbsp;Agreement&nbsp;)<br />
+*&nbsp;T05&nbsp;Supplier&nbsp;code<br />
+*&nbsp;T06&nbsp;Supplier&nbsp;name<br />
+*&nbsp;T07&nbsp;Total&nbsp;material&nbsp;number&nbsp;by&nbsp;suppliers<br />
+*&nbsp;T08&nbsp;Number&nbsp;of&nbsp;originating&nbsp;material<br />
+*&nbsp;T09&nbsp;Number&nbsp;of&nbsp;non-originating&nbsp;material<br />
+*&nbsp;T10&nbsp;Material&nbsp;code<br />
+*&nbsp;T11&nbsp;Origin&nbsp;status&nbsp;history<br />
+*&nbsp;T12&nbsp;Collected&nbsp;supplier&nbsp;declaration&nbsp;ratio<br />
+*&nbsp;T13&nbsp;DOM/IMP<br />
+*&nbsp;T14&nbsp;HS&nbsp;Code<br />
+*&nbsp;T15&nbsp;Agreement<br />
+*&nbsp;T16&nbsp;Standard&nbsp;of&nbsp;determination<br />
+*&nbsp;T17&nbsp;Origin&nbsp;status<br />
+*&nbsp;T18&nbsp;Issuance&nbsp;no.<br />
+*&nbsp;T19&nbsp;Begin&nbsp;Date<br />
+*&nbsp;T20&nbsp;End&nbsp;Date<br />
+*&nbsp;T21&nbsp;Total&nbsp;number&nbsp;of&nbsp;supplier<br />
+*&nbsp;T22&nbsp;Total&nbsp;number&nbsp;of&nbsp;agreement<br />
+*&nbsp;T23&nbsp;Total&nbsp;number<br />
+*&nbsp;T24&nbsp;DOM/IMP&nbsp;desc.<br />
+*&nbsp;T25&nbsp;Non-collected&nbsp;supplier&nbsp;declaration&nbsp;ratio<br />
+*&nbsp;T26&nbsp;Direct&nbsp;transaction&nbsp;Y/N<br />
+*&nbsp;T27&nbsp;Log&nbsp;history<br />
+*&nbsp;T28&nbsp;Blanket&nbsp;period&nbsp;extension&nbsp;Y/N<br />
+*&nbsp;T29&nbsp;Blanket&nbsp;period&nbsp;extension<br />
+*&nbsp;T30&nbsp;Origin&nbsp;status&nbsp;modification&nbsp;Y/N<br />
+*&nbsp;T31&nbsp;Status<br />
+*&nbsp;T32&nbsp;Material&nbsp;history<br />
+*&nbsp;T33&nbsp;History&nbsp;of&nbsp;reason&nbsp;for&nbsp;FTA&nbsp;non-originating<br />
+*&nbsp;T34&nbsp;Other&nbsp;reasons&nbsp;for&nbsp;non-originating<br />
+*&nbsp;T35&nbsp;Reason&nbsp;of&nbsp;origin&nbsp;status&nbsp;modification<br />
+*&nbsp;T36&nbsp;Value&nbsp;added&nbsp;ratio<br />
+*&nbsp;T37&nbsp;Origin&nbsp;issuance&nbsp;file&nbsp;name<br />
+*&nbsp;T38&nbsp;Remark<br />
+*&nbsp;T39&nbsp;Plant&nbsp;history<br />
+*&nbsp;T40&nbsp;Number&nbsp;of&nbsp;suppliers&nbsp;by&nbsp;material<br />
+*&nbsp;T41&nbsp;Number&nbsp;of&nbsp;suppliers&nbsp;collected&nbsp;supplier&nbsp;declaration&nbsp;(&nbsp;including&nbsp;Agreement&nbsp;)<br />
+*&nbsp;T42&nbsp;Number&nbsp;of&nbsp;suppliers&nbsp;non-collected&nbsp;supplier&nbsp;declaration&nbsp;(&nbsp;including&nbsp;Agreement&nbsp;)<br />
+*&nbsp;T43&nbsp;Number&nbsp;of&nbsp;suppliers&nbsp;submits&nbsp;originating<br />
+*&nbsp;T44&nbsp;Number&nbsp;of&nbsp;suppliers&nbsp;submits&nbsp;non-originating<br />
+*&nbsp;T80&nbsp;Company&nbsp;Code<br />
+*&nbsp;T81&nbsp;Date<br />
+*&nbsp;T82&nbsp;Direct&nbsp;Tr.&nbsp;Incl.<br />
+*&nbsp;T83&nbsp;Period(months)<br />
+*&nbsp;T84&nbsp;FTA&nbsp;agreement<br />
+*&nbsp;T85&nbsp;Supplier<br />
+*&nbsp;T86&nbsp;Material<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_ALL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Display&nbsp;all<br />
+*&nbsp;P_BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Company&nbsp;Code<br />
+*&nbsp;P_DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date<br />
+*&nbsp;P_DEAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Include&nbsp;direct&nbsp;transaction<br />
+*&nbsp;P_MONTH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Year-month<br />
+*&nbsp;P_PFONA&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;P_RCPTY&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_LIFNR&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Material<br />
+*&nbsp;S_WERKS&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZGFMC<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*001&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;found<br />
+*999&nbsp;&nbsp;&nbsp;&1&nbsp;items&nbsp;were&nbsp;found.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

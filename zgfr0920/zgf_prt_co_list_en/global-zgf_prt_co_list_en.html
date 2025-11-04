@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>LZGF_FG80TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: LZGF_FG80TOP</h2>
+<h3> Description: [Global FTA] Print C/O(En PDF)</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="code">
+FUNCTION-POOL ZGF_FG80      MESSAGE-ID ZGFMC.<br />
+<br />
+TABLES: T001, T001W, LFA1.<br />
+<br />
+TYPE-POOLS: ZGFTP, SBDST.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*//&nbsp;########<br />
+   </div>
+   <div class="code">
+DATA: GR_KTOKK TYPE RANGE OF LFA1-KTOKK WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*//&nbsp;##&nbsp;##&nbsp;####<br />
+   </div>
+   <div class="code">
+DATA: GR_BWART TYPE RANGE OF EKBE-BWART WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*//&nbsp;K-PIMS&nbsp;###<br />
+   </div>
+   <div class="code">
+DATA:<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT_ESMIFDT&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT_ESMIFDT&nbsp;WITH&nbsp;HEADER&nbsp;LINE,"U01<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ESMIFDT&nbsp;TYPE&nbsp;ZGFS_ESMIFDT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*//&nbsp;###&nbsp;###&nbsp;PDF<br />
+   </div>
+   <div class="code">
+DATA : GC_SMART1 TYPE TDSFNAME VALUE 'ZKG_SF014', "#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_SMART2&nbsp;TYPE&nbsp;TDSFNAME&nbsp;VALUE&nbsp;'ZKG_SF019',&nbsp;"####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_SMART3&nbsp;TYPE&nbsp;TDSFNAME&nbsp;VALUE&nbsp;'ZKG_SF020'.&nbsp;"####(##)<br />
+DATA : GV_FM_NAME              TYPE RS38L_FNAM.<br />
+DATA : GS_CONTROL_PARAMETERS   TYPE SSFCTRLOP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTPUT_PARAMETERS&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SSFPP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTPUT_OPTIONS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SSFCOMPOP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SSFCOMPOP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SSFCOMPOP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_JOB_OUTPUT_INFO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SSFCRESCL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DOCUMENT_OUTPUT_INFO&nbsp;TYPE&nbsp;SSFCRESPD.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;Related&nbsp;to&nbsp;print,&nbsp;20250811&nbsp;by&nbsp;esko:&nbsp;BEGIN<br />
+   </div>
+   <div class="code">
+INCLUDE OFFICEINTEGRATIONINCLUDE.<br />
+DATA: GV_RETCODE     TYPE SOI_RET_STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_FACTORY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;I_OI_DOCUMENT_FACTORY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_LINK_SERVER&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;I_OI_LINK_SERVER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_DOC_SIZE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_DOC_FORMAT&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;80,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_DOC_TYPE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;80&nbsp;VALUE&nbsp;SOI_DOCTYPE_WORD97_DOCUMENT,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_DOC_TYPE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;80&nbsp;VALUE&nbsp;SOI_DOCTYPE_EXCEL97_SHEET,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_DOCUMENT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;I_OI_DOCUMENT_PROXY.<br />
+<br />
+DATA: GV_APP_NAME       TYPE SY-REPID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_OBJID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;W3OBJID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_WEB_VER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ABAP_BOOL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_F_BINARY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;XSTRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_FULLPATH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_TDNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TDOBNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MACRONAME(200)&nbsp;TYPE&nbsp;C.<br />
+<br />
+DATA: GT_DOC_TABLE TYPE TABLE OF W3MIME.<br />
+<br />
+DATA : GT_MIME TYPE TABLE OF W3MIME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_MIME&nbsp;TYPE&nbsp;W3MIME.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_ZIMANM&nbsp;TYPE&nbsp;TDOBNAME.<br />
+<br />
+   </div>
+   <div class="code">
+CONSTANTS:<br />
+&nbsp;&nbsp;GC_BITMAP_FULLPATH(200)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'C:\temp\ZGF_.bmp',&nbsp;"&nbsp;##&nbsp;###,&nbsp;####&nbsp;###&nbsp;#<br />
+&nbsp;&nbsp;GC_BITMAP_PATH_N_FNAME(200)&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'C:\temp\ZGF_',<br />
+&nbsp;&nbsp;GC_BITMAP_EXT(200)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'.bmp',<br />
+&nbsp;&nbsp;GC_MACRONAME(200)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'##_##_##.ThisDocMacro'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;--------------------------------------------------------------------<br />
+*&nbsp;---&nbsp;ESKO,&nbsp;20250527,&nbsp;END<br />
+*&nbsp;--------------------------------------------------------------------<br />
+<br />
+<br />
+*&nbsp;--------------<br />
+*&nbsp;---&nbsp;ZKG_DO_KO&nbsp;:&nbsp;GS_HEAD&nbsp;-&gt;&nbsp;GS_HEAD_DO_KO<br />
+*&nbsp;--------------<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_HEAD_DO_KO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;1.&nbsp;Reference&nbsp;no.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REFNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;2.&nbsp;Supplier<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME_COMPANY&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BIZNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME_CEO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR30,&nbsp;&nbsp;"&nbsp;5<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADDR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAIL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CANO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;3.&nbsp;SuppliedTo<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME_COMPANY_TO&nbsp;TYPE&nbsp;CHAR100,&nbsp;"&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BIZNO_TO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME_CEO_TO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEL_TO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAX_TO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADDR_TO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,&nbsp;&nbsp;&nbsp;"&nbsp;15<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAIL_TO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;4.&nbsp;SubmittedBy<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME_S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,&nbsp;"&nbsp;17<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TITLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNAME_N_ADDR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR200,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR50,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TDNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TDOBNAME,&nbsp;&nbsp;"&nbsp;21<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_HEAD_DO_KO.<br />
+DATA: GT_HEAD_DO_KO LIKE TABLE OF GS_HEAD_DO_KO.<br />
+<br />
+DATA: BEGIN OF GS_ITEM1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Goods&nbsp;Statements<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEQ&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR50,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HSNO&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR6,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DESC&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR100,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUAN&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR50,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CRI&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR10,&nbsp;"&nbsp;6<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FULF_Y&nbsp;TYPE&nbsp;CHAR10,&nbsp;"&nbsp;7<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FULF_N&nbsp;TYPE&nbsp;CHAR10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COUN&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERIOD&nbsp;TYPE&nbsp;CHAR50,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SD_YN&nbsp;&nbsp;TYPE&nbsp;CHAR10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNIT&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR50,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ITEM1.<br />
+DATA: GT_ITEM1 LIKE TABLE OF GS_ITEM1.<br />
+<br />
+DATA: BEGIN OF GS_ITEM2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Declaration&nbsp;of&nbsp;RCEP&nbsp;Country&nbsp;of&nbsp;Origin<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEQ&nbsp;&nbsp;&nbsp;TYPE&nbsp;CHAR10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DVA_Y&nbsp;TYPE&nbsp;CHAR3,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DVA_N&nbsp;TYPE&nbsp;CHAR3,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRO_Y&nbsp;TYPE&nbsp;CHAR3,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRO_N&nbsp;TYPE&nbsp;CHAR3,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_ITEM2.<br />
+DATA: GT_ITEM2 LIKE TABLE OF GS_ITEM2.<br />
+<br />
+DATA: GV_HEAD_NAME(50)  TYPE C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_ITEM1_NAME(50)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_ITEM2_NAME(50)&nbsp;TYPE&nbsp;C.<br />
+<br />
+FIELD-SYMBOLS:<br />
+&nbsp;&nbsp;&lt;FS_GT_HEAD&gt;&nbsp;&nbsp;TYPE&nbsp;ANY&nbsp;TABLE,<br />
+&nbsp;&nbsp;&lt;FS_GT_ITEM1&gt;&nbsp;TYPE&nbsp;ANY&nbsp;TABLE,<br />
+&nbsp;&nbsp;&lt;FS_GT_ITEM2&gt;&nbsp;TYPE&nbsp;ANY&nbsp;TABLE.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;Related&nbsp;to&nbsp;print,&nbsp;20250811&nbsp;by&nbsp;esko:&nbsp;BEGIN<br />
+<br />
+*//&nbsp;HTML<br />
+   </div>
+   <div class="code">
+DATA: GT_MAILRECIPIENTS TYPE TABLE OF ZGFS0202 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MAILCONTENT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SOLI_TAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_MAILCONTENT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SOLI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING.<br />
+<br />
+DATA: BEGIN OF GS_SUPPL.<br />
+DATA: LIFNR      TYPE LFA1-LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFA1-NAME1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TELF1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFA1-TELF1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TELFX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFA1-TELFX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SMTP_ADDR&nbsp;&nbsp;TYPE&nbsp;ADR6-SMTP_ADDR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STRAS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFA1-STRAS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STCEG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFA1-STCEG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;J_1KFREPRE&nbsp;TYPE&nbsp;LFA1-J_1KFREPRE.<br />
+DATA: END OF GS_SUPPL.<br />
+<br />
+DATA: BEGIN OF GS_KGT8000.<br />
+DATA: CCNO       TYPE ZGFT8000-CCNO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-BUKRS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-WERKS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCTYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-CCTYPE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-IDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-DATAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATBI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-DATBI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPRF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-IMPRF,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-INVNO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-BLNO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-SUBST,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-SUBTY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INPUTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-INPUTY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICCNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-ICCNO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DFLAG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-DFLAG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBCO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-SUBCO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F_SEQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-F_SEQ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ERNAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-ERNAM,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT7000-LIFNR,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFA1-NAME1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TELF1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFA1-TELF1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TELFX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFA1-TELFX,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SMTP_ADDR&nbsp;&nbsp;TYPE&nbsp;ADR6-SMTP_ADDR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADDRESS&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT7001-ADDRESS,&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STCEG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFA1-STCEG,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;J_1KFREPRE&nbsp;TYPE&nbsp;LFA1-J_1KFREPRE,&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STCEG3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT7001-STCEG2.<br />
+DATA: END OF GS_KGT8000.<br />
+<br />
+DEFINE _RANGES.<br />
+&nbsp;&nbsp;&1-sign&nbsp;&nbsp;&nbsp;=&nbsp;&2.<br />
+&nbsp;&nbsp;&1-option&nbsp;=&nbsp;&3.<br />
+&nbsp;&nbsp;&1-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&4.<br />
+&nbsp;&nbsp;&1-high&nbsp;&nbsp;&nbsp;=&nbsp;&5.<br />
+&nbsp;&nbsp;append&nbsp;&1.<br />
+END-OF-DEFINITION.<br />
+   </div>
+   <div class="codeComment">
+*---(&nbsp;HTML&nbsp;Code&nbsp;generation&nbsp;VARIABLE&nbsp;)----------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+DEFINE HTML_BEGIN.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_MAILCONTENT,&nbsp;G_TEXT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S01&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;G_TEXT&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S02&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;G_TEXT&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S03&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;G_TEXT&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S04&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;G_TEXT&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S05&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;G_TEXT&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S06&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;G_TEXT&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S07&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;G_TEXT&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S08&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;G_TEXT&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+END-OF-DEFINITION.<br />
+<br />
+DEFINE HTML_BODY.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_MAILCONTENT,&nbsp;G_TEXT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S09&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-I01&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;REPLACE&nbsp;'DATA'&nbsp;WITH&nbsp;G_TEXT&nbsp;INTO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S09&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-I02&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;REPLACE&nbsp;'DATA'&nbsp;WITH&nbsp;G_TEXT&nbsp;INTO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S09&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-I03&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;REPLACE&nbsp;'DATA'&nbsp;WITH&nbsp;G_TEXT&nbsp;INTO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S09&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-I04&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;REPLACE&nbsp;'DATA'&nbsp;WITH&nbsp;G_TEXT&nbsp;INTO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_MAILCONTENT,&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S09&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;ID<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CONCATENATE&nbsp;TEXT-I05<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;G_TEXT&nbsp;SEPARATED&nbsp;BY&nbsp;SPACE.<br />
+<br />
+&nbsp;&nbsp;REPLACE&nbsp;'DATA'&nbsp;WITH&nbsp;G_TEXT&nbsp;INTO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;PASSWORD<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CLEAR:&nbsp;GS_MAILCONTENT,&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S09&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;TEXT-I06<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;G_TEXT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEPARATED&nbsp;BY&nbsp;SPACE.<br />
+<br />
+&nbsp;&nbsp;REPLACE&nbsp;'DATA'&nbsp;WITH&nbsp;G_TEXT&nbsp;INTO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S07&nbsp;&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S09&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-I07&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;REPLACE&nbsp;'DATA'&nbsp;WITH&nbsp;G_TEXT&nbsp;INTO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+END-OF-DEFINITION.<br />
+<br />
+DEFINE HTML_END.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_MAILCONTENT,&nbsp;G_TEXT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S10&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;G_TEXT&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S11&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;G_TEXT&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;TEXT-S12&nbsp;TO&nbsp;G_TEXT.<br />
+&nbsp;&nbsp;MOVE&nbsp;G_TEXT&nbsp;TO&nbsp;GS_MAILCONTENT-LINE.<br />
+&nbsp;&nbsp;APPEND&nbsp;GS_MAILCONTENT&nbsp;TO&nbsp;GT_MAILCONTENT.<br />
+<br />
+END-OF-DEFINITION.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##&nbsp;##&nbsp;##&nbsp;(&nbsp;##&nbsp;####&nbsp;)<br />
+   </div>
+   <div class="code">
+CONSTANTS GC_PFONA_GE TYPE ZKGE_PFONA VALUE 'PKRXX'.<br />
+CONSTANTS GC_PTA TYPE LFA1-LIFNR VALUE 'PTA'.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR9997_C01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR9997_C01</h2>
+<h3> Description: Include ZGFR9997_C01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKGR9997_C01<br />
+*&---------------------------------------------------------------------*<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_event_receiver&nbsp;DEFINITION<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CLASS lcl_event_receiver DEFINITION.<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"Data&nbsp;Change&nbsp;Event<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;handle_data_changed<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;data_changed&nbsp;OF&nbsp;cl_gui_alv_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;er_data_changed&nbsp;e_onf4_after.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"Add&nbsp;Toolbar&nbsp;Button<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;handle_toolbar<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;toolbar&nbsp;OF&nbsp;cl_gui_alv_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;e_object&nbsp;e_interactive.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"Execute&nbsp;Toolbar&nbsp;Button<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;handle_user_command<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;user_command&nbsp;OF&nbsp;cl_gui_alv_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;e_ucomm.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"Hotspot&nbsp;Click&nbsp;Event<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;handle_hotspot_click<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;hotspot_click&nbsp;OF&nbsp;cl_gui_alv_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;e_row_id&nbsp;e_column_id&nbsp;es_row_no.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;"F4&nbsp;Event<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;handle_onf4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;onf4&nbsp;OF&nbsp;cl_gui_alv_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;e_fieldname&nbsp;&nbsp;es_row_no&nbsp;er_event_data<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;et_bad_cells&nbsp;e_display.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"Double&nbsp;Click&nbsp;Event<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;handle_double_click<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;double_click&nbsp;OF&nbsp;cl_gui_alv_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;e_row&nbsp;e_column&nbsp;es_row_no.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"Top&nbsp;of&nbsp;Page.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;handle_top_of_page<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;top_of_page&nbsp;OF&nbsp;cl_gui_alv_grid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;e_dyndoc_id&nbsp;table_index.<br />
+<br />
+<br />
+ENDCLASS. "lcl_event_receiver DEFINITION<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_event_receiver&nbsp;IMPLEMENTATION<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CLASS lcl_event_receiver IMPLEMENTATION.<br />
+&nbsp;&nbsp;METHOD&nbsp;:&nbsp;handle_data_changed.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_data_changed&nbsp;USING&nbsp;er_data_changed<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_onf4_after.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;":<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;:&nbsp;handle_toolbar.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_handle_toolbar&nbsp;USING&nbsp;e_object&nbsp;e_interactive.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;":<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;:&nbsp;handle_user_command.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_user_command&nbsp;USING&nbsp;e_ucomm.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;":<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;:&nbsp;handle_hotspot_click.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_hotspot_click&nbsp;USING&nbsp;e_row_id&nbsp;e_column_id.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;":<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;:&nbsp;handle_onf4.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*READ&nbsp;TABLE&nbsp;gt_extab&nbsp;ASSIGNING&nbsp;&lt;fs_line&gt;&nbsp;INDEX&nbsp;es_row_no-row_id.<br />
+*IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;er_event_data-&gt;m_event_handled&nbsp;=&nbsp;abap_true.&nbsp;"&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;RETURN.<br />
+*ENDIF.<br />
+<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;er_event_data-&gt;m_event_handled&nbsp;=&nbsp;abap_false.<br />
+<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_onf4&nbsp;USING&nbsp;e_fieldname&nbsp;es_row_no<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;er_event_data.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;":<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;:&nbsp;handle_double_click.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_double_click&nbsp;USING&nbsp;e_row<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_column.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;":<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;handle_top_of_page.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_top_of_page&nbsp;USING&nbsp;e_dyndoc_id&nbsp;table_index.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"HANDLE_TOP_OF_PAGE<br />
+<br />
+ENDCLASS. "lcl_event_receiver IMPLEMENTATION<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Definition&nbsp;of&nbsp;Event&nbsp;Receiver&nbsp;for&nbsp;alv.<br />
+<br />
+   </div>
+   <div class="code">
+DATA : event_receiver TYPE REF TO lcl_event_receiver.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

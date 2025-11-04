@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGF_GET_PRT_DO</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for function ZGF_GET_PRT_DO</h2>
+<h3> Description: [Global FTA] Print ERP C/O (KO)</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="code">
+FUNCTION ZGF_GET_PRT_DO.<br />
+   </div>
+   <div class="codeComment">
+*"----------------------------------------------------------------------<br />
+*"*"Local Interface:<br />
+*"  IMPORTING<br />
+*"     VALUE(I_BUKRS) TYPE  BUKRS OPTIONAL<br />
+*"     VALUE(I_PARTNER) TYPE  LIFNR<br />
+*"     VALUE(I_CO_NUMBER) TYPE  ZKGE_CCNO<br />
+*"  EXPORTING<br />
+*"     VALUE(E_RETURN) TYPE  CHAR1<br />
+*"     VALUE(E_RETURNMSG) TYPE  CHAR100<br />
+*"     VALUE(ES_ZGFT7001) TYPE  ZGFT7001<br />
+*"     VALUE(ES_ZGFS0123) TYPE  ZGFS0123<br />
+*"     VALUE(ES_ZGFS0125) TYPE  ZGFS0125<br />
+*"  TABLES<br />
+*"      ET_ZGFS0124 STRUCTURE  ZGFS0124 OPTIONAL<br />
+*"      IT_ZGFT0004 STRUCTURE  ZGFT0004 OPTIONAL<br />
+*"----------------------------------------------------------------------<br />
+<br />
+
+<div class="codeComment">*       <a href ="global-zgf_get_prt_do.html">Global data declarations</a></div><br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DEFINE&nbsp;&nbsp;__SET_ORIGIN_ST.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&2&nbsp;=&nbsp;'[&nbsp;&nbsp;&nbsp;]'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&3&nbsp;=&nbsp;'[&nbsp;&nbsp;&nbsp;]'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&4&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;&1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'Y'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&2&nbsp;=&nbsp;'[&nbsp;#&nbsp;]'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&4&nbsp;=&nbsp;TEXT-T01.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'N'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&3&nbsp;=&nbsp;'[&nbsp;#&nbsp;]'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&4&nbsp;=&nbsp;TEXT-T02.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;END-OF-DEFINITION.<br />
+<br />
+&nbsp;&nbsp;DEFINE&nbsp;&nbsp;__GET_MAKTX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_MAKT&nbsp;with&nbsp;key&nbsp;matnr&nbsp;=&nbsp;&1&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;sy-subrc&nbsp;is&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&2&nbsp;=&nbsp;LT_MAKT-MAKTX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;END-OF-DEFINITION.<br />
+<br />
+&nbsp;&nbsp;DEFINE&nbsp;__ALPHA_OUTPUT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_OUTPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output&nbsp;=&nbsp;&2.<br />
+&nbsp;&nbsp;END-OF-DEFINITION.<br />
+<br />
+&nbsp;&nbsp;DEFINE&nbsp;__ALPHA_INPUT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CONVERSION_EXIT_ALPHA_INPUT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output&nbsp;=&nbsp;&2.<br />
+&nbsp;&nbsp;END-OF-DEFINITION.<br />
+<br />
+&nbsp;&nbsp;E_RETURN&nbsp;=&nbsp;'E'.<br />
+&nbsp;&nbsp;E_RETURNMSG&nbsp;=&nbsp;TEXT-M01.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_PARTNER&nbsp;TYPE&nbsp;LIFNR.<br />
+&nbsp;&nbsp;__ALPHA_INPUT&nbsp;I_PARTNER&nbsp;LV_PARTNER.<br />
+   </div>
+   <div class="codeComment">
+* ----------------------------<br />
+* [FTA] Supplier<br />
+* ----------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;LT_ZGFT7001&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT7001&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT7001&nbsp;AS&nbsp;A&nbsp;INNER&nbsp;JOIN&nbsp;ZGFT8000&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~BUKRS&nbsp;=&nbsp;B~BUKRS&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~LIFNR&nbsp;=&nbsp;B~LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_ZGFT7001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~BUKRS&nbsp;=&nbsp;I_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~LIFNR&nbsp;=&nbsp;LV_PARTNER&nbsp;&nbsp;"&nbsp;I_PARTNER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;B~CCNO&nbsp;=&nbsp;I_CO_NUMBER.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_ZGFT7001&nbsp;INDEX&nbsp;1.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;LT_ZGFT7001&nbsp;TO&nbsp;ES_ZGFT7001.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* -----------------------------------<br />
+* [FTA] Supplied to<br />
+* ----------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;E_RETURNMSG&nbsp;=&nbsp;TEXT-M03.<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_ZGFT0014&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT0014&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_CNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I.<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT0014<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_ZGFT0014<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;=&nbsp;I_BUKRS.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;SORT&nbsp;LT_ZGFT0014&nbsp;BY&nbsp;DATAB&nbsp;DESCENDING.<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_ZGFT0014&nbsp;INDEX&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;address<br />
+&nbsp;&nbsp;ES_ZGFS0123-ADDRESS&nbsp;=&nbsp;LT_ZGFT0014-ADDRESS.<br />
+&nbsp;&nbsp;SPLIT&nbsp;LT_ZGFT0014-ADDRESS&nbsp;AT&nbsp;','&nbsp;INTO&nbsp;TABLE&nbsp;DATA(LT_ADDR).<br />
+&nbsp;&nbsp;LV_CNT&nbsp;=&nbsp;LINES(&nbsp;LT_ADDR&nbsp;).<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_ADDR&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;LT_ADDR.<br />
+&nbsp;&nbsp;IF&nbsp;LV_CNT&nbsp;&gt;=&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_ADDR&nbsp;INTO&nbsp;LS_ADDR&nbsp;INDEX&nbsp;&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ES_ZGFS0123-STREET&nbsp;=&nbsp;LS_ADDR.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;LV_CNT&nbsp;&gt;=&nbsp;3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_ADDR&nbsp;INTO&nbsp;LS_ADDR&nbsp;INDEX&nbsp;&nbsp;3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ES_ZGFS0123-CITY1&nbsp;=&nbsp;LS_ADDR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LV_CNT&nbsp;&gt;=&nbsp;4&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_ADDR&nbsp;INTO&nbsp;LS_ADDR&nbsp;INDEX&nbsp;&nbsp;4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;ES_ZGFS0123-CITY1&nbsp;LS_ADDR&nbsp;INTO&nbsp;ES_ZGFS0123-CITY1&nbsp;SEPARATED&nbsp;BY&nbsp;','.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_ADDR&nbsp;INTO&nbsp;LS_ADDR&nbsp;INDEX&nbsp;&nbsp;1.<br />
+&nbsp;&nbsp;ES_ZGFS0123-ADRNR&nbsp;=&nbsp;LS_ADDR.<br />
+<br />
+<br />
+&nbsp;&nbsp;ES_ZGFS0123-KUNNR&nbsp;=&nbsp;LT_ZGFT0014-STCEG.<br />
+&nbsp;&nbsp;ES_ZGFS0123-NAME1&nbsp;=&nbsp;LT_ZGFT0014-NAME1.<br />
+   </div>
+   <div class="codeComment">
+*ES_ZGFS0123-KONZS = .<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ES_ZGFS0123-J_1KFREPRE&nbsp;=&nbsp;LT_ZGFT0014-J_1KFREPRE.<br />
+   </div>
+   <div class="codeComment">
+*  ES_ZGFS0123-SMTP_ADDR = .<br />
+*  ES_ZGFS0123-STCD2 = .<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ES_ZGFS0123-TELF1&nbsp;=&nbsp;LT_ZGFT0014-TELF1.<br />
+&nbsp;&nbsp;ES_ZGFS0123-TELFX&nbsp;=&nbsp;LT_ZGFT0014-TELFX.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* -----------------------------------<br />
+* [FTA] ITEM<br />
+* ----------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;BEGIN&nbsp;OF&nbsp;LS_ZGFT8001_PLUS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zgft8001/dictionary-zgft8001.html">ZGFT8001</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;&nbsp;&nbsp;DATAB&nbsp;TYPE&nbsp;ZGFT8000-DATAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATBI&nbsp;TYPE&nbsp;ZGFT8000-DATBI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;LS_ZGFT8001_PLUS.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_ZGFT8001&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;LS_ZGFT8001_PLUS&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ZGFT0200&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT0200&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_MAKT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;MAKT&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_BEGDA(20)&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_ENDDA(20)&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_PERIOD(100)&nbsp;TYPE&nbsp;C.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_SEQ&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;NUMC3.<br />
+<br />
+&nbsp;&nbsp;E_RETURNMSG&nbsp;=&nbsp;TEXT-M05.<br />
+&nbsp;&nbsp;SELECT&nbsp;A~*,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~DATAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~DATBI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT8001&nbsp;AS&nbsp;A&nbsp;INNER&nbsp;JOIN&nbsp;ZGFT8000&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~BUKRS&nbsp;=&nbsp;B~BUKRS&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CCNO&nbsp;=&nbsp;&nbsp;B~CCNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@LT_ZGFT8001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~BUKRS&nbsp;=&nbsp;@I_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CCNO&nbsp;=&nbsp;@I_CO_NUMBER.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* --- quantity & unit<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT0200<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_ZGFT0200<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;LT_ZGFT8001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;=&nbsp;I_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;LIFNR&nbsp;=&nbsp;LV_PARTNER&nbsp;&nbsp;"&nbsp;I_PARTNER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;MATNR&nbsp;=&nbsp;LT_ZGFT8001-MTROH.<br />
+&nbsp;&nbsp;SORT&nbsp;LT_ZGFT0200&nbsp;BY&nbsp;MATNR&nbsp;BUDAT&nbsp;DESCENDING.<br />
+&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;LT_ZGFT0200&nbsp;COMPARING&nbsp;MATNR&nbsp;BUDAT.<br />
+&nbsp;&nbsp;SORT&nbsp;LT_ZGFT0200&nbsp;BY&nbsp;MATNR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* --- maktx<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;MAKT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_MAKT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;LT_ZGFT8001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MATNR&nbsp;=&nbsp;LT_ZGFT8001-MTROH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;SPRAS&nbsp;=&nbsp;'E'.<br />
+&nbsp;&nbsp;SORT&nbsp;LT_MAKT&nbsp;BY&nbsp;MATNR.<br />
+<br />
+&nbsp;&nbsp;SORT&nbsp;IT_ZGFT0004&nbsp;BY&nbsp;BUKRS&nbsp;PFONA.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;ET_ZGFS0124,&nbsp;LT_ZGFT8001.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_ZGFT8001.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***    ET_ZGFS0124-KUNAG =<br />
+***    ET_ZGFS0124-DATE<br />
+***    ET_ZGFS0124-KDMAT<br />
+***    ET_ZGFS0124-EXWPR<br />
+***    ET_ZGFS0124-WAERS_S<br />
+***    ET_ZGFS0124-NOVAS<br />
+***    ET_ZGFS0124-OVAS<br />
+***    ET_ZGFS0124-WAERS_M<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;IT_ZGFT0004&nbsp;WITH&nbsp;KEY&nbsp;BUKRS&nbsp;=&nbsp;I_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PFONA&nbsp;=&nbsp;LT_ZGFT8001-PFONA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;IT_ZGFT0004-GEN_ORI_COND&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-FTANA_EN&nbsp;=&nbsp;IT_ZGFT0004-FTANA_EN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;1&nbsp;TO&nbsp;LV_SEQ.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SHIFT&nbsp;LV_SEQ&nbsp;LEFT&nbsp;DELETING&nbsp;LEADING&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-SEQ&nbsp;=&nbsp;LV_SEQ.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-PFONA&nbsp;=&nbsp;LT_ZGFT8001-PFONA.<br />
+   </div>
+   <div class="codeComment">
+*    ET_ZGFS0124-FTANA_EN = LT_ZGFT8001-PFONA.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-CCNGN&nbsp;=&nbsp;LT_ZGFT8001-CCNGNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-MATNR&nbsp;=&nbsp;LT_ZGFT8001-MTROH.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;__GET_MAKTX&nbsp;ET_ZGFS0124-MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-MAKTX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-PRULE&nbsp;=&nbsp;LT_ZGFT8001-PRULE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;__SET_ORIGIN_ST&nbsp;LT_ZGFT8001-COFLGR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-COFLGBF_CY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-COFLGBF_CN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-COFLGBF_T.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-DATAB&nbsp;=&nbsp;LT_ZGFT8001-DATAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;ET_ZGFS0124-DATAB&nbsp;TO&nbsp;LV_BEGDA&nbsp;USING&nbsp;EDIT&nbsp;MASK&nbsp;'____.__.__'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-DATBI&nbsp;=&nbsp;LT_ZGFT8001-DATBI.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;ET_ZGFS0124-DATBI&nbsp;TO&nbsp;LV_ENDDA&nbsp;USING&nbsp;EDIT&nbsp;MASK&nbsp;'____.__.__'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;LV_BEGDA&nbsp;'~'&nbsp;LV_ENDDA&nbsp;INTO&nbsp;ET_ZGFS0124-DATE&nbsp;SEPARATED&nbsp;BY&nbsp;SPACE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-BMENGE&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_ZGFT0200&nbsp;WITH&nbsp;KEY&nbsp;MATNR&nbsp;=&nbsp;LT_ZGFT8001-MTROH&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_ZGFS0124-MEINS&nbsp;=&nbsp;LT_ZGFT0200-MEINS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;ET_ZGFS0124.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;ET_ZGFS0124,&nbsp;LT_ZGFT8001,&nbsp;LT_ZGFT0200,&nbsp;LT_MAKT.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* -----------------------------------<br />
+* [FTA] Signature<br />
+* ----------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;BEGIN&nbsp;OF&nbsp;LS_SIG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zgft7000/dictionary-zgft7000.html">ZGFT7000</a>.<br />
+&nbsp;&nbsp;DATA:&nbsp;&nbsp;&nbsp;IDATE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-IDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT7001-NAME1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADDRESS&nbsp;TYPE&nbsp;ZGFT7001-ADDRESS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;LS_SIG.<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_SIG&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;LS_SIG.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_ZGFT7000&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT7000&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_RETMSG(70)&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RET(1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;A~*,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~NAME1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~ADDRESS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~IDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT7000&nbsp;AS&nbsp;A&nbsp;INNER&nbsp;JOIN&nbsp;ZGFT7001&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~BUKRS&nbsp;=&nbsp;B~BUKRS&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~LIFNR&nbsp;=&nbsp;B~LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZGFT8000&nbsp;AS&nbsp;C<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~BUKRS&nbsp;=&nbsp;C~BUKRS&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~LIFNR&nbsp;=&nbsp;C~LIFNR<br />
+   </div>
+   <div class="codeComment">
+*                           AND A~F_SEQ = C~F_SEQ<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@LT_SIG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~BUKRS&nbsp;=&nbsp;@I_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~LIFNR&nbsp;=&nbsp;@LV_PARTNER&nbsp;&nbsp;"I_PARTNER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;C~CCNO&nbsp;=&nbsp;@I_CO_NUMBER.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_SIG&nbsp;INTO&nbsp;LS_SIG&nbsp;INDEX&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;LS_SIG&nbsp;TO&nbsp;ES_ZGFS0125.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ES_ZGFS0125-ZIMANM&nbsp;=&nbsp;'ZGF_SF0002_TEST'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ES_ZGFS0125-UNAME&nbsp;=&nbsp;LS_SIG-ZUNAME.<br />
+   </div>
+   <div class="codeComment">
+*    EV_F_BINARY = LS_SIG-F_BINARY.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;IMAGE_PROCESSING&nbsp;USING&nbsp;LS_SIG-F_BINARY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;LV_RETMSG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_RET.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***    PERFORM IMAGE_MIME_SAVE USING LS_SIG-F_BINARY<br />
+***                            CHANGING LV_RETMSG<br />
+***                                     LV_RET.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* -----------------------------------<br />
+* [FTA] Return values<br />
+* ----------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;E_RETURN&nbsp;=&nbsp;'S'.<br />
+&nbsp;&nbsp;E_RETURNMSG&nbsp;=&nbsp;TEXT-M02.<br />
+<br />
+ENDFUNCTION.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

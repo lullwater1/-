@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0920SCR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0920SCR</h2>
+<h3> Description: Include ZKGR0920SCR</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR0920SCR<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME TITLE TEXT-001.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(23) PBUKRS.<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS: P_BUKRS TYPE ZGFT8000-BUKRS OBLIGATORY  MEMORY ID BUK.<br />
+SELECTION-SCREEN COMMENT 35(40) P_BUTXT.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  SWERKS.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_WERKS FOR ZGFT8000-WERKS.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) SLIFNR.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_LIFNR FOR ZGFT8000-LIFNR MATCHCODE OBJECT ZGFH_LIFNR.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) SMTROH.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_MTROH FOR ZGFT8001-MTROH.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) SCCNO.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_CCNO  FOR ZGFT8000-CCNO.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) SIDATE.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_IDATE FOR ZGFT8000-IDATE OBLIGATORY  DEFAULT SY-DATUM.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK B1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK B2  WITH FRAME TITLE  TEXT-002.<br />
+SELECTION-SCREEN BEGIN OF LINE.<br />
+SELECTION-SCREEN  POSITION  2.<br />
+PARAMETERS P_PRNT RADIOBUTTON GROUP GR1 DEFAULT 'X'.<br />
+SELECTION-SCREEN COMMENT 5(15) TEXT-003 FOR FIELD P_PRNT.<br />
+SELECTION-SCREEN  POSITION  30.<br />
+PARAMETERS P_LIST RADIOBUTTON GROUP GR1.<br />
+SELECTION-SCREEN COMMENT 38(15) TEXT-004 FOR FIELD P_LIST.<br />
+SELECTION-SCREEN END OF LINE.<br />
+<br />
+SELECTION-SCREEN END   OF BLOCK B2.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;B3&nbsp;&nbsp;WITH&nbsp;FRAME&nbsp;TITLE&nbsp;&nbsp;TEXT-005.<br />
+*<br />
+*SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+*<br />
+*SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;2.<br />
+*PARAMETERS&nbsp;:&nbsp;P_CHECK&nbsp;AS&nbsp;CHECKBOX."&nbsp;DEFAULT&nbsp;'X'."U01##<br />
+*SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;5(20)&nbsp;PCHECK.<br />
+*SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+*<br />
+*SELECTION-SCREEN&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;BLOCK&nbsp;B3.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>
