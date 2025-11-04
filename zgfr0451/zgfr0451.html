@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0451</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0451</h2>
+<h3> Description: [Global FTA] Daily Aggregation of Material Origin</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;PROGRAM&nbsp;ID&nbsp;&nbsp;:&nbsp;ZGFR0451<br />
+*&nbsp;Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+*&nbsp;Created&nbsp;By&nbsp;&nbsp;:&nbsp;KPMG<br />
+*&nbsp;Created&nbsp;On&nbsp;&nbsp;:&nbsp;2019-12-03<br />
+*&nbsp;Category&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Report<br />
+*&nbsp;Description&nbsp;:&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFICATION&nbsp;LOG<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Date.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description.<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT  ZGFR0451 NO STANDARD PAGE HEADING MESSAGE-ID ZGFMC.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;INCLUDE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+include <a href ="zgfr0451t01.html">ZGFR0451T01</a>.<br />
+include <a href ="zgf_alv_class.html">ZGF_ALV_CLASS</a>.<br />
+include <a href ="zgfr0451class.html">ZGFR0451CLASS</a>.<br />
+include <a href ="zgfr0451f01.html">ZGFR0451F01</a>.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;INITIALIZATION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_INIT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;INIT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;TAB_SCREEN_SET.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN&nbsp;ON&nbsp;VALUE-REQUEST<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR P_SPMON.<br />
+&nbsp;&nbsp;PERFORM&nbsp;F4_P_MONTH(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;SY-REPID.<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR S_SPMON-LOW.<br />
+&nbsp;&nbsp;PERFORM&nbsp;F4_P_MONTH(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;SY-REPID.<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR S_SPMON-HIGH.<br />
+&nbsp;&nbsp;PERFORM&nbsp;F4_P_MONTH(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;SY-REPID.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN&nbsp;OUTPUT.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_SCREEN.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;PERFORM&nbsp;TAB_SCREEN_POSTION_SET.<br />
+&nbsp;&nbsp;PERFORM&nbsp;INPUT_CHECK.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&--------------------------------------------------------------------*<br />
+*&nbsp;START-OF-SELECTION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;IF&nbsp;SY-BATCH&nbsp;=&nbsp;ZGFTP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_DYNNR&nbsp;=&nbsp;102.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_CALL&nbsp;=&nbsp;ZGFTP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_DYNNR&nbsp;=&nbsp;102.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;INITIAL_CHECK.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;G_DYNNR&nbsp;=&nbsp;101.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250908,&nbsp;begin<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;AUTH_BUKRS(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;S_BUKR2-LOW.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250908,&nbsp;end<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_TABLE_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_OUTTAB[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SALV_CALL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ELSEIF&nbsp;G_DYNNR&nbsp;=&nbsp;102.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_MSG&nbsp;USING&nbsp;'time&nbsp;to&nbsp;check&nbsp;auth'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250908,&nbsp;begin<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;AUTH_BUKRS(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;S_BUKRS-LOW.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250908,&nbsp;end<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;P_PALL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;ZGFTP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_MSG&nbsp;USING&nbsp;'time&nbsp;to&nbsp;do&nbsp;PARALLEL_PROCESS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;PARALLEL_PROCESS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;ZGFTP_FALSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DISPLAY_MSG&nbsp;USING&nbsp;'time&nbsp;to&nbsp;do&nbsp;MONTHLY_AGG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;MONTHLY_AGG.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_CALL&nbsp;&lt;&gt;&nbsp;ZGFTP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;LOG_DISPLAY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;001&nbsp;Define&nbsp;evaluation&nbsp;area<br />
+*&nbsp;002&nbsp;Define&nbsp;evaluation&nbsp;Data<br />
+*&nbsp;003&nbsp;Purchasing&nbsp;Ledger<br />
+*&nbsp;C01&nbsp;Seq.<br />
+*&nbsp;N01&nbsp;Inquiry<br />
+*&nbsp;N02&nbsp;Extraction<br />
+*&nbsp;T01&nbsp;Inventory&nbsp;Depletion&nbsp;Program<br />
+*&nbsp;T80&nbsp;Date<br />
+*&nbsp;T81&nbsp;Year-month<br />
+*&nbsp;T82&nbsp;Company&nbsp;Code<br />
+*&nbsp;T83&nbsp;Material<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_DATUV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date<br />
+*&nbsp;P_SPMON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Standard&nbsp;month<br />
+*&nbsp;S_BUKR2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Company&nbsp;Code<br />
+*&nbsp;S_BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Company&nbsp;Code<br />
+*&nbsp;S_DATU2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date<br />
+*&nbsp;S_SPMON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Year-month<br />
+*&nbsp;P_DATUM&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_DATUM&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_MATN2&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_MATNR&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_WERK2&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_WERKS&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;Company&nbsp;Code&nbsp;is&nbsp;mandatory.<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZGFMC<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*001&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;found<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

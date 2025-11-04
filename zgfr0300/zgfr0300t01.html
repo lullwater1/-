@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0300T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0300T01</h2>
+<h3> Description: Include ZKGR0300T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZKGR3000T01<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES: VBRK, MARC, VBAP, SSCRFIELDS, T001, T001W, ZGFT0200, ZGFT0301.<br />
+<br />
+TYPE-POOLS ZGFTP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Type&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_BKLAS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MARA-MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BWKEY&nbsp;TYPE&nbsp;T001W-BWKEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BKLAS&nbsp;TYPE&nbsp;ZGFT5040-BKLAS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_BKLAS.<br />
+<br />
+TYPES: BEGIN OF TY_T001W,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;T001W-WERKS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BWKEY&nbsp;TYPE&nbsp;T001W-BWKEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_T001W.<br />
+<br />
+TYPES: BEGIN OF TY_ZKGT0300.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zgft0300/dictionary-zgft0300.html">ZGFT0300</a>.<br />
+TYPES:   KURRF TYPE KURRF,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FKART&nbsp;TYPE&nbsp;FKART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_ZKGT0300.<br />
+<br />
+TYPES: BEGIN OF TY_ZKGT0301.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zgft0301/dictionary-zgft0301.html">ZGFT0301</a>.<br />
+TYPES:   KUNAG   TYPE KUNAG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERK&nbsp;&nbsp;&nbsp;TYPE&nbsp;WAERK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FKDAT&nbsp;&nbsp;&nbsp;TYPE&nbsp;FKDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VKORG&nbsp;&nbsp;&nbsp;TYPE&nbsp;VKORG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VTWEG&nbsp;&nbsp;&nbsp;TYPE&nbsp;VTWEG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCO1&nbsp;&nbsp;&nbsp;TYPE&nbsp;INCO1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VGBEL&nbsp;&nbsp;&nbsp;TYPE&nbsp;VGBEL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VGPOS&nbsp;&nbsp;&nbsp;TYPE&nbsp;VGPOS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCO1SD&nbsp;TYPE&nbsp;INCO1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSDDN&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZSSLOSDDN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NTGEW2&nbsp;&nbsp;TYPE&nbsp;NTGEW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BRGEW2&nbsp;&nbsp;TYPE&nbsp;BRGEW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GEWEI2&nbsp;&nbsp;TYPE&nbsp;GEWEI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_ZKGT0301.<br />
+<br />
+TYPES: BEGIN OF TY_KNVV,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;TYPE&nbsp;KNVV-KUNNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_KNVV.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Internal&nbsp;Table&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+DATA: GT_T001W TYPE SORTED TABLE OF TY_T001W<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA GS_T001W TYPE TY_T001W.<br />
+<br />
+DATA GT_T460A TYPE TABLE OF T460A WITH HEADER LINE.<br />
+<br />
+DATA: GT_BKLAS TYPE SORTED TABLE OF TY_BKLAS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;MATNR&nbsp;BWKEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA GS_BKLAS TYPE TY_BKLAS.<br />
+<br />
+DATA: GT_ZKGT0300 TYPE TABLE OF TY_ZKGT0300 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0301&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;TY_ZKGT0301&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT9002&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZKGT9002&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA: GT_ZKGT0005 TYPE TABLE OF ZKGT0005 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT5020&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZKGT5020&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT5030&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZKGT5030&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT5031&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZKGT5031&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT5040&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZKGT5040&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT5060&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZKGT5060&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0011&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZKGT0011&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT5021&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZKGT5021&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA GT_LIFNR TYPE TABLE OF ZKGS0052 WITH HEADER LINE.<br />
+DATA GT_KNVV TYPE TABLE OF TY_KNVV WITH HEADER LINE.<br />
+<br />
+TYPES: BEGIN OF GTY_ZSSLOEXTB300H.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zssloextb300h/dictionary-zssloextb300h.html">ZSSLOEXTB300H</a>.<br />
+TYPES:   VBELN TYPE VBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GTY_ZSSLOEXTB300H.<br />
+<br />
+DATA: GT_ZGFT5020      TYPE TABLE OF ZGFT5020 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZSSLOEXTB300H&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;GTY_ZSSLOEXTB300H&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+TYPES: BEGIN OF GTY_VBAP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;STRUCTURE&nbsp;VBAP.<br />
+TYPES:   BRGEW2 TYPE BRGEW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NTGEW2&nbsp;TYPE&nbsp;NTGEW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GEWEI2&nbsp;TYPE&nbsp;GEWEI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZSDDN&nbsp;&nbsp;TYPE&nbsp;ZSSLOSDDN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GTY_VBAP.<br />
+DATA: GT_VBAP TYPE TABLE OF GTY_VBAP WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Vari&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA G_CHECK.<br />
+DATA G_ANSWER.<br />
+DATA G_PYEAR TYPE ZKGE_PYEAR.<br />
+DATA G_PRETP TYPE ZKGE_PRETP.<br />
+<br />
+RANGES: R_FKART FOR VBRK-FKART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_VTWEG&nbsp;FOR&nbsp;VBAK-VTWEG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_BUDAT&nbsp;FOR&nbsp;VBRK-FKDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_LAND1&nbsp;FOR&nbsp;VBRK-LAND1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_WERKS&nbsp;FOR&nbsp;VBAP-WERKS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_KUNAG&nbsp;FOR&nbsp;VBRK-KUNAG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_AUART&nbsp;FOR&nbsp;VBAK-AUART.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Constants<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CONSTANTS : GC_SGUBUN  TYPE ZKGE_SGUBUN VALUE 'DIV',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_SVALUE1&nbsp;TYPE&nbsp;ZKGE_SVALUE&nbsp;VALUE&nbsp;'D',&nbsp;&nbsp;&nbsp;"##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_SHPRE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGE_PRETP&nbsp;&nbsp;VALUE&nbsp;'11',&nbsp;&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CLPRE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGE_PRETP&nbsp;&nbsp;VALUE&nbsp;'12'.&nbsp;&nbsp;"&nbsp;####<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Macro<br />
+*----------------------------------------------------------------------*<br />
+*SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;TABBED&nbsp;BLOCK&nbsp;TABB1&nbsp;FOR&nbsp;5&nbsp;LINES.<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF TABBED BLOCK TABB1 FOR 6 LINES.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(25)&nbsp;TAB1&nbsp;USER-COMMAND&nbsp;PUSH1&nbsp;DEFAULT&nbsp;SCREEN&nbsp;101.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(25)&nbsp;TAB2&nbsp;USER-COMMAND&nbsp;PUSH2&nbsp;DEFAULT&nbsp;SCREEN&nbsp;102.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(25)&nbsp;TAB3&nbsp;USER-COMMAND&nbsp;PUSH3&nbsp;DEFAULT&nbsp;SCREEN&nbsp;103.<br />
+SELECTION-SCREEN END OF BLOCK TABB1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 101 AS SUBSCREEN.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;SVBEL2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_VBEL2&nbsp;FOR&nbsp;VBRK-VBELN.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;PSPMO2&nbsp;MODIF&nbsp;ID&nbsp;MI1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;24.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_SPMO2&nbsp;TYPE&nbsp;SPMON&nbsp;DEFAULT&nbsp;SY-DATUM(6)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBLIGATORY&nbsp;MODIF&nbsp;ID&nbsp;MI1.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;SFKDA2&nbsp;MODIF&nbsp;ID&nbsp;MI2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_FKDA2&nbsp;FOR&nbsp;VBRK-FKDAT&nbsp;DEFAULT&nbsp;SY-DATUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBLIGATORY&nbsp;MODIF&nbsp;ID&nbsp;MI2.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;added&nbsp;for&nbsp;'E':&nbsp;begin,&nbsp;20250822<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;SZIVNO&nbsp;MODIF&nbsp;ID&nbsp;MI4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_ZIVNO&nbsp;FOR&nbsp;ZGFT0301-ZIVNO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEMORY&nbsp;ID&nbsp;IVN&nbsp;MODIF&nbsp;ID&nbsp;MI4.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;added&nbsp;for&nbsp;'E':&nbsp;end,&nbsp;20250822<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;BL1&nbsp;WITH&nbsp;FRAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;P_CLOS&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;&nbsp;GR1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT&nbsp;'X'&nbsp;USER-COMMAND&nbsp;UC1.<br />
+   </div>
+   <div class="codeComment">
+*SELECTION-SCREEN&nbsp;COMMENT&nbsp;3(10)&nbsp;TEXT-001&nbsp;FOR&nbsp;FIELD&nbsp;P_CLOS.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;3(25)&nbsp;TEXT-001&nbsp;FOR&nbsp;FIELD&nbsp;P_CLOS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;30.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;P_SHIP&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;GR1.&nbsp;"&nbsp;####<br />
+   </div>
+   <div class="codeComment">
+*SELECTION-SCREEN&nbsp;COMMENT&nbsp;23(10)&nbsp;&nbsp;TEXT-002&nbsp;FOR&nbsp;FIELD&nbsp;P_SHIP.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;53(25)&nbsp;&nbsp;TEXT-002&nbsp;FOR&nbsp;FIELD&nbsp;P_SHIP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;BL1.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 101.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 102 AS SUBSCREEN.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;PSPMON.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;24.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_SPMON&nbsp;TYPE&nbsp;SPMON&nbsp;DEFAULT&nbsp;SY-DATUM(6)&nbsp;OBLIGATORY.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;PDUMMY&nbsp;MODIF&nbsp;ID&nbsp;MI3.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_DUMMY&nbsp;TYPE&nbsp;SY-DATUM&nbsp;MODIF&nbsp;ID&nbsp;MI3.<br />
+***&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN END OF SCREEN 102.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 103 AS SUBSCREEN.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;SFKDAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_FKDAT&nbsp;FOR&nbsp;VBRK-FKDAT&nbsp;DEFAULT&nbsp;SY-DATUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBLIGATORY.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 103.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK BL2 WITH FRAME.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;PBUKRS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;25.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_BUKRS&nbsp;LIKE&nbsp;T001-BUKRS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;45(40)&nbsp;P_BUTXT."U01&nbsp;##<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;SWERKS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;22.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;S_WERKS&nbsp;FOR&nbsp;T001W-WERKS&nbsp;NO&nbsp;INTERVALS.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;45(40)&nbsp;S_WETXT."U01&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;PSVALUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;25.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_SVALUE&nbsp;TYPE&nbsp;ZKGE_SVALUE&nbsp;AS&nbsp;LISTBOX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VISIBLE&nbsp;LENGTH&nbsp;10&nbsp;OBLIGATORY&nbsp;USER-COMMAND&nbsp;UC2.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_CALL&nbsp;TYPE&nbsp;CHAR1&nbsp;NO-DISPLAY."AS&nbsp;"CHECKBOX&nbsp;.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;PDUMMY&nbsp;MODIF&nbsp;ID&nbsp;MI3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;25.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_DUMMY&nbsp;TYPE&nbsp;SY-DATUM&nbsp;DEFAULT&nbsp;SY-DATUM&nbsp;MODIF&nbsp;ID&nbsp;MI3.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK BL2.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

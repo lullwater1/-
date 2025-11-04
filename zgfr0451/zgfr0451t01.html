@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0451T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0451T01</h2>
+<h3> Description: Include ZKGR0451T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR0451T01<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES: ZGFT0480,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFT5060.<br />
+TYPE-POOLS ZGFTP.<br />
+<br />
+DATA GT_LOG TYPE TABLE OF ZGFS_MONTH_RETURN WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Vari&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: G_SDATE TYPE DATS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_EDATE&nbsp;TYPE&nbsp;DATS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_EPMON&nbsp;TYPE&nbsp;SPMON.<br />
+<br />
+DATA G_MONIT TYPE ZKGE_MONIT.<br />
+<br />
+DATA G_TASKNO TYPE C LENGTH 32.<br />
+<br />
+DATA: G_EXE_JOB_COUNT    TYPE I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_SEND_JOB_COUNT&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_RESULT_JOB_COUNT&nbsp;TYPE&nbsp;I.<br />
+<br />
+RANGES R_SPMON FOR G_EPMON.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Constants<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CONSTANTS C_MONTH TYPE N LENGTH 2 VALUE 1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&-------------------------------------------------------------------*<br />
+*&nbsp;SELECTION-SCREEN<br />
+*&-------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF TABBED BLOCK TABB1 FOR 4 LINES.<br />
+SELECTION-SCREEN TAB (30) TAB1 USER-COMMAND PUSH1 DEFAULT SCREEN 101.<br />
+SELECTION-SCREEN TAB (30) TAB2 USER-COMMAND PUSH2 DEFAULT SCREEN 102.<br />
+SELECTION-SCREEN END OF BLOCK TABB1.<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 101 AS SUBSCREEN.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  SDATU2.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_DATU2 FOR ZGFT0480-DATUV OBLIGATORY DEFAULT SY-DATLO.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  SBUKR2.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_BUKR2 FOR ZGFT0480-BUKRS NO-EXTENSION<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;INTERVALS&nbsp;MEMORY&nbsp;ID&nbsp;BUK&nbsp;OBLIGATORY.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;INTERVALS&nbsp;MEMORY&nbsp;ID&nbsp;BUK.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  SMATN2 .<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_MATN2 FOR ZGFT0480-MTROH MATCHCODE OBJECT S_MAT1.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 101.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 102 AS SUBSCREEN.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  PSPMON MODIF ID  MD1.<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS: P_SPMON TYPE SPMON OBLIGATORY MODIF ID  MD1.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  PDATUV.<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS: P_DATUV LIKE SY-DATLO. " DEFAULT SY-DATLO.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  SSPMON MODIF ID  MD2.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_SPMON FOR G_EPMON  OBLIGATORY DEFAULT SY-DATLO(6)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;&nbsp;MD2&nbsp;NO-EXTENSION.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) SBUKRS.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_BUKRS FOR ZGFT0480-BUKRS NO-EXTENSION<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;INTERVALS&nbsp;MEMORY&nbsp;ID&nbsp;BUK&nbsp;OBLIGATORY.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;INTERVALS&nbsp;MEMORY&nbsp;ID&nbsp;BUK.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) SMATNR.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_MATNR FOR ZGFT0480-MTROH MATCHCODE OBJECT S_MAT1.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  PPALL.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+PARAMETERS P_PALL AS CHECKBOX USER-COMMAND USR1.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 102.<br />
+<br />
+<br />
+PARAMETERS: P_CALL TYPE CHAR1 NO-DISPLAY."AS "CHECKBOX .<br />
+   </div>
+   <div class="codeComment">
+*--<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

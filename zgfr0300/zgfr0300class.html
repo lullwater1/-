@@ -1,0 +1,817 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0300CLASS</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0300CLASS</h2>
+<h3> Description: Include ZKGR0300CLASS</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR0300CLASS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_OUTTAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBELN_H&nbsp;LIKE&nbsp;ZGFT0300-VBELN,&nbsp;"&nbsp;BILLING/SHIPPING&nbsp;DOCUMENT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRETP_H&nbsp;LIKE&nbsp;ZGFT0300-PRETP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VKORG&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0300-VKORG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VTWEG&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0300-VTWEG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DETP&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0300-DETP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNAG&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0300-KUNAG,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;&nbsp;&nbsp;TYPE&nbsp;KNA1-NAME1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;20250822<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUPLA&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0300-BUPLA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FKDAT&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0300-FKDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCO1&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0300-INCO1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCO2&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0300-INCO2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAND1&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0300-LAND1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERK&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0300-WAERK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBCT&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0300-SUBCT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0300-LIFNR.<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRETP_T&nbsp;TYPE&nbsp;VAL_TEXT.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zgft0301/dictionary-zgft0301.html">ZGFT0301</a>.<br />
+TYPES: END OF TY_OUTTAB.<br />
+<br />
+DATA: G_DYNNR TYPE SY-DYNNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_UCOMM&nbsp;TYPE&nbsp;SY-UCOMM.<br />
+<br />
+DATA: GS_OUTTAB TYPE TY_OUTTAB.<br />
+<br />
+DATA: GT_HEAD   TYPE TABLE OF ZGFT0300 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_OUTTAB&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;TY_OUTTAB.<br />
+<br />
+CLASS LCL_EVENT_RECEIVER DEFINITION DEFERRED.<br />
+DATA  G_EVENT_RECEIVER   TYPE REF TO LCL_EVENT_RECEIVER.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;LOCAL&nbsp;CLASS&nbsp;Definition<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS LCL_EVENT_RECEIVER DEFINITION.<br />
+<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON_USER_COMMAND&nbsp;FOR&nbsp;EVENT&nbsp;ADDED_FUNCTION&nbsp;OF&nbsp;CL_SALV_EVENTS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;E_SALV_FUNCTION,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON_DOUBLE_CLICK&nbsp;FOR&nbsp;EVENT&nbsp;DOUBLE_CLICK&nbsp;OF&nbsp;CL_SALV_EVENTS_TABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;ROW&nbsp;COLUMN,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON_LINK_CLICK&nbsp;FOR&nbsp;EVENT&nbsp;LINK_CLICK&nbsp;OF&nbsp;CL_SALV_EVENTS_TABLE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;ROW&nbsp;COLUMN.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;ERROR_IN_DATA&nbsp;TYPE&nbsp;C.<br />
+<br />
+<br />
+ENDCLASS. "lcl_event_receiver DEFINITION<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;LOCAL&nbsp;CLASS&nbsp;Implementation<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS LCL_EVENT_RECEIVER IMPLEMENTATION.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;ON_USER_COMMAND.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;HANDLE_USER_COMMAND&nbsp;USING&nbsp;E_SALV_FUNCTION.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"on_user_command<br />
+&nbsp;&nbsp;METHOD&nbsp;ON_DOUBLE_CLICK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;HANDLE_DOUBLE_CLICK&nbsp;USING&nbsp;ROW&nbsp;COLUMN.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ON_DOUBLE_CLICK<br />
+&nbsp;&nbsp;METHOD&nbsp;ON_LINK_CLICK&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;HANDLE_LINK_CLICK&nbsp;USING&nbsp;ROW&nbsp;COLUMN.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+ENDCLASS.                    "LCL_EVENT_RECEIVER IMPLEMENTATION<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SALV_CALL<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SALV_CALL .<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_SALV_TABLE=&gt;FACTORY(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_SALV_TABLE&nbsp;=&nbsp;GO_ALV<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_TABLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_OUTTAB&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_MSG.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_PF_STATUS.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_LAYOUT.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_EVENT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_TABLE_SETTINGS.<br />
+<br />
+&nbsp;&nbsp;GO_ALV-&gt;DISPLAY(&nbsp;).<br />
+<br />
+ENDFORM.                    " SALV_CALL<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_TABLE_SETTINGS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_TABLE_SETTINGS .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LR_COLUMNS&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_SALV_COLUMNS_TABLE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;set&nbsp;column<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LR_COLUMNS&nbsp;=&nbsp;GO_ALV-&gt;GET_COLUMNS(&nbsp;).<br />
+&nbsp;&nbsp;LR_COLUMNS-&gt;SET_OPTIMIZE(&nbsp;ZGFTP_TRUE&nbsp;).<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_COLUMNS_TECHNICAL&nbsp;USING&nbsp;LR_COLUMNS.<br />
+<br />
+ENDFORM.                    " SET_TABLE_SETTINGS<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_COLUMNS_TECHNICAL<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_COLUMNS_TECHNICAL USING IR_COLUMNS TYPE REF TO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CL_SALV_COLUMNS_TABLE.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_COLOR&nbsp;TYPE&nbsp;LVC_S_COLO.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LR_COLUMN&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_SALV_COLUMN_TABLE.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LR_SELECTIONS&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_SALV_SELECTIONS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_COLUMN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SALV_T_COLUMN.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_DDIC&nbsp;TYPE&nbsp;SALV_S_DDIC_REFERENCE.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_HIDE_COLS&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;LVC_FNAME&nbsp;WITH&nbsp;EMPTY&nbsp;KEY.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_COLNAME&nbsp;&nbsp;TYPE&nbsp;LVC_FNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IT_COLNAMES&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;LVC_FNAME.<br />
+<br />
+&nbsp;&nbsp;LT_HIDE_COLS&nbsp;=&nbsp;VALUE&nbsp;#(<br />
+&nbsp;&nbsp;(&nbsp;'MANDT'&nbsp;)&nbsp;(&nbsp;'VBELN_H'&nbsp;)&nbsp;(&nbsp;'PRETP_H'&nbsp;)&nbsp;(&nbsp;'INCO2'&nbsp;)<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;(&nbsp;'PRCTR'&nbsp;)&nbsp;(&nbsp;'ZIVNO'&nbsp;)&nbsp;(&nbsp;'SUBCT'&nbsp;)&nbsp;(&nbsp;'LIFNR'&nbsp;)<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;(&nbsp;'PRCTR'&nbsp;)&nbsp;(&nbsp;'SUBCT'&nbsp;)&nbsp;(&nbsp;'LIFNR'&nbsp;)<br />
+&nbsp;&nbsp;(&nbsp;'ZBLDN'&nbsp;)&nbsp;(&nbsp;'WERK2'&nbsp;)&nbsp;).<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_HIDE_COLS&nbsp;INTO&nbsp;LV_COLNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN&nbsp;?=&nbsp;IR_COLUMNS-&gt;GET_COLUMN(&nbsp;LV_COLNAME&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_VISIBLE(&nbsp;IF_SALV_C_BOOL_SAP=&gt;FALSE&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDTRY.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;TRY.&nbsp;&nbsp;"DETP&nbsp;F4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN&nbsp;?=&nbsp;IR_COLUMNS-&gt;GET_COLUMN(&nbsp;'DETP'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;'DETP'&nbsp;TO&nbsp;LV_DDIC-FIELD.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;'ZGFT0300'&nbsp;TO&nbsp;LV_DDIC-TABLE.<br />
+   </div>
+   <div class="codeComment">
+*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_DDIC_REFERENCE(&nbsp;LV_DDIC&nbsp;).<br />
+   </div>
+   <div class="codeComment">
+*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;LR_COLUMN-&gt;SET_DDIC_REFERENCE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;=&nbsp;LV_DDIC.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN&nbsp;?=&nbsp;IR_COLUMNS-&gt;GET_COLUMN(&nbsp;'MATNR'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_CELL_TYPE(&nbsp;IF_SALV_C_CELL_TYPE=&gt;HOTSPOT&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN&nbsp;?=&nbsp;IR_COLUMNS-&gt;GET_COLUMN(&nbsp;'KUNAG'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_CELL_TYPE(&nbsp;IF_SALV_C_CELL_TYPE=&gt;HOTSPOT&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250822,&nbsp;BEGIN<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;LV_VBELN_L&nbsp;TYPE&nbsp;SCRTEXT_L,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_VBELN_M&nbsp;TYPE&nbsp;SCRTEXT_M,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_VBELN_S&nbsp;TYPE&nbsp;SCRTEXT_S.<br />
+&nbsp;&nbsp;IF&nbsp;P_CLOS&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_VBELN_L&nbsp;=&nbsp;'Biling&nbsp;Document'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_VBELN_M&nbsp;=&nbsp;'Bill.&nbsp;Doc.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_VBELN_S&nbsp;=&nbsp;'Bil.&nbsp;D.'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_VBELN_L&nbsp;=&nbsp;'Shipping&nbsp;Document'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_VBELN_M&nbsp;=&nbsp;'Ship.&nbsp;Doc.'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_VBELN_S&nbsp;=&nbsp;'Sh.&nbsp;D.'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250822,&nbsp;END<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN&nbsp;?=&nbsp;IR_COLUMNS-&gt;GET_COLUMN(&nbsp;'VBELN'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_CELL_TYPE(&nbsp;IF_SALV_C_CELL_TYPE=&gt;HOTSPOT&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_LONG_TEXT(&nbsp;LV_VBELN_L&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_MEDIUM_TEXT(&nbsp;LV_VBELN_M&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_SHORT_TEXT(&nbsp;LV_VBELN_S&nbsp;).<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;TRY.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN&nbsp;?=&nbsp;IR_COLUMNS-&gt;GET_COLUMN(&nbsp;'LIFNR'&nbsp;).<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_CELL_TYPE(&nbsp;IF_SALV_C_CELL_TYPE=&gt;HOTSPOT&nbsp;).<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+*&nbsp;&nbsp;ENDTRY.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN&nbsp;?=&nbsp;IR_COLUMNS-&gt;GET_COLUMN(&nbsp;'KDMAT'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_CELL_TYPE(&nbsp;IF_SALV_C_CELL_TYPE=&gt;HOTSPOT&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN&nbsp;?=&nbsp;IR_COLUMNS-&gt;GET_COLUMN(&nbsp;'ZIVNO'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_LONG_TEXT(&nbsp;'Invoice&nbsp;No.'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_MEDIUM_TEXT(&nbsp;'Invoice&nbsp;No.'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_SHORT_TEXT(&nbsp;'Invoice&nbsp;No'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN&nbsp;?=&nbsp;IR_COLUMNS-&gt;GET_COLUMN(&nbsp;'NAME1'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_LONG_TEXT(&nbsp;'NAME'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_MEDIUM_TEXT(&nbsp;'NAME'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_SHORT_TEXT(&nbsp;'NAME'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN&nbsp;?=&nbsp;IR_COLUMNS-&gt;GET_COLUMN(&nbsp;'ZIVDT'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_LONG_TEXT(&nbsp;'Invoice&nbsp;Date'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_MEDIUM_TEXT(&nbsp;'Invoice&nbsp;Date'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_SHORT_TEXT(&nbsp;'Invo&nbsp;Date'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN&nbsp;?=&nbsp;IR_COLUMNS-&gt;GET_COLUMN(&nbsp;'NETWR'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LR_COLUMN&nbsp;IS&nbsp;BOUND.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_CURRENCY_COLUMN(&nbsp;'WAERS'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+****&nbsp;--------------------------------------------<br />
+****&nbsp;---&nbsp;PRETP_T:&nbsp;BEGIN<br />
+****&nbsp;--------------------------------------------<br />
+***&nbsp;&nbsp;TRY.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN&nbsp;?=&nbsp;IR_COLUMNS-&gt;GET_COLUMN(&nbsp;'PRETP_T'&nbsp;).<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_LONG_TEXT(&nbsp;'Desc.'&nbsp;).<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_MEDIUM_TEXT(&nbsp;'Desc.'&nbsp;).<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LR_COLUMN-&gt;SET_SHORT_TEXT(&nbsp;'Desc.'&nbsp;).<br />
+***<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+***&nbsp;&nbsp;ENDTRY.<br />
+***<br />
+***&nbsp;&nbsp;DATA:&nbsp;LV_ROW&nbsp;TYPE&nbsp;INT4.<br />
+***&nbsp;&nbsp;DATA:&nbsp;LO_COLUMNS&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_SALV_COLUMNS_TABLE.<br />
+***<br />
+***&nbsp;&nbsp;LO_COLUMNS&nbsp;=&nbsp;GO_ALV-&gt;GET_COLUMNS(&nbsp;).<br />
+***<br />
+***&nbsp;&nbsp;TRY.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;LO_COLUMNS-&gt;GET_COLUMN_POSITION<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLUMNNAME&nbsp;=&nbsp;'PRETP'<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RECEIVING<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_ROW.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+***&nbsp;&nbsp;ENDTRY.<br />
+***<br />
+***&nbsp;&nbsp;LV_ROW&nbsp;=&nbsp;LV_ROW&nbsp;+&nbsp;1.<br />
+***<br />
+***&nbsp;&nbsp;TRY.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;LO_COLUMNS-&gt;SET_COLUMN_POSITION<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COLUMNNAME&nbsp;=&nbsp;'PRETP_T'<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POSITION&nbsp;&nbsp;&nbsp;=&nbsp;LV_ROW.<br />
+***<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SALV_NOT_FOUND.<br />
+***&nbsp;&nbsp;ENDTRY.<br />
+****&nbsp;--------------------------------------------<br />
+****&nbsp;---&nbsp;PRETP_T:&nbsp;END<br />
+****&nbsp;--------------------------------------------<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LR_SELECTIONS&nbsp;=&nbsp;GO_ALV-&gt;GET_SELECTIONS(&nbsp;).<br />
+&nbsp;&nbsp;LR_SELECTIONS-&gt;SET_SELECTION_MODE(&nbsp;IF_SALV_C_SELECTION_MODE=&gt;CELL&nbsp;).<br />
+<br />
+ENDFORM.                    " SET_COLUMNS_TECHNICAL<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;HANDLE_USER_COMMAND<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM HANDLE_USER_COMMAND  USING P_UCOMM TYPE SALV_DE_FUNCTION.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;L_DUMMY&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;100.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;P_UCOMM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;''.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.                    " HANDLE_USER_COMMAND<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_EVENT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_EVENT .<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;EVENT<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;LR_EVENTS&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_SALV_EVENTS_TABLE.<br />
+<br />
+&nbsp;&nbsp;GO_FUNCTIONS&nbsp;=&nbsp;GO_ALV-&gt;GET_FUNCTIONS(&nbsp;).<br />
+&nbsp;&nbsp;GO_FUNCTIONS-&gt;SET_ALL(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;LR_EVENTS&nbsp;=&nbsp;GO_ALV-&gt;GET_EVENT(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;G_EVENT_RECEIVER.<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;G_EVENT_RECEIVER-&gt;ON_USER_COMMAND&nbsp;FOR&nbsp;LR_EVENTS.<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;G_EVENT_RECEIVER-&gt;ON_DOUBLE_CLICK&nbsp;FOR&nbsp;LR_EVENTS.<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;G_EVENT_RECEIVER-&gt;ON_LINK_CLICK&nbsp;FOR&nbsp;LR_EVENTS.<br />
+<br />
+ENDFORM.                    " SET_EVENT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_PF_STATUS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_PF_STATUS .<br />
+<br />
+&nbsp;&nbsp;GO_ALV-&gt;SET_SCREEN_STATUS(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PFSTATUS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;'STANDARD'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;REPORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;G_REPID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SET_FUNCTIONS&nbsp;=&nbsp;GO_ALV-&gt;C_FUNCTIONS_ALL&nbsp;).<br />
+<br />
+ENDFORM.                    " SET_PF_STATUS<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_LAYOUT .<br />
+<br />
+&nbsp;&nbsp;GS_SALV_LAYOUT-REPID&nbsp;=&nbsp;SY-REPID.<br />
+&nbsp;&nbsp;GS_SALV_LAYOUT-DEFAULT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_SALV_LAYOUT-LAYOUT&nbsp;=&nbsp;'/STANDARD'.<br />
+&nbsp;&nbsp;GS_KEY-REPORT&nbsp;=&nbsp;G_REPID.<br />
+<br />
+&nbsp;&nbsp;GO_LAYOUT&nbsp;=&nbsp;GO_ALV-&gt;GET_LAYOUT(&nbsp;).<br />
+&nbsp;&nbsp;GO_LAYOUT-&gt;SET_KEY(&nbsp;GS_KEY&nbsp;).<br />
+<br />
+&nbsp;&nbsp;GS_SALV_LAYOUT-RESTRICT&nbsp;=&nbsp;IF_SALV_C_LAYOUT=&gt;RESTRICT_NONE.<br />
+&nbsp;&nbsp;GO_LAYOUT-&gt;SET_DEFAULT(&nbsp;GS_SALV_LAYOUT-DEFAULT&nbsp;).<br />
+&nbsp;&nbsp;GO_LAYOUT-&gt;SET_SAVE_RESTRICTION(&nbsp;GS_SALV_LAYOUT-RESTRICT&nbsp;).<br />
+&nbsp;&nbsp;GO_LAYOUT-&gt;SET_INITIAL_LAYOUT(&nbsp;GS_SALV_LAYOUT-LAYOUT&nbsp;).<br />
+<br />
+ENDFORM.                    " SET_LAYOUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR2000F01<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM TAB_SCREEN_SET .<br />
+<br />
+&nbsp;&nbsp;TAB1&nbsp;=&nbsp;TEXT-004.<br />
+&nbsp;&nbsp;TAB2&nbsp;=&nbsp;TEXT-001.<br />
+&nbsp;&nbsp;TAB3&nbsp;=&nbsp;TEXT-002.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-BATCH&nbsp;=&nbsp;ZGFTP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;WITH&nbsp;'Batch&nbsp;job&nbsp;begins.'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;P_DUMMY&nbsp;=&nbsp;'99991231'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB1-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;103.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB1-ACTIVETAB&nbsp;=&nbsp;'PUSH3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB1-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;102.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB1-ACTIVETAB&nbsp;=&nbsp;'PUSH2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABB1-PROG&nbsp;=&nbsp;SY-REPID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_DYNNR&nbsp;=&nbsp;TABB1-DYNNR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;WITH&nbsp;TABB1-DYNNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;GET_LATEST_TAB(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;SY-REPID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;G_DYNNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB1-ACTIVETAB.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;G_DYNNR&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABB1-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;G_DYNNR&nbsp;=&nbsp;TABB1-DYNNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DUMMY&nbsp;=&nbsp;'00000000'.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABB1-DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;G_DYNNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;G_DYNNR&nbsp;=&nbsp;'102'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DUMMY&nbsp;=&nbsp;SY-DATUM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;G_DYNNR&nbsp;=&nbsp;'103'..<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DUMMY&nbsp;=&nbsp;'99991231'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DUMMY&nbsp;=&nbsp;'00000000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;TABB1-PROG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-REPID.<br />
+<br />
+ENDFORM.                    " TAB_SCREEN_SET<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;TAB_SCREEN_POSTION_SET<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM TAB_SCREEN_POSTION_SET .<br />
+<br />
+&nbsp;&nbsp;G_UCOMM&nbsp;=&nbsp;SY-UCOMM.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;SY-UCOMM.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;G_UCOMM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'PUSH1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB1-DYNNR&nbsp;=&nbsp;101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB1-ACTIVETAB&nbsp;=&nbsp;'PUSH1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_DYNNR&nbsp;=&nbsp;TABB1-DYNNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DUMMY&nbsp;=&nbsp;'00000000'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'PUSH2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB1-DYNNR&nbsp;=&nbsp;102.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB1-ACTIVETAB&nbsp;=&nbsp;'PUSH2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_DYNNR&nbsp;=&nbsp;TABB1-DYNNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DUMMY&nbsp;=&nbsp;SY-DATUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'PUSH3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB1-DYNNR&nbsp;=&nbsp;103.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB1-ACTIVETAB&nbsp;=&nbsp;'PUSH3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_DYNNR&nbsp;=&nbsp;TABB1-DYNNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_DUMMY&nbsp;=&nbsp;'99991231'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;SET_LATEST_TAB(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;SY-REPID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_DYNNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB1-ACTIVETAB.<br />
+<br />
+ENDFORM.                    " TAB_SCREEN_POSTION_SET<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_TABLE_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_TABLE_DATA.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_INDEX&nbsp;TYPE&nbsp;SY-TABIX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_PRETP&nbsp;TYPE&nbsp;ZKGE_PRETP.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_SDATE&nbsp;TYPE&nbsp;DATS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_EDATE&nbsp;TYPE&nbsp;DATS.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_PRETP&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;DD07V&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;RANGES:&nbsp;LR_FKDAT&nbsp;FOR&nbsp;ZGFT0300-FKDAT.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GT_HEAD,&nbsp;&nbsp;&nbsp;GT_HEAD[],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_OUTTAB,&nbsp;GT_OUTTAB[].<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_CLOS&nbsp;=&nbsp;ZGFTP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_PRETP&nbsp;=&nbsp;GC_CLPRE.&nbsp;"&nbsp;####<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;P_SPMO2&nbsp;'01'&nbsp;INTO&nbsp;LV_SDATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_SDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAST_DAY_OF_MONTH&nbsp;=&nbsp;LV_EDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN_NO_DATE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;MAKE_RANGES(ZGF_FORM_SUB_ROUTINE)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;'IBT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_EDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;LR_FKDAT[].<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_PRETP&nbsp;=&nbsp;GC_SHPRE.&nbsp;"&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LR_FKDAT[]&nbsp;=&nbsp;S_FKDA2[].<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&&nbsp;#####&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_HEAD<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT0300<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;VBELN&nbsp;IN&nbsp;S_VBEL2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;BUKRS&nbsp;EQ&nbsp;P_BUKRS&nbsp;"U01<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;PRETP&nbsp;EQ&nbsp;LV_PRETP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;DETP&nbsp;&nbsp;&nbsp;EQ&nbsp;P_SVALUE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;FKDAT&nbsp;IN&nbsp;LR_FKDAT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_HEAD[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S001&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;GT_HEAD[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;SORT&nbsp;GT_HEAD.<br />
+&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;GT_HEAD.<br />
+<br />
+&nbsp;&nbsp;"[GF]&nbsp;##&nbsp;###&nbsp;:&nbsp;###<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_OUTTAB<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT0301<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;GT_HEAD<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;VBELN&nbsp;EQ&nbsp;GT_HEAD-VBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;BUKRS&nbsp;EQ&nbsp;GT_HEAD-BUKRS&nbsp;&nbsp;"u01##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;PRETP&nbsp;EQ&nbsp;GT_HEAD-PRETP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;ZIVNO&nbsp;IN&nbsp;S_ZIVNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;20250822<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;IN&nbsp;S_WERKS.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_OUTTAB[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S001&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;Get&nbsp;name1<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;LT_KNA1&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;KNA1&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;KNA1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_KNA1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;GT_HEAD<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;KUNNR&nbsp;=&nbsp;GT_HEAD-KUNAG.<br />
+<br />
+   </div>
+   <div class="codeComment">
+****&nbsp;---&nbsp;###&nbsp;##:&nbsp;PRETP<br />
+***&nbsp;&nbsp;PERFORM&nbsp;GET_DOMAIN_DATA&nbsp;TABLES&nbsp;LT_PRETP<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'ZGFD_PRETP'.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_OUTTAB&nbsp;INTO&nbsp;GS_OUTTAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_INDEX&nbsp;=&nbsp;LV_INDEX&nbsp;+&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_HEAD<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;VBELN&nbsp;=&nbsp;GS_OUTTAB-VBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRETP&nbsp;=&nbsp;GS_OUTTAB-PRETP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;=&nbsp;GS_OUTTAB-BUKRS&nbsp;"u01##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GT_HEAD&nbsp;TO&nbsp;GS_OUTTAB.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-VBELN_H&nbsp;=&nbsp;GT_HEAD-VBELN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-PRETP_H&nbsp;=&nbsp;GT_HEAD-PRETP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-VKORG&nbsp;&nbsp;&nbsp;=&nbsp;GT_HEAD-VKORG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-VTWEG&nbsp;&nbsp;&nbsp;=&nbsp;GT_HEAD-VTWEG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-DETP&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_HEAD-DETP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-KUNAG&nbsp;&nbsp;&nbsp;=&nbsp;GT_HEAD-KUNAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-BUPLA&nbsp;&nbsp;&nbsp;=&nbsp;GT_HEAD-BUPLA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-FKDAT&nbsp;&nbsp;&nbsp;=&nbsp;GT_HEAD-FKDAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-INCO1&nbsp;&nbsp;&nbsp;=&nbsp;GT_HEAD-INCO1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-INCO2&nbsp;&nbsp;&nbsp;=&nbsp;GT_HEAD-INCO2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-LAND1&nbsp;&nbsp;&nbsp;=&nbsp;GT_HEAD-LAND1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-WAERK&nbsp;&nbsp;&nbsp;=&nbsp;GT_HEAD-WAERK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-SUBCT&nbsp;&nbsp;&nbsp;=&nbsp;GT_HEAD-SUBCT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-LIFNR&nbsp;&nbsp;&nbsp;=&nbsp;GT_HEAD-LIFNR.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-BUKRS&nbsp;=&nbsp;GT_HEAD-BUKRS."U01##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;name1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_KNA1&nbsp;WITH&nbsp;KEY&nbsp;KUNNR&nbsp;=&nbsp;GS_OUTTAB-KUNAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-NAME1&nbsp;=&nbsp;LT_KNA1-NAME1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+****&nbsp;---&nbsp;#####:&nbsp;PRETP<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_PRETP&nbsp;WITH&nbsp;KEY&nbsp;DOMVALUE_L&nbsp;=&nbsp;GT_HEAD-PRETP<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDLANGUAGE&nbsp;=&nbsp;SY-LANGU.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_OUTTAB-PRETP_T&nbsp;=&nbsp;LT_PRETP-DDTEXT.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;LT_PRETP.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_OUTTAB&nbsp;FROM&nbsp;GS_OUTTAB&nbsp;INDEX&nbsp;LV_INDEX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GS_OUTTAB,&nbsp;GT_HEAD.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;SORT&nbsp;GT_OUTTAB&nbsp;BY&nbsp;VBELN&nbsp;POSNR.<br />
+<br />
+ENDFORM.                    "GET_TABLE_DATA<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;HANDLE_DOUBLE_CLICK<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_COLUMN&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM HANDLE_DOUBLE_CLICK  USING P_ROW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_COLUMN.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_OUTTAB&nbsp;INTO&nbsp;GS_OUTTAB&nbsp;INDEX&nbsp;P_ROW.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;P_COLUMN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'MATNR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GS_OUTTAB-MATNR&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'MAT'&nbsp;FIELD&nbsp;GS_OUTTAB-MATNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'MXX'&nbsp;FIELD&nbsp;'K'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'MM03'&nbsp;AND&nbsp;SKIP&nbsp;FIRST&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'VBELN'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GS_OUTTAB-VBELN&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_OUTTAB-DETP&nbsp;=&nbsp;ZGFTP_EXPT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_OUTTAB-PRETP&nbsp;=&nbsp;GC_SHPRE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'VL'&nbsp;FIELD&nbsp;GS_OUTTAB-VBELN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'VL03N'&nbsp;AND&nbsp;SKIP&nbsp;FIRST&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'VF'&nbsp;FIELD&nbsp;GS_OUTTAB-VBELN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'VF03'&nbsp;AND&nbsp;SKIP&nbsp;FIRST&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_OUTTAB-DETP&nbsp;=&nbsp;ZGFTP_INPT&nbsp;AND&nbsp;GS_OUTTAB-PRETP&nbsp;=&nbsp;GC_SHPRE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'AUN'&nbsp;FIELD&nbsp;GS_OUTTAB-VBELN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'VA03'&nbsp;AND&nbsp;SKIP&nbsp;FIRST&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'VF'&nbsp;FIELD&nbsp;GS_OUTTAB-VBELN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'VF03'&nbsp;AND&nbsp;SKIP&nbsp;FIRST&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'KUNAG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GS_OUTTAB-KUNAG&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'KUN'&nbsp;FIELD&nbsp;GS_OUTTAB-KUNAG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'XD03'&nbsp;AND&nbsp;SKIP&nbsp;FIRST&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'LIFNR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GS_OUTTAB-LIFNR&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'LIF'&nbsp;FIELD&nbsp;GS_OUTTAB-LIFNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'KDY'&nbsp;FIELD&nbsp;'/110/120'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'XK03'&nbsp;AND&nbsp;SKIP&nbsp;FIRST&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'KDMAT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GS_OUTTAB-KDMAT&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'MAT'&nbsp;FIELD&nbsp;GS_OUTTAB-KDMAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'MXX'&nbsp;FIELD&nbsp;'K'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'MM03'&nbsp;AND&nbsp;SKIP&nbsp;FIRST&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.                    " HANDLE_USER_COMMAND<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

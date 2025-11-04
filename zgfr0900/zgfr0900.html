@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0900</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0900</h2>
+<h3> Description: [Global FTA] Suppliers Management</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;PROGRAM&nbsp;ID&nbsp;&nbsp;:&nbsp;ZGFR0909<br />
+*&nbsp;Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[FTA]&nbsp;####&nbsp;##<br />
+*&nbsp;Created&nbsp;By&nbsp;&nbsp;:&nbsp;PIE<br />
+*&nbsp;Created&nbsp;On&nbsp;&nbsp;:&nbsp;2023.05.10<br />
+*&nbsp;Category&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Report<br />
+*&nbsp;Description&nbsp;:&nbsp;[FTA]&nbsp;####&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFICATION&nbsp;LOG<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Date.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description.<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+REPORT ZGFR0900 NO STANDARD PAGE HEADING MESSAGE-ID ZGFMC.<br />
+<br />
+include <a href ="zgfr0900t01.html">ZGFR0900T01</a>.<br />
+include <a href ="zgfr0900c01.html">ZGFR0900C01</a>.<br />
+include <a href ="zgfr0900o01.html">ZGFR0900O01</a>.<br />
+include <a href ="zgfr0900i01.html">ZGFR0900I01</a>.<br />
+include <a href ="zgfr0900f01.html">ZGFR0900F01</a>.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;G_REPID&nbsp;=&nbsp;SY-REPID.<br />
+&nbsp;&nbsp;PERFORM&nbsp;TAB_SCREEN_SET.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;TAB_SCREEN_POSTION_SET.<br />
+<br />
+   </div>
+   <div class="codeComment">
+****&---------------------------------------------------------------------*<br />
+***AT&nbsp;SELECTION-SCREEN&nbsp;OUTPUT.<br />
+****&---------------------------------------------------------------------*<br />
+***&nbsp;&nbsp;perform&nbsp;modify_screen.<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;TABB1-DYNNR&nbsp;=&nbsp;101.&nbsp;&nbsp;"&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250908,&nbsp;begin<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;AUTH_BUKRS(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;P_BUKRS.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250908,&nbsp;end<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DATA_GET.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DATA_PROCESS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;100.<br />
+&nbsp;&nbsp;ELSE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250908,&nbsp;begin<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;AUTH_BUKRS(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;P_BUK02.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250908,&nbsp;end<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;INITIAL_SET.<br />
+   </div>
+   <div class="codeComment">
+**&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_VENDOR_DATA.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_VENDOR_DATA_2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_VEND[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DATA_SAVE_VENDOR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-BATCH&nbsp;=&nbsp;ZGFTP_TRUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S001.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S001&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+END-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+<br />
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;TITLE_100&nbsp;--&gt;&nbsp;[FTA]&nbsp;Supplier's&nbsp;management<br />
+*&nbsp;TITLE_150&nbsp;--&gt;&nbsp;[FTA]&nbsp;Supplier's&nbsp;management&nbsp;history<br />
+*&nbsp;TITLE_160&nbsp;--&gt;&nbsp;[FTA]&nbsp;Supplier's&nbsp;manager&nbsp;list<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;001&nbsp;Inquiry<br />
+*&nbsp;003&nbsp;Registration<br />
+*&nbsp;004&nbsp;Inquiry<br />
+*&nbsp;B01&nbsp;Add&nbsp;line<br />
+*&nbsp;B02&nbsp;Delete&nbsp;line<br />
+*&nbsp;B03&nbsp;Refresh<br />
+*&nbsp;T01&nbsp;Address<br />
+*&nbsp;T02&nbsp;Address&nbsp;(in&nbsp;ES)<br />
+*&nbsp;T03&nbsp;Approved&nbsp;exporter<br />
+*&nbsp;T04&nbsp;Category&nbsp;of&nbsp;business<br />
+*&nbsp;T05&nbsp;FTA&nbsp;System<br />
+*&nbsp;T06&nbsp;Deletion&nbsp;Indicator<br />
+*&nbsp;T07&nbsp;Serial&nbsp;no.&nbsp;of&nbsp;supplier<br />
+*&nbsp;T08&nbsp;Name&nbsp;of&nbsp;person&nbsp;in&nbsp;charge<br />
+*&nbsp;T09&nbsp;Name&nbsp;of&nbsp;person&nbsp;in&nbsp;charge&nbsp;(in&nbsp;ES)<br />
+*&nbsp;T10&nbsp;Position<br />
+*&nbsp;T11&nbsp;Department<br />
+*&nbsp;T12&nbsp;Telephone&nbsp;no.<br />
+*&nbsp;T13&nbsp;Cell&nbsp;phone&nbsp;no.<br />
+*&nbsp;T14&nbsp;Application&nbsp;of&nbsp;authorized&nbsp;signatory&nbsp;Y/N<br />
+*&nbsp;T15&nbsp;ID&nbsp;no.&nbsp;of&nbsp;person&nbsp;in&nbsp;charge<br />
+*&nbsp;T16&nbsp;Supplier<br />
+*&nbsp;T17&nbsp;Supplier&nbsp;name<br />
+*&nbsp;T18&nbsp;Supplier&nbsp;name(in&nbsp;ES)<br />
+*&nbsp;T19&nbsp;E-mail&nbsp;address<br />
+*&nbsp;T20&nbsp;Country<br />
+*&nbsp;T21&nbsp;Name&nbsp;of&nbsp;person&nbsp;in&nbsp;charge&nbsp;(in&nbsp;ES)<br />
+*&nbsp;T22&nbsp;CEO<br />
+*&nbsp;T23&nbsp;CEO(in&nbsp;ES)<br />
+*&nbsp;T24&nbsp;Exclude&nbsp;Y/N<br />
+*&nbsp;T25&nbsp;Status&nbsp;of&nbsp;Signature&nbsp;Existance<br />
+*&nbsp;T26&nbsp;Please,&nbsp;E-Mail&nbsp;checking.<br />
+*&nbsp;T27&nbsp;CEO(in&nbsp;EN)<br />
+*&nbsp;T28&nbsp;Address&nbsp;(in&nbsp;EN)<br />
+*&nbsp;T29&nbsp;Zip.code<br />
+*&nbsp;T30&nbsp;Remark<br />
+*&nbsp;T31&nbsp;Created&nbsp;date<br />
+*&nbsp;T32&nbsp;Created&nbsp;time<br />
+*&nbsp;T33&nbsp;Created&nbsp;by<br />
+*&nbsp;T34&nbsp;Changed&nbsp;date<br />
+*&nbsp;T35&nbsp;Changed&nbsp;time<br />
+*&nbsp;T36&nbsp;Changed&nbsp;by<br />
+*&nbsp;T37&nbsp;Person&nbsp;in&nbsp;charge<br />
+*&nbsp;T38&nbsp;Position<br />
+*&nbsp;T39&nbsp;Title<br />
+*&nbsp;T40&nbsp;Tel.<br />
+*&nbsp;T41&nbsp;Email<br />
+*&nbsp;T42&nbsp;Company&nbsp;Code<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_BUK02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Company&nbsp;Code<br />
+*&nbsp;P_BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Company&nbsp;Code<br />
+*&nbsp;P_DELE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Include&nbsp;deleted&nbsp;supplier<br />
+*&nbsp;P_EXCT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Include&nbsp;exclude&nbsp;supplier<br />
+*&nbsp;P_PURCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Purchase&nbsp;history&nbsp;standard<br />
+*&nbsp;S_ERDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date<br />
+*&nbsp;S_LIF02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vendor<br />
+*&nbsp;S_LIFNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vendor<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZGFMC<br />
+*001&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;found<br />
+*002&nbsp;&nbsp;&nbsp;Would&nbsp;you&nbsp;like&nbsp;to&nbsp;save&nbsp;your&nbsp;data?<br />
+*003&nbsp;&nbsp;&nbsp;Data&nbsp;&1&nbsp;items&nbsp;were&nbsp;saved.<br />
+*004&nbsp;&nbsp;&nbsp;Failed&nbsp;to&nbsp;save&nbsp;data.&nbsp;&1<br />
+*005&nbsp;&nbsp;&nbsp;Select&nbsp;at&nbsp;least&nbsp;one&nbsp;line<br />
+*006&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;in&nbsp;question:&nbsp;&1<br />
+*018&nbsp;&nbsp;&nbsp;&nbsp;&1&nbsp;data&nbsp;saved&nbsp;successfully!<br />
+*044&nbsp;&nbsp;&nbsp;Please&nbsp;select&nbsp;only&nbsp;one&nbsp;line.<br />
+*045&nbsp;&nbsp;&nbsp;&1&nbsp;data&nbsp;cannot&nbsp;be&nbsp;deleted.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>
