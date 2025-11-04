@@ -1,0 +1,612 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0010F02</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0010F02</h2>
+<h3> Description: Include ZGFR0010F02</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR0010F02<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CREATE_CCNO_NEW<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CREATE_CCNO_NEW USING    PS_ZKGT0550 TYPE ZGFT0550<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_TYPE&nbsp;TYPE&nbsp;CHAR1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_IDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;PV_SEQ&nbsp;&nbsp;TYPE&nbsp;SEQN5<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_CCNO&nbsp;TYPE&nbsp;ZKGE_CCNO.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;#&nbsp;##:<br />
+*&nbsp;###&nbsp;&<br />
+*&nbsp;#####&nbsp;&<br />
+*&nbsp;##/##(###&nbsp;E,&nbsp;###&nbsp;D)&nbsp;&<br />
+*&nbsp;##(YYYYMMDD&nbsp;:&nbsp;####)&nbsp;&<br />
+*&nbsp;####(4##&nbsp;:&nbsp;####)<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;LV_SEQ_NEW&nbsp;&nbsp;TYPE&nbsp;NUMC4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SEQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGT0550-SEQ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_ZGFT0550&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT0550&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;PV_CCNO,&nbsp;PV_SEQ.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;PV_TYPE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'E'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;------------------------------------------------------------<br />
+*&nbsp;---&nbsp;####&nbsp;##&nbsp;--------------------------------------------<br />
+*&nbsp;------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;SEQ&nbsp;)&nbsp;INTO&nbsp;PV_SEQ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT0550<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ZIVNO&nbsp;&nbsp;EQ&nbsp;PS_ZKGT0550-ZIVNO&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PFONA&nbsp;EQ&nbsp;PS_ZKGT0550-PFONA."U01&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;1&nbsp;TO&nbsp;PV_SEQ.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'D'.<br />
+*&nbsp;---&nbsp;####&nbsp;##(group&nbsp;by&nbsp;kunag,&nbsp;idate)&nbsp;----------------------<br />
+*&nbsp;Some&nbsp;are&nbsp;in&nbsp;the&nbsp;DB&nbsp;table&nbsp;and&nbsp;some&nbsp;newly&nbsp;created<br />
+*&nbsp;are&nbsp;in&nbsp;the&nbsp;internal&nbsp;table&nbsp;and&nbsp;not&nbsp;yet&nbsp;saved&nbsp;in&nbsp;the&nbsp;DB.<br />
+*&nbsp;-------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_CCNO&nbsp;WITH&nbsp;KEY&nbsp;KUNAG&nbsp;&nbsp;=&nbsp;PS_ZKGT0550-KUNAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IDATE&nbsp;=&nbsp;PV_IDATE.&nbsp;"SY-DATUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;GT_CCNO-SEQ&nbsp;TO&nbsp;LV_SEQ.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;MAX(&nbsp;SEQ&nbsp;)&nbsp;INTO&nbsp;PV_SEQ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT0550<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;IDATE&nbsp;&nbsp;=&nbsp;PV_IDATE&nbsp;&nbsp;"&nbsp;SY-DATUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;KUNAG&nbsp;&nbsp;=&nbsp;PS_ZKGT0550-KUNAG.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;1&nbsp;TO&nbsp;LV_SEQ.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_SEQ&nbsp;=&nbsp;PV_SEQ&nbsp;+&nbsp;LV_SEQ.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_CCNO&nbsp;WHERE&nbsp;KUNAG&nbsp;=&nbsp;PS_ZKGT0550-KUNAG&nbsp;AND&nbsp;IDATE&nbsp;=&nbsp;PV_IDATE.&nbsp;"&nbsp;SY-DATUM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE:&nbsp;PS_ZKGT0550-KUNAG&nbsp;&nbsp;TO&nbsp;GT_CCNO-KUNAG,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SY-DATUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;GT_CCNO-IDATE,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_IDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;GT_CCNO-IDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_SEQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;GT_CCNO-SEQ.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GT_CCNO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;&nbsp;GT_CCNO.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;LV_SEQ_NEW&nbsp;=&nbsp;CONV&nbsp;NUMC4(&nbsp;PV_SEQ&nbsp;).<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;finally&nbsp;combine&nbsp;each&nbsp;element<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CONCATENATE&nbsp;PS_ZKGT0550-WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_ZKGT0550-KUNAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_TYPE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_IDATE&nbsp;&nbsp;"&nbsp;SY-DATUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SEQ_NEW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;PV_CCNO&nbsp;SEPARATED&nbsp;BY&nbsp;'-'.<br />
+<br />
+ENDFORM.                    " CREATE_CCNO_NEW<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_DDTEXT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;P_<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GT_ZKGT0550_COSIGN<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;CHANGNG<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GT_ZKGT0550_COSIGNTX<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_DDTEXT  USING   PV_DOMNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_VALUE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;PV_TEXT.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;PV_TEXT.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_IDD07V&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;&nbsp;DD07V&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'DD_DOMVALUES_GET'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOMNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PV_DOMNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LANGU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;SY-LANGU<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DD07V_TAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_IDD07V<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WRONG_TEXTFLAG&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;SORT&nbsp;LT_IDD07V&nbsp;BY&nbsp;DOMVALUE_L.<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_IDD07V&nbsp;WITH&nbsp;KEY&nbsp;DOMVALUE_L&nbsp;=&nbsp;PV_VALUE&nbsp;BINARY&nbsp;SEARCH.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;PV_TEXT&nbsp;=&nbsp;LT_IDD07V-DDTEXT.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_MATNR_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_matnr_data.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_matnr_n,&nbsp;gt_matnr_n[].<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;gt_zkgt8000[]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;CHECK&nbsp;gt_zkgt0203_all[]&nbsp;&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_ftabom_x&nbsp;TYPE&nbsp;RANGE&nbsp;OF&nbsp;idnrk,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_range&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;lt_ftabom_x.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_zkgt0203_all&nbsp;ASSIGNING&nbsp;FIELD-SYMBOL(&lt;fs_203&gt;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ftabom&nbsp;=&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;idnrk&nbsp;&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ls_range.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_range-sign&nbsp;&nbsp;&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_range-option&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_range-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&lt;fs_203&gt;-idnrk.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;ls_range&nbsp;TO&nbsp;lt_ftabom_x.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;lt_ftabom_x&nbsp;COMPARING&nbsp;low.<br />
+&nbsp;&nbsp;CHECK&nbsp;lt_ftabom_x&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;DISTINCT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~mtroh&nbsp;AS&nbsp;matnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m~maktx<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@gt_matnr_n<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zgft8001&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;makt&nbsp;AS&nbsp;m<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;m~matnr&nbsp;=&nbsp;b~mtroh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;m~spras&nbsp;=&nbsp;@sy-langu<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;@gt_zkgt8000<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;b~bukrs&nbsp;=&nbsp;@gt_zkgt8000-bukrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;b~ccno&nbsp;&nbsp;=&nbsp;@gt_zkgt8000-ccno<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;b~mtroh&nbsp;IN&nbsp;@lt_ftabom_x.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;gt_matnr_n&nbsp;BY&nbsp;matnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;gt_matnr_n&nbsp;COMPARING&nbsp;matnr.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.                " GET_MATNR_DATA<br />
+   </div>
+   <div class="codeComment">
+*FORM&nbsp;GET_MATNR_DATA.<br />
+*<br />
+*&nbsp;&nbsp;CLEAR:&nbsp;GT_CCNO_N,&nbsp;&nbsp;GT_CCNO_N[],<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MATNR_N,&nbsp;GT_MATNR_N[].<br />
+*<br />
+**&&nbsp;######&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;SELECT&nbsp;DISTINCT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MTROH<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_CCNO_N<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ZGFT8001<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;GT_ZKGT8000<br />
+*&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;=&nbsp;GT_ZKGT8000-BUKRS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;CCNO&nbsp;&nbsp;=&nbsp;GT_ZKGT8000-CCNO.<br />
+*<br />
+*&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;GT_CCNO_N.<br />
+*&nbsp;&nbsp;ENDIF.<br />
+*<br />
+*&nbsp;&nbsp;CHECK&nbsp;GT_CCNO_N[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+*<br />
+**&&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;SELECT&nbsp;MATNR<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_MATNR_N<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;MAKT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;GT_CCNO_N<br />
+*&nbsp;&nbsp;&nbsp;WHERE&nbsp;MATNR&nbsp;=&nbsp;GT_CCNO_N-MTROH<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;SPRAS&nbsp;=&nbsp;SY-LANGU.<br />
+*<br />
+*&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;GT_MATNR_N.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;GT_MATNR_N.<br />
+*&nbsp;&nbsp;ENDIF.<br />
+*<br />
+*ENDFORM.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"GET_MATNR_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_LIFNR_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_LIFNR_DATA_N.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GT_LIFNR_N,&nbsp;GT_LIFNR_N[].<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_LIFNR_N<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;LFA1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;GT_ZKGT8000<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;LIFNR&nbsp;=&nbsp;GT_ZKGT8000-LIFNR.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;GT_LIFNR_N.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;GT_LIFNR_N.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.                    "GET_LIFNR_DATA<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_END_DAY<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GT_ZKGT0500_ALL_SPMON<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;GT_ZKGT0550_PROC_IDATE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_END_DAY  USING    PV_SPMON<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;PV_IDATE.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_DAY_IN&nbsp;&nbsp;&nbsp;TYPE&nbsp;DATS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_NEXT_MON&nbsp;TYPE&nbsp;DATS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_SPMON&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SPMON,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_MON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;NUMC2.<br />
+<br />
+&nbsp;&nbsp;LV_DAY_IN&nbsp;=&nbsp;PV_SPMON&nbsp;&&&nbsp;'01'.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;Calculate&nbsp;a&nbsp;date&nbsp;1&nbsp;month&nbsp;in&nbsp;the&nbsp;future<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_CALC_DATE_IN_INTERVAL'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_DAY_IN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAYS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'00'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MONTHS&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'01'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIGNUM&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'-'&nbsp;"&nbsp;'+'&nbsp;for&nbsp;addition,&nbsp;'-'&nbsp;for&nbsp;subtraction<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YEARS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'00'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALC_DATE&nbsp;=&nbsp;LV_NEXT_MON.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_NEXT_MON<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAST_DAY_OF_MONTH&nbsp;=&nbsp;PV_IDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN_NO_DATE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CHECK_IF_SELECTED<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;GV_NG<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_IF_SELECTED  CHANGING PV_NG.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;PV_NG.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;&lt;GF_ALV_INFO&gt;-GRID_MAIN-&gt;GET_SELECTED_ROWS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_INDEX_ROWS&nbsp;=&nbsp;GT_SELECTED_ROWS.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_SELECTED_ROWS&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;WITH&nbsp;TEXT-T10&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_NG&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;LINES(&nbsp;GT_SELECTED_ROWS[]&nbsp;)&nbsp;&gt;&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;WITH&nbsp;TEXT-T11&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_NG&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;PV_NG&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;POPUP_FOR_CHANGE<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM POPUP_FOR_CHANGE.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_SELECTED_ROWS&nbsp;INTO&nbsp;DATA(LS_ROWS)&nbsp;INDEX&nbsp;1.<br />
+&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GS_ZGFT0550.<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ZKGT0550&nbsp;INTO&nbsp;GS_ZGFT0550&nbsp;INDEX&nbsp;LS_ROWS-INDEX.<br />
+&nbsp;&nbsp;CHECK&nbsp;SY-SUBRC&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;GV_Y_B&nbsp;=&nbsp;GS_ZGFT0550-DATAB+(4).<br />
+&nbsp;&nbsp;GV_M_B&nbsp;=&nbsp;GS_ZGFT0550-DATAB+4(2).<br />
+&nbsp;&nbsp;GV_D_B&nbsp;=&nbsp;GS_ZGFT0550-DATAB+6(2).<br />
+&nbsp;&nbsp;GV_Y_E&nbsp;=&nbsp;GS_ZGFT0550-DATBI+(4).<br />
+&nbsp;&nbsp;GV_M_E&nbsp;=&nbsp;GS_ZGFT0550-DATBI+4(2).<br />
+&nbsp;&nbsp;GV_D_E&nbsp;=&nbsp;GS_ZGFT0550-DATBI+6(2).<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;0300&nbsp;STARTING&nbsp;AT&nbsp;50&nbsp;5&nbsp;ENDING&nbsp;AT&nbsp;90&nbsp;5.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;USER_COMMAND_0300&nbsp;&nbsp;INPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE USER_COMMAND_0300 INPUT.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;SAVE_OK_0300.<br />
+&nbsp;&nbsp;SAVE_OK_0300&nbsp;=&nbsp;OK_CODE_0300.<br />
+&nbsp;&nbsp;CLEAR&nbsp;OK_CODE_0300.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;SAVE_OK_0300.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'OK_0300'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;Check&nbsp;if&nbsp;valid&nbsp;input<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_IF_VALID_MONTHS&nbsp;CHANGING&nbsp;GV_NG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GV_NG&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;Confirm&nbsp;for&nbsp;saving<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CONFIRM_STEP_0010&nbsp;USING&nbsp;TEXT-Q10&nbsp;CHANGING&nbsp;GV_ANS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GV_ANS&nbsp;EQ&nbsp;1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;Save<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SAVE_CHANGED_MONTHS&nbsp;CHANGING&nbsp;GV_NG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'CA_0300'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Module&nbsp;STATUS_0300&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0300 OUTPUT.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'PF_0300'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'TI_0300'.<br />
+<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CHECK_IF_VALID_MONTHS<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;GV_NG<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHECK_IF_VALID_MONTHS  CHANGING PV_NG.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;PV_NG,&nbsp;GV_BEGDA,&nbsp;GV_ENDDA.<br />
+<br />
+&nbsp;&nbsp;GV_BEGDA&nbsp;=&nbsp;GV_Y_B&nbsp;&&&nbsp;GV_M_B&nbsp;&&&nbsp;GV_D_B.<br />
+&nbsp;&nbsp;GV_ENDDA&nbsp;=&nbsp;GV_Y_E&nbsp;&&&nbsp;GV_M_E&nbsp;&&&nbsp;GV_D_E.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GV_BEGDA&nbsp;&gt;&nbsp;GV_ENDDA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;WITH&nbsp;TEXT-E07&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_NG&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;PV_NG&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GV_M_B&nbsp;&gt;&nbsp;12&nbsp;OR&nbsp;GV_M_B&nbsp;&lt;&nbsp;1&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GV_M_E&nbsp;&gt;&nbsp;12&nbsp;OR&nbsp;GV_M_E&nbsp;&lt;&nbsp;1&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;WITH&nbsp;TEXT-E08&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PV_NG&nbsp;=&nbsp;ABAP_TRUE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;PV_NG&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_DAY_IN&nbsp;TYPE&nbsp;DATS.<br />
+<br />
+&nbsp;&nbsp;LV_DAY_IN&nbsp;=&nbsp;GV_Y_E&nbsp;&&&nbsp;GV_M_E&nbsp;&&&nbsp;'01'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;Get&nbsp;endda's&nbsp;valid&nbsp;day<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_LAST_DAY_OF_MONTHS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_DAY_IN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAST_DAY_OF_MONTH&nbsp;=&nbsp;GV_ENDDA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAY_IN_NO_DATE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;GV_D_E&nbsp;=&nbsp;GV_ENDDA+6(2).<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SAVE_CHANGED_MONTHS<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;GV_NG<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SAVE_CHANGED_MONTHS  CHANGING PV_NG.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;PV_NG.<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_ZKGT0550&nbsp;TYPE&nbsp;ZGFS0030.<br />
+<br />
+&nbsp;&nbsp;UPDATE&nbsp;ZGFT0550&nbsp;SET&nbsp;&nbsp;DATAB&nbsp;=&nbsp;GV_BEGDA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATBI&nbsp;=&nbsp;GV_ENDDA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AEDAT&nbsp;=&nbsp;SY-DATUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AEZET&nbsp;=&nbsp;SY-UZEIT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AENAM&nbsp;=&nbsp;SY-UNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MATNR&nbsp;=&nbsp;GS_ZGFT0550-MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;KUNAG&nbsp;=&nbsp;GS_ZGFT0550-KUNAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;BUKRS&nbsp;=&nbsp;GS_ZGFT0550-BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;=&nbsp;GS_ZGFT0550-WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;IDATE&nbsp;=&nbsp;GS_ZGFT0550-IDATE.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;WITH&nbsp;TEXT-E09&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;REFRESH&nbsp;ALV<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LS_ZKGT0550-DATAB&nbsp;=&nbsp;GV_BEGDA.<br />
+&nbsp;&nbsp;LS_ZKGT0550-DATBI&nbsp;=&nbsp;GV_ENDDA.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;GT_ZKGT0550[]<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;MODIFY&nbsp;GT_ZKGT0550&nbsp;FROM&nbsp;LS_ZKGT0550&nbsp;TRANSPORTING&nbsp;DATAB&nbsp;DATBI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MATNR&nbsp;=&nbsp;GS_ZGFT0550-MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;KUNAG&nbsp;=&nbsp;GS_ZGFT0550-KUNAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;BUKRS&nbsp;=&nbsp;GS_ZGFT0550-BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;=&nbsp;GS_ZGFT0550-WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;IDATE&nbsp;=&nbsp;GS_ZGFT0550-IDATE.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;GT_ZKGT0550_ALL[]<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;MODIFY&nbsp;GT_ZKGT0550_ALL&nbsp;FROM&nbsp;LS_ZKGT0550&nbsp;TRANSPORTING&nbsp;DATAB&nbsp;DATBI<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;MATNR&nbsp;=&nbsp;GS_ZGFT0550-MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;KUNAG&nbsp;=&nbsp;GS_ZGFT0550-KUNAG<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;BUKRS&nbsp;=&nbsp;GS_ZGFT0550-BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;=&nbsp;GS_ZGFT0550-WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;IDATE&nbsp;=&nbsp;GS_ZGFT0550-IDATE.<br />
+&nbsp;&nbsp;PERFORM&nbsp;S0110_REFRESH_GRID.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;WITH&nbsp;TEXT-M12.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

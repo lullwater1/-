@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0010O01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0010O01</h2>
+<h3> Description: Include ZKGR0010O01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR0010O01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0100&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0100 OUTPUT.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_FCODE&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;SY-UCOMM.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;L_TEXT1&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;25,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_TEXT2&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;25,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_TEXT3&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;25,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_TEXT4&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;25.<br />
+<br />
+&nbsp;&nbsp;FREE&nbsp;LT_FCODE.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;'-'&nbsp;&nbsp;G_REPTXT&nbsp;INTO&nbsp;L_TEXT1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEPARATED&nbsp;BY&nbsp;SPACE.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;'/'&nbsp;&nbsp;G_DEPTXT&nbsp;INTO&nbsp;L_TEXT2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEPARATED&nbsp;BY&nbsp;SPACE.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;'/'&nbsp;&nbsp;G_DATETX&nbsp;INTO&nbsp;L_TEXT3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEPARATED&nbsp;BY&nbsp;SPACE.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'TITLE_0100'&nbsp;WITH&nbsp;L_TEXT1&nbsp;L_TEXT2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_TEXT3&nbsp;L_TEXT4.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--##&nbsp;ACTIVE&nbsp;TAB.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;TS_INFO-ACTIVETAB&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TS_INFO-ACTIVETAB&nbsp;=&nbsp;GC_FCODEF.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_PFSTATUS&nbsp;WHERE&nbsp;FCODE&nbsp;NE&nbsp;TS_INFO-ACTIVETAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GT_PFSTATUS-PFSTATUS&nbsp;TO&nbsp;LT_FCODE.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_ZKGT0500_ALL[]&nbsp;IS&nbsp;INITIAL&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_PRETP&nbsp;=&nbsp;GC_PRETP-INTERMEDIATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'&COPR'&nbsp;TO&nbsp;LT_FCODE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_ZKGT0550_ALL[]&nbsp;IS&nbsp;INITIAL&nbsp;&nbsp;OR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_PRETP&nbsp;=&nbsp;GC_PRETP-INTERMEDIATE&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;'&COIN'&nbsp;TO&nbsp;LT_FCODE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;'&REFR'&nbsp;TO&nbsp;LT_FCODE."u01##<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'PF_0100'&nbsp;EXCLUDING&nbsp;LT_FCODE.<br />
+<br />
+ENDMODULE.                 " STATUS_0100  OUTPUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_TAB_NAME&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_TAB_NAME OUTPUT.<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS:&nbsp;&lt;FS_ICON&gt;&nbsp;TYPE&nbsp;ANY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS_FIX&gt;&nbsp;&nbsp;TYPE&nbsp;ANY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS_TAB&gt;&nbsp;&nbsp;TYPE&nbsp;ANY.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LV_STRING&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30.<br />
+<br />
+&nbsp;&nbsp;ASSIGN&nbsp;GS_TAB&nbsp;TO&nbsp;&lt;FS_FIX&gt;.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_TABFIX.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'ICON'&nbsp;GT_TABFIX-CODE&nbsp;INTO&nbsp;LV_STRING.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;COMPONENT&nbsp;LV_STRING&nbsp;OF&nbsp;STRUCTURE&nbsp;&lt;FS_FIX&gt;&nbsp;TO&nbsp;&lt;FS_ICON&gt;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;GC_TABNAME&nbsp;'-'&nbsp;'TAB'&nbsp;GT_TABFIX-CODE&nbsp;INTO&nbsp;LV_STRING.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;(LV_STRING)&nbsp;TO&nbsp;&lt;FS_TAB&gt;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_CONDITION_TAB_ICON&nbsp;USING&nbsp;LV_STRING+7(4)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;FS_ICON&gt;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;&lt;FS_ICON&gt;&nbsp;SPACE&nbsp;GT_TABFIX-NAME&nbsp;INTO&nbsp;&lt;FS_TAB&gt;.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDMODULE.                 " SET_TAB_NAME  OUTPUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_SUBSCREEN_INFO&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_SUBSCREEN_INFO OUTPUT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--##&nbsp;TAB#&nbsp;###.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_ALV_INFO&nbsp;ASSIGNING&nbsp;&lt;GF_ALV_INFO&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;FCODE&nbsp;=&nbsp;TS_INFO-ACTIVETAB.<br />
+<br />
+ENDMODULE.                 " SET_SUBSCREEN_INFO  OUTPUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;S0110_CREATE_AND_INIT_CONTROLS&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE S0110_CREATE_AND_INIT_CONTROLS OUTPUT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;&lt;GF_ALV_INFO&gt;-GRID_MAIN&nbsp;IS&nbsp;NOT&nbsp;BOUND.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;S0110_CREATE_OBJECT_CONTAINER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;S0110_SET_MODE_CONTAINER.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;S0110_GET_CONTAINER_INFO.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;S0110_CREATE_INSTANCE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;S0110_SET_MAIN_SUB_INFO.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;S0110_REGIST_ALV_EVENT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;S0110_DISPLAY_GRID.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;GRID&nbsp;TITLE.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;S0110_SET_GRID_TITLE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_CFW=&gt;FLUSH.<br />
+<br />
+&nbsp;&nbsp;ELSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;S0110_REFRESH_GRID.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;GRID&nbsp;TITLE.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;S0110_SET_GRID_TITLE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_CFW=&gt;FLUSH.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;SET&nbsp;FOCUS<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_CONTROL=&gt;SET_FOCUS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTROL&nbsp;=&nbsp;&lt;GF_ALV_INFO&gt;-GRID_MAIN.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;SUB##&nbsp;###&nbsp;##.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;&lt;GF_ALV_INFO&gt;-GRID_SUB&nbsp;IS&nbsp;BOUND.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;CL_GUI_CONTROL=&gt;SET_FOCUS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTROL&nbsp;=&nbsp;&lt;GF_ALV_INFO&gt;-GRID_SUB.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDMODULE.                 " S0110_CREATE_AND_INIT_CONTROLS  OUTPUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;MODIFY_MAIN_SCREEN&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE MODIFY_MAIN_SCREEN OUTPUT.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;G_PRETP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;GC_PRETP-INTERMEDIATE&nbsp;OR&nbsp;GC_PRETP-GOOD_ISSUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;EQ&nbsp;'GR2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;GC_PRETP-CLOSING.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;EQ&nbsp;'GR1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;####&nbsp;##&nbsp;TAB&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;G_PRETP&nbsp;EQ&nbsp;GC_PRETP-INTERMEDIATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-NAME&nbsp;EQ&nbsp;'GS_TAB-TABI'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-ACTIVE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDMODULE.                 " MODIFY_MAIN_SCREEN  OUTPUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;SET_LINES&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_LINES OUTPUT.<br />
+<br />
+&nbsp;&nbsp;DESCRIBE&nbsp;TABLE&nbsp;GT_KUNAG&nbsp;LINES&nbsp;G_LINES.<br />
+&nbsp;&nbsp;TC_CONTROL-LINES&nbsp;=&nbsp;G_LINES.<br />
+<br />
+ENDMODULE.                 " SET_LINES  OUTPUT<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;MODULE&nbsp;SET_TC_CONTROL&nbsp;OUTPUT<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE SET_TC_CONTROL OUTPUT.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;G_DETP&nbsp;=&nbsp;ZGFTP_EXPT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SCREEN-GROUP1&nbsp;=&nbsp;'GR1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_KUNAG-USCNT&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-INPUT&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDMODULE.                 " PBO_TC_REQ_COLOR  OUTPUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0200&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0200 OUTPUT.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS_200'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;&nbsp;'TITLE_0200'.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;TC_CONTROL-COLS&nbsp;INTO&nbsp;GS_TC_COL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_TC_COL-SCREEN-GROUP1&nbsp;EQ&nbsp;'GR2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_TC_COL-INVISIBLE&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;TC_CONTROL-COLS&nbsp;FROM&nbsp;GS_TC_COL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;GS_TC_COL-SCREEN-GROUP1&nbsp;EQ&nbsp;'GR1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;G_DETP&nbsp;&lt;&gt;&nbsp;ZGFTP_EXPT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_TC_COL-INVISIBLE&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;TC_CONTROL-COLS&nbsp;FROM&nbsp;GS_TC_COL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDMODULE.                 " STATUS_0200  OUTPUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;CREATE_AND_INIT_CONTROLS_0210&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE CREATE_AND_INIT_CONTROLS_0210 OUTPUT.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;GV_URL.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GD_SIGN&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GD_SIGN&nbsp;EXPORTING&nbsp;CONTAINER_NAME&nbsp;=&nbsp;'PICTURE_CONTAINER',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GCL_PICTURE&nbsp;EXPORTING&nbsp;PARENT&nbsp;=&nbsp;GD_SIGN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_MIME[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'DP_CREATE_URL'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'IMAGE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBTYPE&nbsp;&nbsp;=&nbsp;CNDP_SAP_TAB_UNKNOWN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFETIME&nbsp;=&nbsp;CNDP_LIFETIME_TRANSACTION<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_MIME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GV_URL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GCL_PICTURE-&gt;LOAD_PICTURE_FROM_URL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL&nbsp;=&nbsp;GV_URL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;GCL_PICTURE-&gt;SET_DISPLAY_MODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISPLAY_MODE&nbsp;=&nbsp;GCL_PICTURE-&gt;DISPLAY_MODE_FIT_CENTER.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDMODULE.                 " CREATE_AND_INIT_CONTROLS_0210  OUTPUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;STATUS_0210&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE STATUS_0210 OUTPUT.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;L_TITLE&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;40.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;GT_KUNAG-UNAME&nbsp;TEXT-T04&nbsp;INTO&nbsp;L_TITLE.<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'STATUS_210'.<br />
+&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;&nbsp;'TITLE_0210'&nbsp;WITH&nbsp;L_TITLE.<br />
+<br />
+ENDMODULE.                 " STATUS_0210  OUTPUT<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

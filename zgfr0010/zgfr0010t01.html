@@ -1,0 +1,1244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0010T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0010T01</h2>
+<h3> Description: Include ZKGR0010T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;Include<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+include <a href ="zgf_alv_class.html">ZGF_ALV_CLASS</a>.<br />
+INCLUDE &lt;ICON&gt;.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;Tables<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;SAP&nbsp;Standard&nbsp;Tables<br />
+   </div>
+   <div class="code">
+TABLES: KNA1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBAK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VBRK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T001.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Add-On&nbsp;Tables<br />
+   </div>
+   <div class="code">
+TABLES: ZGFT0400,    "[GF] Input Data : Header<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFT5010,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFT0004.&nbsp;&nbsp;&nbsp;&nbsp;"[GF]&nbsp;Aggregation&nbsp;Type<br />
+<br />
+TABLES : ZGFT0550,ZGFT0300.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;Type-Pools<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPE-POOLS: ZGFTP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;Type-Pools<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPE-POOLS: ZGFTP.<br />
+<br />
+DATA: G_EXIT,                "####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_ANSWER,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"POPUP&nbsp;ANSWER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_TABIX&nbsp;&nbsp;LIKE&nbsp;SY-TABIX,&nbsp;"TAB&nbsp;INDEX<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_UCOMM&nbsp;&nbsp;LIKE&nbsp;SY-UCOMM.&nbsp;"commnd&nbsp;##<br />
+<br />
+DATA: SAVE_OK LIKE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OK_CODE&nbsp;LIKE&nbsp;SY-UCOMM.<br />
+<br />
+DATA: GV_NG            TYPE ABAP_BOOL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SELECTED_ROWS&nbsp;TYPE&nbsp;LVC_T_ROW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_Y_B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;NUMC4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_Y_E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;NUMC4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_M_B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;NUMC2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_M_E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;NUMC2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_D_B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;NUMC2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_D_E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;NUMC2,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ZGFT0550&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFS0030,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_BEGDA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;DATS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_ENDDA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;DATS,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_ANS(1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAVE_OK_0300&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OK_CODE_0300&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;SY-UCOMM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Type&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;TYPES<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF GTY_MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;MAKTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GTY_MATNR,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;GTY_CCNO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCNO&nbsp;&nbsp;TYPE&nbsp;ZKGE_CCNO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MTROH&nbsp;TYPE&nbsp;ZKGE_MTROH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GTY_CCNO,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;GTY_LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;NAME1_GP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GTY_LIFNR.<br />
+<br />
+DATA: GT_LIFNR_N    TYPE TABLE OF GTY_LIFNR WITH HEADER LINE.<br />
+DATA: GT_MATNR_N TYPE TABLE OF GTY_MATNR WITH HEADER LINE.<br />
+DATA: GT_CCNO_N   TYPE TABLE OF GTY_CCNO  WITH HEADER LINE.<br />
+<br />
+TYPES: BEGIN OF TY_PFONA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PFONA&nbsp;TYPE&nbsp;ZKGE_PFONA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCO&nbsp;&nbsp;TYPE&nbsp;INCO1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMYN&nbsp;&nbsp;TYPE&nbsp;ZKGE_IMYN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_PFONA.<br />
+<br />
+TYPES: BEGIN OF TY_PFSTATUS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FCODE&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SY-UCOMM,&nbsp;"TAB&nbsp;FCODE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PFSTATUS&nbsp;TYPE&nbsp;SY-UCOMM,&nbsp;"##&nbsp;TAB&nbsp;##&nbsp;PF_STATUS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_PFSTATUS.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;TAB&nbsp;NAME<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_TABFIX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CODE&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_TABFIX.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;ALV&nbsp;INFO<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_ALV_INFO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FCODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBSCREEN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SY-DYNNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONT_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT_SUB_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMER_CONT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_LEFT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_RIGHT&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_MAIN&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTAINER_SUB_SUB&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TREE_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_TREE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GRID_MAIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GRID_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GRID_SUB_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STRUCFCAT_LEFT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STRUCFCAT_MAIN&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STRUCFCAT_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STRUCFCAT_SUB_SUB&nbsp;TYPE&nbsp;TABNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIELDCAT_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIELDCAT_MAIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIELDCAT_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIELDCAT_SUB_SUB&nbsp;&nbsp;TYPE&nbsp;LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAYOUT_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAYOUT_MAIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAYOUT_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAYOUT_SUB_SUB&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SORT_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SORT_MAIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SORT_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SORT_SUB_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_SORT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCLUDE_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;UI_FUNCTIONS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCLUDE_MAIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;UI_FUNCTIONS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCLUDE_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;UI_FUNCTIONS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCLUDE_SUB_SUB&nbsp;&nbsp;&nbsp;TYPE&nbsp;UI_FUNCTIONS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VARIANT_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;DISVARIANT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VARIANT_MAIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;DISVARIANT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VARIANT_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;DISVARIANT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VARIANT_SUB_SUB&nbsp;&nbsp;&nbsp;TYPE&nbsp;DISVARIANT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEFT_DATA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAIN_DATA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUB_DATA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUB_SUB_DATA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_ALV_INFO.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;TEXT&nbsp;SELECTION&nbsp;CONDITION<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_SEL_TEXT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA_PRETP&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA_OCSTS&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_DATUV&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_SPMON&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_KUNAG&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_VBELN&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_SALNO&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_WERKS&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_MATNR&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_BUKRS&nbsp;&nbsp;TYPE&nbsp;C&nbsp;&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLANK&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_SEL_TEXT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;TAB&nbsp;STRUCTURE<br />
+*--&nbsp;TAB##<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_TAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICONA&nbsp;LIKE&nbsp;ICON-ID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICONB&nbsp;LIKE&nbsp;ICON-ID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICONC&nbsp;LIKE&nbsp;ICON-ID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICOND&nbsp;LIKE&nbsp;ICON-ID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICONJ&nbsp;LIKE&nbsp;ICON-ID,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICONE&nbsp;LIKE&nbsp;ICON-ID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICONF&nbsp;LIKE&nbsp;ICON-ID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICONG&nbsp;LIKE&nbsp;ICON-ID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICONH&nbsp;LIKE&nbsp;ICON-ID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICONI&nbsp;LIKE&nbsp;ICON-ID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABA&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABC&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABD&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABJ&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABE&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABF&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABG&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABH&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABI&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_TAB.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;TAB&nbsp;LOG<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_TAB_LOG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABA&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABB&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"BOM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABC&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABD&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABJ&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABE&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"Agg<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABF&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"Input<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABG&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABH&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABI&nbsp;TYPE&nbsp;C,&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_TAB_LOG.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;#####<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_SALES.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zgfs0008/dictionary-zgfs0008.html">ZGFS0008</a>.<br />
+TYPES: END OF TY_SALES.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;######&nbsp;###<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_KUNAG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNAG&nbsp;&nbsp;&nbsp;TYPE&nbsp;KUNAG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;&nbsp;&nbsp;TYPE&nbsp;NAME1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COSIGN&nbsp;&nbsp;TYPE&nbsp;ZGFE_COSIGN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COSIGNT&nbsp;TYPE&nbsp;CHAR20,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FRCH&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGE_FRCH,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"######<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IDATE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGE_IDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERNR&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGE_PERNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNAME&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGE_UNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DETP&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFE_DETP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATAB&nbsp;&nbsp;&nbsp;TYPE&nbsp;DATAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATBI&nbsp;&nbsp;&nbsp;TYPE&nbsp;DATBI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USCNT&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRETP&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGE_PRETP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VKORG&nbsp;&nbsp;&nbsp;TYPE&nbsp;VKORG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUTTON&nbsp;&nbsp;TYPE&nbsp;CHAR20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_KUNAG.<br />
+<br />
+TYPES: BEGIN OF TY_VALUES_TAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-PERNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-UNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-DATAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATBI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-DATBI,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TELF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-TELF,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TELFX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-TELFX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EMAIL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-EMAIL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZORGPO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-ZORGPO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZORGPO2&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-ZORGPO2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDEPNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-ZDEPNO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZDEPNO2&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-ZDEPNO2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORICH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-ORICH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORICH_FRCH&nbsp;LIKE&nbsp;ZGFT0009-ORICH_FRCH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VOLCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-VOLCH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VOLCH_FRCH&nbsp;LIKE&nbsp;ZGFT0009-VOLCH_FRCH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-INVCH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVCH_FRCH&nbsp;LIKE&nbsp;ZGFT0009-INVCH_FRCH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ZGFT0009-INSCH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSCH_FRCH&nbsp;LIKE&nbsp;ZGFT0009-INSCH_FRCH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_VALUES_TAB.<br />
+<br />
+TYPES: BEGIN OF TY_MAKT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;MAKTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_MAKT.<br />
+<br />
+TYPES: BEGIN OF TY_KNA1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;TYPE&nbsp;KUNNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;NAME1_GP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KONZS&nbsp;TYPE&nbsp;KONZS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_KNA1.<br />
+<br />
+TYPES: BEGIN OF TY_LFA1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;NAME1_GP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_LFA1.<br />
+<br />
+TYPES: BEGIN OF TY_ZGFT7001,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;NAME1_GP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_ZGFT7001.<br />
+<br />
+TYPES: BEGIN OF TY_MARC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;WERKS_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STAWN&nbsp;TYPE&nbsp;STAWN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAABC&nbsp;TYPE&nbsp;MAABC,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_MARC.<br />
+<br />
+TYPES: BEGIN OF TY_KNMT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VKORG&nbsp;TYPE&nbsp;VKORG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VTWEG&nbsp;TYPE&nbsp;VTWEG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;TYPE&nbsp;KUNNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KDMAT&nbsp;TYPE&nbsp;KDMAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_KNMT.<br />
+<br />
+TYPES: BEGIN OF TY_ALPGR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GUID&nbsp;&nbsp;TYPE&nbsp;ZKGE_GUID_16,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALPGR&nbsp;TYPE&nbsp;CS_ALPGR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IDNRK&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_ALPGR.<br />
+<br />
+TYPES: BEGIN OF TY_CCNO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNAG&nbsp;TYPE&nbsp;KUNAG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IDATE&nbsp;TYPE&nbsp;ZGFT0550-IDATE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEQ&nbsp;&nbsp;&nbsp;TYPE&nbsp;SEQN5,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_CCNO.<br />
+<br />
+TYPES: BEGIN OF TY_MARM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MARM-MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINH&nbsp;TYPE&nbsp;MARM-MEINH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UMREN&nbsp;TYPE&nbsp;MARM-UMREN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_MARM.<br />
+<br />
+TYPES: BEGIN OF TY_MONIT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;WERKS_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MONIT&nbsp;TYPE&nbsp;ZKGE_MONIT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPM01&nbsp;TYPE&nbsp;SPMON,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPM02&nbsp;TYPE&nbsp;SPMON,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_MONIT.<br />
+<br />
+TYPES: BEGIN OF TY_AGGDY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PFONA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT0483-PFONA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS_ROH&nbsp;TYPE&nbsp;ZGFT0483-WERKS_ROH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MTROH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT0483-MTROH,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT0483-DATUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCNGNR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT0483-CCNGNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRULE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT0483-PRULE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COFLGR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT0483-COFLGR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_AGGDY.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;#####&nbsp;###/##&nbsp;###&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_ZKGT8000,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Company&nbsp;Code<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-CCNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Supplier's&nbsp;Declaration&nbsp;Issuance&nbsp;no.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-WERKS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Plant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-LIFNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Account&nbsp;Number&nbsp;of&nbsp;Vendor&nbsp;or&nbsp;Creditor<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCTYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-CCTYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Proof&nbsp;type&nbsp;of&nbsp;Origin<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-IDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Issuance&nbsp;Date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-DATAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Comprehensive&nbsp;period&nbsp;Validation&nbsp;effective&nbsp;date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATBI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-DATBI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Comprehensive&nbsp;period&nbsp;End&nbsp;date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPRF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-IMPRF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Import&nbsp;Y/N<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INVNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-INVNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Invoice&nbsp;no<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-BLNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Import&nbsp;permit&nbsp;no.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-SUBST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Approval&nbsp;status<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-SUBTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Submission&nbsp;classification<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INPUTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-INPUTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Classify&nbsp;person&nbsp;to&nbsp;input<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICCNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-ICCNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Pre-issued&nbsp;Supplier's&nbsp;Declaration&nbsp;no.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUEGU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-SUEGU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Reason&nbsp;of&nbsp;closing<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DFLAG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-DFLAG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Marked&nbsp;for&nbsp;Deletion<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBCO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-SUBCO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Transferred&nbsp;data&nbsp;to&nbsp;Paid-toll&nbsp;Y/N<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F_SEQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-F_SEQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Authorized&nbsp;signatory&nbsp;Ordinary&nbsp;no.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8000-SEQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Sequence&nbsp;number&nbsp;of&nbsp;length&nbsp;6<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ITEM<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8001-CCNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Item&nbsp;Number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PFONA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8001-PFONA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"FTA&nbsp;Agreement<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MTROH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8001-MTROH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Material&nbsp;code<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COFLGR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8001-COFLGR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Material&nbsp;Origin&nbsp;status<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCNGNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8001-CCNGNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"HS&nbsp;code&nbsp;(&nbsp;Material&nbsp;LEVEL&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRULE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8001-PRULE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Standard&nbsp;of&nbsp;Determination<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RVCR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8001-RVCR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Value&nbsp;added&nbsp;ratio<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAND1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8001-LAND1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Country&nbsp;Key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OFFSHR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT8001-OFFSHR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Reason&nbsp;of&nbsp;FTA&nbsp;non-originating<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OFFSHR_TXT&nbsp;&nbsp;TYPE&nbsp;ZGFT8001-OFFSHR_TXT&nbsp;&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Reason&nbsp;of&nbsp;Non-originating<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CH_CCFL_TXT&nbsp;TYPE&nbsp;ZGFT8001-CH_CCFL_TXT&nbsp;,&nbsp;&nbsp;&nbsp;&nbsp;"Reason&nbsp;of&nbsp;Origin&nbsp;status&nbsp;modification<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_ZKGT8000.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Purchasing&nbsp;Info-Record<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_EINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INFNR&nbsp;TYPE&nbsp;EINA-INFNR,&nbsp;&nbsp;&nbsp;&nbsp;"Number&nbsp;of&nbsp;Purchasing&nbsp;Info&nbsp;Record<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;EINA-MATNR,&nbsp;&nbsp;&nbsp;&nbsp;"Material<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATKL&nbsp;TYPE&nbsp;EINA-MATKL,&nbsp;&nbsp;&nbsp;&nbsp;"Material&nbsp;Group<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;EINA-LIFNR,&nbsp;&nbsp;&nbsp;&nbsp;"Vendor&nbsp;Account&nbsp;Number<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EKORG&nbsp;TYPE&nbsp;EINE-EKORG,&nbsp;&nbsp;&nbsp;&nbsp;"Purchasing&nbsp;Organization<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ESOKZ&nbsp;TYPE&nbsp;EINE-ESOKZ,&nbsp;&nbsp;&nbsp;&nbsp;"Purchasing&nbsp;info&nbsp;record&nbsp;category<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;EINE-WERKS,&nbsp;&nbsp;&nbsp;&nbsp;"Plant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;EINE-WAERS,&nbsp;&nbsp;&nbsp;&nbsp;"Currency&nbsp;Key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETPR&nbsp;TYPE&nbsp;EINE-NETPR,&nbsp;&nbsp;&nbsp;&nbsp;"Net&nbsp;Price&nbsp;in&nbsp;Purchasing&nbsp;Info&nbsp;Record<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEINH&nbsp;TYPE&nbsp;EINE-PEINH,&nbsp;&nbsp;&nbsp;&nbsp;"Price&nbsp;Unit<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BPRME&nbsp;TYPE&nbsp;EINE-BPRME,&nbsp;&nbsp;&nbsp;&nbsp;"Order&nbsp;Price&nbsp;Unit<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_EINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_SOURCELISTS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BUKRS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BAUGR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BAUGR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPMON&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SPMON,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MONIT&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGE_MONIT,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSPMON&nbsp;&nbsp;&nbsp;TYPE&nbsp;SPMON,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ESPMON&nbsp;&nbsp;&nbsp;TYPE&nbsp;SPMON,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LFA1-LIFNR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####(##)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNRSTR&nbsp;TYPE&nbsp;ZKGE_LIFNRSTR,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_SOURCELISTS.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;####&nbsp;CHECK<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFNR&nbsp;TYPE&nbsp;LIFNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;NAME1_GP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_LIFNR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;HS&nbsp;Code&nbsp;CHECK<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_HSCODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;MAKTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CCNGN&nbsp;TYPE&nbsp;ZKGE_CCNGN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_HSCODE.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Internal&nbsp;Table&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+DATA: GS_TC_COL TYPE SCXTAB_COLUMN.<br />
+<br />
+DATA: GT_PFSTATUS TYPE TABLE OF TY_PFSTATUS WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_PFSTATUS&nbsp;TYPE&nbsp;TY_PFSTATUS.<br />
+<br />
+DATA: GT_ALV_INFO TYPE TABLE OF TY_ALV_INFO WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_ALV_INFO&nbsp;TYPE&nbsp;TY_ALV_INFO.<br />
+<br />
+DATA: GS_SEL_TEXT TYPE TY_SEL_TEXT.<br />
+<br />
+DATA: GS_TAB     TYPE TY_TAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_TAB_LOG&nbsp;TYPE&nbsp;TY_TAB_LOG.<br />
+<br />
+DATA: GT_TABFIX TYPE TABLE OF TY_TABFIX WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_TABFIX&nbsp;TYPE&nbsp;TY_TABFIX.<br />
+<br />
+"input head data layout<br />
+DATA: GT_INPUT_HEAD TYPE TABLE OF ZGFS0004 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_INPUT_HEAD&nbsp;TYPE&nbsp;ZGFS0004.<br />
+DATA GT_INPUT_HEAD_ALL TYPE TABLE OF ZGFS0004 WITH HEADER LINE.<br />
+<br />
+"input item data layout<br />
+DATA: GT_INPUT_SUB TYPE TABLE OF ZGFS0027 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_INPUT_SUB&nbsp;TYPE&nbsp;ZGFS0027.<br />
+<br />
+DATA: GT_SALES TYPE TABLE OF TY_SALES WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_SALES&nbsp;TYPE&nbsp;TY_SALES.<br />
+<br />
+DATA GT_SALES_ALL TYPE TABLE OF TY_SALES WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;####<br />
+*--&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA: GT_MARC TYPE TABLE OF TY_MARC WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;#&nbsp;####<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGT5014    TYPE TABLE OF ZGFT5014  WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA : GT_MBEW TYPE MBEW OCCURS 0 WITH HEADER LINE.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGT0300 TYPE TABLE OF ZGFT0300 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;###&nbsp;:&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0301&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT0301&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;BOM<br />
+   </div>
+   <div class="code">
+"bom head<br />
+DATA: GT_BOM_H TYPE TABLE OF ZGFS0020  WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"bom&nbsp;item<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_BOM_I&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0021&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA: GT_ZKGT0202     TYPE TABLE OF ZGFS0020 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0202_ALL&nbsp;LIKE&nbsp;ZGFS0020&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0203&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0021&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0203_ALL&nbsp;LIKE&nbsp;ZGFS0021&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;TREE&nbsp;data<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGS0019      TYPE TABLE OF ZGFS0019 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGS0019_TREE&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0019&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;####<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGT0201     TYPE TABLE OF ZGFS0022 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0201_ALL&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0022&nbsp;WITH&nbsp;HEADER&nbsp;LINE,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0201_DIS&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0022&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;####<br />
+   </div>
+   <div class="code">
+DATA GT_STPRS TYPE TABLE OF ZGFS0018 WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGT0200     TYPE TABLE OF ZGFS0023 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0200_ALL&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0023&nbsp;WITH&nbsp;HEADER&nbsp;LINE,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0200_DIS&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0023&nbsp;WITH&nbsp;HEADER&nbsp;LINE.&nbsp;"##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;######<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGT8000     TYPE TABLE OF ZGFS0034 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT8000_ALL&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0034&nbsp;WITH&nbsp;HEADER&nbsp;LINE,&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT8000_DIS&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0034&nbsp;WITH&nbsp;HEADER&nbsp;LINE.&nbsp;"##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;(&nbsp;###&nbsp;)<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGT0480      TYPE TABLE OF ZGFS0024 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0480_AGG6&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0024&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0480_ALL&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0024&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0480_DIS&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0024&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;Input&nbsp;Data&nbsp;###<br />
+   </div>
+   <div class="code">
+"input header<br />
+DATA: GT_ZKGT0400 TYPE TABLE OF ZGFT0400 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"input&nbsp;item<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0401&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT0401&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;####<br />
+   </div>
+   <div class="code">
+"#### header<br />
+DATA: GT_ZKGT0510 TYPE TABLE OF ZGFS0025 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;sub&nbsp;header<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0511&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0026&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;item<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0512&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0028&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+"####  ##<br />
+DATA GT_ZKGT0510_ALL TYPE TABLE OF ZGFS0025 WITH HEADER LINE.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;####<br />
+   </div>
+   <div class="code">
+"## Head<br />
+DATA: GT_ZKGT0500 TYPE TABLE OF ZGFS0029 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;sub&nbsp;head<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0501&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0026&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##&nbsp;Item<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0502&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0028&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA GT_ZKGT0500_ALL TYPE TABLE OF ZGFS0029 WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;####&nbsp;(&nbsp;###&nbsp;)<br />
+   </div>
+   <div class="code">
+DATA GT_ZKGT0500_MID TYPE TABLE OF ZGFT0500 WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;######<br />
+   </div>
+   <div class="code">
+DATA GT_ZKGT0008 TYPE TABLE OF ZGFT0008 WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;CO&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGT0550      TYPE TABLE OF ZGFS0030 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0550_PROC&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0030&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0550_SAVE&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT0550&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_KUNAG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;TY_KUNAG&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0009&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT0009&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA GT_ZKGT0550_ALL TYPE TABLE OF ZGFS0030   WITH HEADER LINE.<br />
+<br />
+DATA: GT_ZKGT0550_GA      TYPE TABLE OF ZGFS0030 WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;Input&nbsp;###&nbsp;##&nbsp;:&nbsp;&nbsp;###&nbsp;###&nbsp;###&nbsp;##&nbsp;History<br />
+   </div>
+   <div class="code">
+DATA GT_ZKGT0481 TYPE TABLE OF ZGFT0481 WITH HEADER LINE.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;Master&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA : GT_ZKGT0001 LIKE ZGFT0001 OCCURS 0 WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;#####<br />
+   </div>
+   <div class="code">
+DATA : GT_ZKGT0004 LIKE ZGFT0004 OCCURS 0 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0005&nbsp;LIKE&nbsp;ZGFT0005&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;FTA&nbsp;##&nbsp;DATA<br />
+   </div>
+   <div class="code">
+DATA GT_PFONA TYPE TABLE OF TY_PFONA WITH HEADER LINE.<br />
+RANGES GR_PFONA FOR ZGFT0004-PFONA.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;###&nbsp;###<br />
+   </div>
+   <div class="code">
+DATA GT_T001W TYPE HASHED TABLE OF T001W<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+DATA : GT_ZKGT5060 LIKE ZGFT5060 OCCURS 0 WITH HEADER LINE.<br />
+DATA : GT_KNMT LIKE KNMT OCCURS 0 WITH HEADER LINE.<br />
+DATA : GT_ZKGT0006 LIKE ZGFT0006 OCCURS 0 WITH HEADER LINE.<br />
+DATA : GT_DD07T LIKE DD07T OCCURS 0 WITH HEADER LINE.<br />
+DATA : GT_MARM TYPE TY_MARM OCCURS 0 WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;####&nbsp;##(/2016.07.29&nbsp;##)<br />
+   </div>
+   <div class="code">
+DATA: GT_SOURCELISTS    TYPE TABLE OF TY_SOURCELISTS  WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;###&nbsp;###&nbsp;######<br />
+   </div>
+   <div class="code">
+DATA GT_MONIT TYPE TABLE OF TY_MONIT WITH HEADER LINE.<br />
+<br />
+DATA: GT_MATNR_LIST LIKE GT_ZKGT0203 OCCURS 0  WITH HEADER LINE."U01##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##&nbsp;IMG&nbsp;##&nbsp;Structure&nbsp;,&nbsp;###<br />
+   </div>
+   <div class="code">
+DATA : GT_MIME TYPE TABLE OF W3MIME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_MIME&nbsp;TYPE&nbsp;W3MIME.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;F4&nbsp;##&nbsp;####<br />
+   </div>
+   <div class="code">
+DATA  GT_FIELDS  LIKE DYNPREAD OCCURS 20 WITH HEADER LINE.<br />
+<br />
+DATA : GT_RETURN_TABS LIKE DDSHRETVAL OCCURS 0 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_DSELC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;DSELC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_VALUES_TAB&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;TY_VALUES_TAB&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##&nbsp;##<br />
+<br />
+*&nbsp;#&nbsp;###&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA: GT_KNA1     TYPE HASHED TABLE OF TY_KNA1  WITH UNIQUE KEY KUNNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MAKT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;HASHED&nbsp;TABLE&nbsp;OF&nbsp;TY_MAKT&nbsp;&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_LFA1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;HASHED&nbsp;TABLE&nbsp;OF&nbsp;TY_LFA1&nbsp;&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZGFT7001&nbsp;TYPE&nbsp;HASHED&nbsp;TABLE&nbsp;OF&nbsp;TY_ZGFT7001&nbsp;&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;LIFNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA : GT_ZKGT0003 LIKE ZGFT0003 OCCURS 0 WITH HEADER LINE."U01##<br />
+<br />
+DATA: GT_LIFNR TYPE TABLE OF TY_LIFNR WITH HEADER LINE.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA GT_ALPGR TYPE TABLE OF TY_ALPGR WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;CCNO&nbsp;##&nbsp;###<br />
+   </div>
+   <div class="code">
+DATA GT_CCNO TYPE TABLE OF TY_CCNO WITH HEADER LINE.<br />
+<br />
+DATA: G_ICON_HEADER TYPE SALV_DE_TREE_IMAGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_ICON_GOODS&nbsp;&nbsp;TYPE&nbsp;SALV_DE_TREE_IMAGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_ICON_PLANT&nbsp;&nbsp;TYPE&nbsp;SALV_DE_TREE_IMAGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_ICON_MANU&nbsp;&nbsp;&nbsp;TYPE&nbsp;SALV_DE_TREE_IMAGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_ICON_KUNAG&nbsp;&nbsp;TYPE&nbsp;SALV_DE_TREE_IMAGE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;by&nbsp;esko<br />
+   </div>
+   <div class="code">
+DATA: GS_T001 TYPE T001.<br />
+<br />
+"=== HS ## ===<br />
+TYPES: BEGIN OF ty_hs_cache,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pfona&nbsp;TYPE&nbsp;zgft0004-pfona,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;land1&nbsp;TYPE&nbsp;land1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kunag&nbsp;TYPE&nbsp;kunag,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;werks&nbsp;TYPE&nbsp;werks_d,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mtroh&nbsp;TYPE&nbsp;matnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matnr&nbsp;TYPE&nbsp;matnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datuv&nbsp;TYPE&nbsp;dats,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ccngn&nbsp;TYPE&nbsp;zgft0401-ccngnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kdmat&nbsp;TYPE&nbsp;zgft0400-kdmat,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_hs_cache.<br />
+<br />
+"=== RULE ## ===<br />
+TYPES: BEGIN OF ty_rule_cache,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bukrs&nbsp;&nbsp;&nbsp;TYPE&nbsp;bukrs,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pfona&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft0004-pfona,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;werks&nbsp;&nbsp;&nbsp;TYPE&nbsp;werks_d,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matnr&nbsp;&nbsp;&nbsp;TYPE&nbsp;matnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;idnrk&nbsp;&nbsp;&nbsp;TYPE&nbsp;matnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datuv&nbsp;&nbsp;&nbsp;TYPE&nbsp;dats,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goods&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft0400-goods,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ccngn&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft0401-ccngnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coflgr&nbsp;&nbsp;TYPE&nbsp;zgft0401-coflgr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prule&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft0401-prule,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aggtp&nbsp;&nbsp;&nbsp;TYPE&nbsp;zgft0401-aggtp,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fngbl&nbsp;&nbsp;&nbsp;TYPE&nbsp;zkge_fngbl,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msgty&nbsp;&nbsp;&nbsp;TYPE&nbsp;bapi_mtype,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;TYPE&nbsp;bapi_msg,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;land1&nbsp;&nbsp;&nbsp;TYPE&nbsp;land1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_rule_cache.<br />
+<br />
+DATA gt_rule_cache TYPE HASHED TABLE OF ty_rule_cache<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;bukrs&nbsp;pfona&nbsp;werks&nbsp;matnr&nbsp;idnrk&nbsp;datuv&nbsp;goods&nbsp;ccngn.<br />
+DATA gt_hs_cache TYPE HASHED TABLE OF ty_hs_cache<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;pfona&nbsp;land1&nbsp;kunag&nbsp;werks&nbsp;mtroh&nbsp;matnr&nbsp;datuv.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Field-symbols<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FIELD-SYMBOLS &lt;GF_ALV_INFO&gt; TYPE TY_ALV_INFO.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Ranges<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+RANGES: R_SUBCT FOR ZGFT0300-SUBCT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_GUID&nbsp;FOR&nbsp;ZGFT0510-GUID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_WERKS&nbsp;FOR&nbsp;ZGFT0400-WERKS.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Vari&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA G_TABCNT TYPE I VALUE 10 .  "9.  "170904 ##<br />
+<br />
+DATA: GD_SIGN     TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GCL_PICTURE&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_PICTURE.<br />
+<br />
+RANGES R_SALNO     FOR ZGFT0400-SALNO.<br />
+RANGES: GR_DETP    FOR ZGFT0400-DETP.           "##/## ##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;RANGES&nbsp;R_SHDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;SY-DATUM.<br />
+<br />
+   </div>
+   <div class="code">
+DATA: G_SHDAB TYPE SY-DATUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_SHDAI&nbsp;TYPE&nbsp;SY-DATUM.<br />
+<br />
+DATA G_ALV_TREE TYPE REF TO CL_GUI_ALV_TREE.<br />
+<br />
+DATA G_SPMON TYPE SPMON. " ##<br />
+<br />
+DATA G_SPMO2 TYPE SPMON. " ###<br />
+<br />
+DATA G_BUDAT TYPE DATS.    "#### ####<br />
+<br />
+DATA: G_REPTXT TYPE C LENGTH 20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_DEPTXT&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_DATETX&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20.<br />
+<br />
+DATA: G_PRETP       TYPE ZKGE_PRETP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_DETP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGE_DETP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_MONTH_SDATE&nbsp;TYPE&nbsp;SY-DATUM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_MONTH_EDATE&nbsp;TYPE&nbsp;SY-DATUM,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_PREV_SPMON&nbsp;&nbsp;TYPE&nbsp;SPMON,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_PREV_SPMON1&nbsp;TYPE&nbsp;SPMON,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_STD_DATUM&nbsp;&nbsp;&nbsp;TYPE&nbsp;DATS.<br />
+<br />
+DATA G_LINES TYPE I.<br />
+<br />
+DATA GV_URL  TYPE C LENGTH 255.<br />
+<br />
+DATA: G_FIELDNAME(50),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_CURLINE&nbsp;TYPE&nbsp;I.<br />
+<br />
+CONTROLS TC_CONTROL TYPE TABLEVIEW USING SCREEN '200'.<br />
+<br />
+DATA: ZGFT_MAX_MONIT TYPE ZKGE_MONIT VALUE '12'. "## ####12##<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DATA:&nbsp;GV_ZIMANM&nbsp;TYPE&nbsp;TDOBNAME.&nbsp;"ZKGT0009-ZIMANM.<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;SCREEN.<br />
+*----------------------------------------------------------------------*<br />
+*--&nbsp;SCRREN&nbsp;NO<br />
+   </div>
+   <div class="code">
+CONSTANTS: GC_0100 TYPE SCRADNUM VALUE '0100'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;SUB&nbsp;SCREEN&nbsp;NO<br />
+   </div>
+   <div class="code">
+CONSTANTS: GC_0110 TYPE SCRADNUM VALUE '0110',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_0120&nbsp;TYPE&nbsp;SCRADNUM&nbsp;VALUE&nbsp;'0120',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_0130&nbsp;TYPE&nbsp;SCRADNUM&nbsp;VALUE&nbsp;'0130',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_0140&nbsp;TYPE&nbsp;SCRADNUM&nbsp;VALUE&nbsp;'0140',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_0145&nbsp;TYPE&nbsp;SCRADNUM&nbsp;VALUE&nbsp;'0145',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"170904&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_0150&nbsp;TYPE&nbsp;SCRADNUM&nbsp;VALUE&nbsp;'0150',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_0160&nbsp;TYPE&nbsp;SCRADNUM&nbsp;VALUE&nbsp;'0160',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_0170&nbsp;TYPE&nbsp;SCRADNUM&nbsp;VALUE&nbsp;'0170',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_0180&nbsp;TYPE&nbsp;SCRADNUM&nbsp;VALUE&nbsp;'0180',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_0190&nbsp;TYPE&nbsp;SCRADNUM&nbsp;VALUE&nbsp;'0190'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;CONTAINER&nbsp;NAME<br />
+   </div>
+   <div class="code">
+CONSTANTS: GC_CONTA TYPE C LENGTH 30 VALUE 'G_CCONTA',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CONTB&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30&nbsp;VALUE&nbsp;'G_CCONTB',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CONTC&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30&nbsp;VALUE&nbsp;'G_CCONTC',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CONTD&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30&nbsp;VALUE&nbsp;'G_CCONTD',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CONTJ&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30&nbsp;VALUE&nbsp;'G_CCONTJ',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"170904&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CONTE&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30&nbsp;VALUE&nbsp;'G_CCONTE',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CONTF&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30&nbsp;VALUE&nbsp;'G_CCONTF',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CONTG&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30&nbsp;VALUE&nbsp;'G_CCONTG',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CONTH&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30&nbsp;VALUE&nbsp;'G_CCONTH',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CONTI&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;30&nbsp;VALUE&nbsp;'G_CCONTI'.<br />
+<br />
+CONSTANTS GC_ICON TYPE ICON_D VALUE ICON_TEXT_ACT.<br />
+<br />
+CONSTANTS: GC_PKRUS TYPE ZKGE_PFONA VALUE 'PKRUS'. " #-# FTA<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;SCREEN&nbsp;NUMBER<br />
+   </div>
+   <div class="code">
+DATA: GV_DYNNR TYPE SY-DYNNR.<br />
+<br />
+DATA: GV_SPMON TYPE SPMON.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;SCREEN&nbsp;100&nbsp;DEFINE<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CONTROLS TS_INFO TYPE TABSTRIP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Constants<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+CONSTANTS: BEGIN OF GC_PRETP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLOSING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT0400-PRETP&nbsp;VALUE&nbsp;'12',&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GOOD_ISSUE&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT0400-PRETP&nbsp;VALUE&nbsp;'11',&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERMEDIATE&nbsp;TYPE&nbsp;ZGFT0400-PRETP&nbsp;VALUE&nbsp;'01',&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ABNORMAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZGFT0400-PRETP&nbsp;VALUE&nbsp;'02',&nbsp;"###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FREE_SUBCONT&nbsp;TYPE&nbsp;ZGFT0400-PRETP&nbsp;VALUE&nbsp;'03',&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GC_PRETP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##/##&nbsp;##<br />
+   </div>
+   <div class="code">
+CONSTANTS: BEGIN OF GC_DETP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGE_DETP&nbsp;&nbsp;VALUE&nbsp;'E',&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOCAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGE_DETP&nbsp;&nbsp;VALUE&nbsp;'D',&nbsp;&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBCONTRACT&nbsp;TYPE&nbsp;ZKGE_DETP&nbsp;&nbsp;VALUE&nbsp;'C',&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GC_DETP.<br />
+<br />
+<br />
+CONSTANTS: GC_C TYPE C VALUE 'C',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_L&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'L',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_R&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'R'.<br />
+<br />
+CONSTANTS: GC_TABNAME TYPE C LENGTH 6 VALUE 'GS_TAB',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_FCODEA&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;5&nbsp;VALUE&nbsp;'&TABA',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_FCODEB&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;5&nbsp;VALUE&nbsp;'&TABB',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_FCODEC&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;5&nbsp;VALUE&nbsp;'&TABC',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_FCODED&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;5&nbsp;VALUE&nbsp;'&TABD',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_FCODEJ&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;5&nbsp;VALUE&nbsp;'&TABJ',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"170904&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_FCODEE&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;5&nbsp;VALUE&nbsp;'&TABE',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_FCODEF&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;5&nbsp;VALUE&nbsp;'&TABF',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_FCODEG&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;5&nbsp;VALUE&nbsp;'&TABG',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_FCODEH&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;5&nbsp;VALUE&nbsp;'&TABH',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_FCODEI&nbsp;&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;5&nbsp;VALUE&nbsp;'&TABI'.<br />
+<br />
+<br />
+CONSTANTS: GC_GI_VALRF TYPE ZKGE_VALRF VALUE '1',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_GR_VALRF&nbsp;TYPE&nbsp;ZKGE_VALRF&nbsp;VALUE&nbsp;'2',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_CO_VALRF&nbsp;TYPE&nbsp;ZKGE_VALRF&nbsp;VALUE&nbsp;'3',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_IR_VALRF&nbsp;TYPE&nbsp;ZKGE_VALRF&nbsp;VALUE&nbsp;'4',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_EX_VALRF&nbsp;TYPE&nbsp;ZKGE_VALRF&nbsp;VALUE&nbsp;'5'.&nbsp;&nbsp;"&nbsp;##<br />
+<br />
+CONSTANTS: GC_PRETPGBN TYPE ZKGE_SGUBUN VALUE 'OCP',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_SGUBUN&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZKGE_SGUBUN&nbsp;VALUE&nbsp;'DIV'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Macro<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DEFINE _RANGES.<br />
+&nbsp;&nbsp;&1-sign&nbsp;&nbsp;&nbsp;=&nbsp;&2.<br />
+&nbsp;&nbsp;&1-option&nbsp;=&nbsp;&3.<br />
+&nbsp;&nbsp;&1-low&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&4.<br />
+&nbsp;&nbsp;&1-high&nbsp;&nbsp;&nbsp;=&nbsp;&5.<br />
+&nbsp;&nbsp;APPEND&nbsp;&1.<br />
+END-OF-DEFINITION.<br />
+<br />
+DEFINE MAKE_ICON.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'ICON_CREATE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;icon_not_found&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputfield_too_short&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+END-OF-DEFINITION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;SELECTION&nbsp;-&nbsp;SCREEN<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK BL1 WITH FRAME TITLE TEXT-BK1.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;&nbsp;PBUKRS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;24.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_BUKRS&nbsp;LIKE&nbsp;T001-BUKRS&nbsp;MEMORY&nbsp;ID&nbsp;BUK&nbsp;OBLIGATORY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;30(40)&nbsp;P_BUTXT.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;&nbsp;SKUNAG&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;CFI.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_KUNAG&nbsp;FOR&nbsp;KNA1-KUNNR&nbsp;MODIF&nbsp;ID&nbsp;CFI.&nbsp;"NO-EXTENSION<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;&nbsp;SVKORG.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_VKORG&nbsp;FOR&nbsp;ZGFT0300-VKORG&nbsp;NO-EXTENSION.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_SALNO&nbsp;FOR&nbsp;ZGFT0400-SALNO&nbsp;NO-DISPLAY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO-EXTENSION&nbsp;MODIF&nbsp;ID&nbsp;EXP.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;&nbsp;SWERKS&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;CFI.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_WERKS&nbsp;FOR&nbsp;ZGFT0400-WERKS&nbsp;NO-EXTENSION&nbsp;MODIF&nbsp;ID&nbsp;CFI.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;&nbsp;SMATNR&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;CFI.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_MATNR&nbsp;FOR&nbsp;ZGFT0400-MATNR&nbsp;MODIF&nbsp;ID&nbsp;CFI.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;&nbsp;SZIVNO&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;EXP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_ZIVNO&nbsp;FOR&nbsp;ZGFT0550-ZIVNO&nbsp;MODIF&nbsp;ID&nbsp;EXP.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;SDATUV&nbsp;MODIF&nbsp;ID&nbsp;BFR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_DATUV&nbsp;FOR&nbsp;ZGFT0400-DATUV<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBLIGATORY&nbsp;NO-EXTENSION<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT&nbsp;SY-DATUM&nbsp;TO&nbsp;SY-DATUM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;BFR.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;PSVALUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;24.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;P_SVALUE&nbsp;TYPE&nbsp;ZKGE_SVALUE&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBLIGATORY&nbsp;USER-COMMAND&nbsp;CHG.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;PSPMON&nbsp;MODIF&nbsp;ID&nbsp;AFT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;24.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;P_SPMON&nbsp;LIKE&nbsp;ZGFT0400-SPMON<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBLIGATORY&nbsp;DEFAULT&nbsp;SY-DATUM(06)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIF&nbsp;ID&nbsp;AFT.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;PDIV.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;24.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;P_DIV&nbsp;TYPE&nbsp;&nbsp;&nbsp;ZKGE_SVALUE&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBLIGATORY&nbsp;USER-COMMAND&nbsp;CHG2.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;BL2&nbsp;WITH&nbsp;FRAME.<br />
+   </div>
+   <div class="codeComment">
+***<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(1)&nbsp;&nbsp;PCHK.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;2.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CHK&nbsp;TYPE&nbsp;CHAR01&nbsp;AS&nbsp;CHECKBOX&nbsp;DEFAULT&nbsp;''.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;5(70)&nbsp;TEXT-C01&nbsp;FOR&nbsp;FIELD&nbsp;P_CHK&nbsp;.<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_CALL&nbsp;TYPE&nbsp;CHAR01&nbsp;NO-DISPLAY."AS&nbsp;CHECKBOX&nbsp;DEFAULT&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;S_PFONA&nbsp;FOR&nbsp;ZGFT0004-PFONA&nbsp;NO-DISPLAY.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;BL2.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK BL1.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

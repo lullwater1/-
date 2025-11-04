@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGF_SET_DATAB_DATBI</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for function ZGF_SET_DATAB_DATBI</h2>
+<h3> Description: [Global FTA] From Date/To Date Setting</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="code">
+FUNCTION ZGF_SET_DATAB_DATBI.<br />
+   </div>
+   <div class="codeComment">
+*"----------------------------------------------------------------------<br />
+*"*"Local Interface:<br />
+*"  IMPORTING<br />
+*"     VALUE(I_DATE) TYPE  DATS DEFAULT SY-DATUM<br />
+*"     VALUE(I_START_DATE) TYPE  NUMC2 OPTIONAL<br />
+*"     VALUE(I_MONTH) TYPE  NUMC2<br />
+*"     VALUE(I_BUKRS) TYPE  BUKRS DEFAULT 'M100'<br />
+*"  EXPORTING<br />
+*"     REFERENCE(E_DATAB) TYPE  DATAB<br />
+*"     REFERENCE(E_DATBI) TYPE  DATBI<br />
+*"  EXCEPTIONS<br />
+*"      MONTH_PARAMETER_NOT_VALID<br />
+*"----------------------------------------------------------------------<br />
+<br />
+
+<div class="codeComment">*       <a href ="global-zgf_set_datab_datbi.html">Global data declarations</a></div><br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;L_SDATE&nbsp;TYPE&nbsp;DATS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_EDATE&nbsp;TYPE&nbsp;DATS.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;E_DATAB,&nbsp;E_DATBI.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;I_MONTH&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RAISE&nbsp;MONTH_PARAMETER_NOT_VALID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;I_BUKRS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'M410'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_SDATE&nbsp;=&nbsp;I_DATE+(4)&nbsp;&&&nbsp;'0101'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_EDATE&nbsp;=&nbsp;I_DATE+(4)&nbsp;&&&nbsp;'1231'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;I_START_DATE&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;I_DATE(6)&nbsp;I_START_DATE&nbsp;INTO&nbsp;L_SDATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;I_DATE&nbsp;TO&nbsp;L_SDATE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;RP_CALC_DATE_IN_INTERVAL(ZGF_FORM_SUB_ROUTINE)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;&nbsp;&nbsp;L_SDATE&nbsp;'00'&nbsp;I_MONTH&nbsp;'+'&nbsp;'00'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;L_EDATE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_EDATE&nbsp;=&nbsp;L_EDATE&nbsp;-&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;MOVE:&nbsp;L_SDATE&nbsp;TO&nbsp;E_DATAB,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_EDATE&nbsp;TO&nbsp;E_DATBI.<br />
+<br />
+<br />
+ENDFUNCTION.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+* Message class: 00<br />
+*208   &<br />
+*<br />
+* Message class: ALSMEX<br />
+*037   Error during import of clipboard contents<br />
+*<br />
+* Message class: ALVHT<br />
+*161   Canceled by user<br />
+*162   Error during frontend communication<br />
+*<br />
+* Message class: Hard coded<br />
+*   LVC_FIELDCATALOG_MERGE Error!<br />
+*<br />
+* Message class: KX<br />
+*001   & & & &<br />
+*<br />
+* Message class: ZGFMC<br />
+*000   & & & &<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

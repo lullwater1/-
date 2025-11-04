@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0010</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0010</h2>
+<h3> Description: [Global FTA] FTA process monitoring</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;PROGRAM&nbsp;ID&nbsp;&nbsp;:&nbsp;ZGFR0010<br />
+*&nbsp;Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;FTA&nbsp;####&nbsp;####<br />
+*&nbsp;Created&nbsp;By&nbsp;&nbsp;:&nbsp;KPMG<br />
+*&nbsp;Created&nbsp;On&nbsp;&nbsp;:&nbsp;0000-00-00<br />
+*&nbsp;Category&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Origin<br />
+*&nbsp;Description&nbsp;:&nbsp;FTA&nbsp;####&nbsp;####<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFICATION&nbsp;LOG<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Date.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description.<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT  zgfr0010 NO STANDARD PAGE HEADING MESSAGE-ID zgfmc.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;INCLUDE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+include <a href ="zgfr0010t01.html">zgfr0010t01</a>.<br />
+include <a href ="zgfr0010cls.html">zgfr0010cls</a>.<br />
+include <a href ="zgfr0010f01.html">zgfr0010f01</a>.<br />
+include <a href ="zgfr0010f02.html">zgfr0010f02</a>.<br />
+include <a href ="zgfr0010o01.html">zgfr0010o01</a>.<br />
+include <a href ="zgfr0010i01.html">zgfr0010i01</a>.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;set_init.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;list_box_initial_set(zgf_form_sub_routine)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;'OCP'"GC_PRETP-CLOSING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_svalue.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;list_box_initial_set(zgf_form_sub_routine)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;gc_sgubun<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_div.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_initial.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN OUTPUT.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;list_box_set.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_screen_output.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_spmon.<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;f4_p_month(zgf_form_sub_routine)&nbsp;USING&nbsp;sy-repid.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;change_cocd.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;p_bukrs.<br />
+&nbsp;&nbsp;PERFORM&nbsp;setting_selection_condition."U01##<br />
+&nbsp;&nbsp;PERFORM&nbsp;initial_set.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-batch&nbsp;=&nbsp;zgftp_true&nbsp;and&nbsp;s_matnr[]&nbsp;is&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;p_call&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_data.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;batch_execute.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;run_parallel_by_pfona_jobs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RETURN.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_data.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-batch&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;batch_execute.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;'0100'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;TITLE_0100&nbsp;--&gt;&nbsp;FTA&nbsp;process&nbsp;monitoring&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*&nbsp;TITLE_0200&nbsp;--&gt;&nbsp;Disignate&nbsp;a&nbsp;person&nbsp;with&nbsp;authority&nbsp;to&nbsp;sign<br />
+*&nbsp;TITLE_0210&nbsp;--&gt;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*&nbsp;TI_0300&nbsp;--&gt;&nbsp;Change&nbsp;months<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;001&nbsp;Input&nbsp;Data<br />
+*&nbsp;011&nbsp;ALL<br />
+*&nbsp;012&nbsp;Plant<br />
+*&nbsp;014&nbsp;Seller<br />
+*&nbsp;B01&nbsp;Display&nbsp;all<br />
+*&nbsp;B02&nbsp;Inquiry&nbsp;standard&nbsp;BOM<br />
+*&nbsp;B03&nbsp;Start&nbsp;batch&nbsp;execution<br />
+*&nbsp;B04&nbsp;Batch&nbsp;execution&nbsp;(Input)<br />
+*&nbsp;B05&nbsp;Batch&nbsp;execution&nbsp;(Temporary&nbsp;determination)<br />
+*&nbsp;B06&nbsp;Batch&nbsp;execution&nbsp;(Confirmed&nbsp;determination)<br />
+*&nbsp;B07&nbsp;Batch&nbsp;execution&nbsp;(C/O&nbsp;issuance&nbsp;aggr.)<br />
+*&nbsp;B08&nbsp;Batch&nbsp;execution&nbsp;(Confirmed&nbsp;C/O&nbsp;issuance)<br />
+*&nbsp;B09&nbsp;Change&nbsp;months<br />
+*&nbsp;BK1&nbsp;Search&nbsp;Condition<br />
+*&nbsp;C01&nbsp;Inclusion&nbsp;Y/N(sales,BOM,purchase,origin&nbsp;status)<br />
+*&nbsp;D01&nbsp;Extracted&nbsp;data<br />
+*&nbsp;D02&nbsp;Determination<br />
+*&nbsp;D03&nbsp;Master<br />
+*&nbsp;E01&nbsp;Domestic&nbsp;or&nbsp;Export(by&nbsp;distribution&nbsp;cahnnel)<br />
+*&nbsp;E02&nbsp;CO&nbsp;intermediate&nbsp;product&nbsp;list<br />
+*&nbsp;E03&nbsp;HS&nbsp;code&nbsp;missing<br />
+*&nbsp;E04&nbsp;Confirmable&nbsp;only&nbsp;for&nbsp;the&nbsp;same&nbsp;shipping&nbsp;doc.&nbsp;no.<br />
+*&nbsp;E05&nbsp;Confirmable&nbsp;only&nbsp;for&nbsp;the&nbsp;same&nbsp;seller<br />
+*&nbsp;E06&nbsp;Decimal&nbsp;places&nbsp;of&nbsp;the&nbsp;amount&nbsp;of&nbsp;money&nbsp;of&nbsp;material&nbsp;value&nbsp;should&nbsp;be&nbsp;zero<br />
+*&nbsp;E07&nbsp;Start&nbsp;date&nbsp;cannot&nbsp;be&nbsp;greater&nbsp;than&nbsp;end&nbsp;date.<br />
+*&nbsp;E08&nbsp;Incorrect&nbsp;month(s)<br />
+*&nbsp;E09&nbsp;Fail&nbsp;to&nbsp;save&nbsp;sanges.<br />
+*&nbsp;F01&nbsp;Determination&nbsp;status<br />
+*&nbsp;F02&nbsp;Origin&nbsp;status<br />
+*&nbsp;F03&nbsp;Origin<br />
+*&nbsp;F04&nbsp;Determination&nbsp;criteria<br />
+*&nbsp;F05&nbsp;Origin&nbsp;declaration<br />
+*&nbsp;F06&nbsp;Determination&nbsp;date<br />
+*&nbsp;F07&nbsp;Unit&nbsp;price(local&nbsp;currency)<br />
+*&nbsp;F08&nbsp;Price(foreign&nbsp;currency)<br />
+*&nbsp;F09&nbsp;Changed&nbsp;Y/N<br />
+*&nbsp;F10&nbsp;HS&nbsp;code&nbsp;by&nbsp;customers<br />
+*&nbsp;F11&nbsp;Status<br />
+*&nbsp;F20&nbsp;St.<br />
+*&nbsp;F21&nbsp;Change&nbsp;Y/N<br />
+*&nbsp;F22&nbsp;D/E/C&nbsp;Description<br />
+*&nbsp;F23&nbsp;Plant&nbsp;Name<br />
+*&nbsp;F24&nbsp;Sold-to&nbsp;Party&nbsp;Name<br />
+*&nbsp;F25&nbsp;Material&nbsp;Description<br />
+*&nbsp;F26&nbsp;Billing&nbsp;Document&nbsp;Item<br />
+*&nbsp;F27&nbsp;D/E/C&nbsp;Y/N<br />
+*&nbsp;F28&nbsp;Supplier&nbsp;Name<br />
+*&nbsp;F29&nbsp;Rate(%)<br />
+*&nbsp;H01&nbsp;Plant&nbsp;/&nbsp;Seller&nbsp;/&nbsp;Material&nbsp;code<br />
+*&nbsp;I01&nbsp;'Domestic'&nbsp;unselectable&nbsp;when&nbsp;shipped<br />
+*&nbsp;L01&nbsp;Shipped&nbsp;(intermediate&nbsp;goods)<br />
+*&nbsp;L02&nbsp;Closed&nbsp;(intermediate&nbsp;goods)<br />
+*&nbsp;L03&nbsp;Shipped&nbsp;(export)<br />
+*&nbsp;L04&nbsp;Closed&nbsp;(export)<br />
+*&nbsp;L05&nbsp;Closed&nbsp;(local)<br />
+*&nbsp;M01&nbsp;Product<br />
+*&nbsp;M02&nbsp;Goods<br />
+*&nbsp;M03&nbsp;Intermediate&nbsp;goods<br />
+*&nbsp;M04&nbsp;Raw&nbsp;material<br />
+*&nbsp;M05&nbsp;Input&nbsp;Data&nbsp;execution&nbsp;log<br />
+*&nbsp;M06&nbsp;Aggr.&nbsp;Input<br />
+*&nbsp;M07&nbsp;Temporary&nbsp;determination<br />
+*&nbsp;M08&nbsp;Confirm&nbsp;determination<br />
+*&nbsp;M09&nbsp;Aggr.&nbsp;C/O&nbsp;issuance&nbsp;target<br />
+*&nbsp;M10&nbsp;Confirm&nbsp;C/O&nbsp;issuance<br />
+*&nbsp;M11&nbsp;Product&nbsp;no.<br />
+*&nbsp;M12&nbsp;Successfully&nbsp;saved.<br />
+*&nbsp;P01&nbsp;Determination&nbsp;type<br />
+*&nbsp;Q01&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;determine&nbsp;Origin&nbsp;Status?<br />
+*&nbsp;Q02&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;delete&nbsp;INPUT&nbsp;DATA&nbsp;in&nbsp;a&nbsp;ready&nbsp;state?<br />
+*&nbsp;Q03&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;delete&nbsp;temporary&nbsp;determination&nbsp;data?(Input&nbsp;data&nbsp;included)<br />
+*&nbsp;Q04&nbsp;Do&nbsp;you&nbsp;wnat&nbsp;to&nbsp;confirm&nbsp;and&nbsp;save&nbsp;determination&nbsp;data?<br />
+*&nbsp;Q05&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;carry&nbsp;out&nbsp;FTA&nbsp;pre-aggregation?<br />
+*&nbsp;Q06&nbsp;Do&nbsp;you&nbsp;wnat&nbsp;to&nbsp;do&nbsp;data&nbsp;aggregation&nbsp;to&nbsp;issue&nbsp;C/O?<br />
+*&nbsp;Q07&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;issue&nbsp;C/O?<br />
+*&nbsp;Q08&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;carry&nbsp;out&nbsp;origin&nbsp;aggregation?<br />
+*&nbsp;Q09&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;do&nbsp;temporary&nbsp;determination&nbsp;again&nbsp;by&nbsp;re-generating&nbsp;input&nbsp;data?<br />
+*&nbsp;Q10&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;save&nbsp;changes?<br />
+*&nbsp;R01&nbsp;The&nbsp;period&nbsp;expires<br />
+*&nbsp;R02&nbsp;Expired<br />
+*&nbsp;R03&nbsp;Within&nbsp;valid&nbsp;term<br />
+*&nbsp;S01&nbsp;Determination&nbsp;type<br />
+*&nbsp;S02&nbsp;Determination&nbsp;state<br />
+*&nbsp;S03&nbsp;Period<br />
+*&nbsp;S04&nbsp;Period<br />
+*&nbsp;S05&nbsp;Customer<br />
+*&nbsp;S06&nbsp;Sales&nbsp;document<br />
+*&nbsp;S07&nbsp;Shipping&nbsp;doc.&nbsp;no.<br />
+*&nbsp;S08&nbsp;Plant<br />
+*&nbsp;S09&nbsp;Product&nbsp;code<br />
+*&nbsp;S10&nbsp;Material&nbsp;value<br />
+*&nbsp;S11&nbsp;Origin<br />
+*&nbsp;S12&nbsp;Non-origin<br />
+*&nbsp;T01&nbsp;OC&nbsp;Dash&nbsp;Board<br />
+*&nbsp;T02&nbsp;Job&nbsp;Option<br />
+*&nbsp;T03&nbsp;Selection&nbsp;Condition<br />
+*&nbsp;T04&nbsp;Check&nbsp;signatory<br />
+*&nbsp;T05&nbsp;Sales&nbsp;sub-contract<br />
+*&nbsp;T06&nbsp;Product&nbsp;Y/N<br />
+*&nbsp;T07&nbsp;Product&nbsp;list<br />
+*&nbsp;T08&nbsp;FTA&nbsp;BOM<br />
+*&nbsp;T09&nbsp;Month<br />
+*&nbsp;T10&nbsp;Select&nbsp;a&nbsp;row<br />
+*&nbsp;T11&nbsp;Multiple&nbsp;selectioin&nbsp;is&nbsp;not&nbsp;allowed<br />
+*&nbsp;T12&nbsp;Not-issued&nbsp;record&nbsp;only&nbsp;changeable<br />
+*&nbsp;T50&nbsp;Yes<br />
+*&nbsp;T51&nbsp;No<br />
+*&nbsp;T80&nbsp;Company&nbsp;code<br />
+*&nbsp;T81&nbsp;Included&nbsp;Y/N(sales,BOM,purchase,origin&nbsp;status)<br />
+*&nbsp;T82&nbsp;Local&nbsp;/&nbsp;Export<br />
+*&nbsp;T83&nbsp;Year-month<br />
+*&nbsp;T84&nbsp;Determination&nbsp;Classification<br />
+*&nbsp;T85&nbsp;Period<br />
+*&nbsp;T86&nbsp;Customer<br />
+*&nbsp;T87&nbsp;Material<br />
+*&nbsp;T88&nbsp;Sales&nbsp;organization<br />
+*&nbsp;T89&nbsp;Plant<br />
+*&nbsp;T90&nbsp;Invoice&nbsp;No<br />
+*&nbsp;T91&nbsp;Sales&nbsp;doc.&nbsp;/&nbsp;Invoice<br />
+*&nbsp;TT1&nbsp;In&nbsp;total<br />
+*&nbsp;TT2&nbsp;Case(s)<br />
+*&nbsp;Z01&nbsp;Sales&nbsp;data<br />
+*&nbsp;Z02&nbsp;BOM&nbsp;data<br />
+*&nbsp;Z03&nbsp;Material&nbsp;Ledger<br />
+*&nbsp;Z04&nbsp;Purchase<br />
+*&nbsp;Z05&nbsp;Origin&nbsp;Aggregation<br />
+*&nbsp;Z06&nbsp;Determination&nbsp;Aggregation<br />
+*&nbsp;Z07&nbsp;Temporary&nbsp;Determination<br />
+*&nbsp;Z08&nbsp;Final&nbsp;Determination<br />
+*&nbsp;Z09&nbsp;Issuance<br />
+*&nbsp;Z10&nbsp;C/O<br />
+*&nbsp;Z11&nbsp;HS&nbsp;code<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_BUKRS&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;P_DIV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Export&nbsp;classification<br />
+*&nbsp;P_SPMON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Period&nbsp;month<br />
+*&nbsp;P_SVALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Judgment&nbsp;classification<br />
+*&nbsp;S_DATUV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;period<br />
+*&nbsp;S_KUNAG&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_MATNR&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_VKORG&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_WERKS&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_ZIVNO&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;00<br />
+*398&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZGFMC<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*001&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;found<br />
+*004&nbsp;&nbsp;&nbsp;Failed&nbsp;to&nbsp;save&nbsp;data.&nbsp;&1<br />
+*006&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;in&nbsp;question:&nbsp;&1<br />
+*017&nbsp;&nbsp;&nbsp;Error&nbsp;Fieldcatalog&nbsp;merge!!<br />
+*019&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;to&nbsp;save<br />
+*022&nbsp;&nbsp;&nbsp;You&nbsp;can&nbsp;only&nbsp;search&nbsp;for&nbsp;the&nbsp;same&nbsp;month&nbsp;period.<br />
+*023&nbsp;&nbsp;&nbsp;&1(&nbsp;&2&nbsp;)&nbsp;&3&nbsp;are&nbsp;missing.<br />
+*025&nbsp;&nbsp;&nbsp;Ex&nbsp;Works&nbsp;is&nbsp;greater&nbsp;than&nbsp;Free&nbsp;on&nbsp;Board.<br />
+*032&nbsp;&nbsp;&nbsp;This&nbsp;user&nbsp;does&nbsp;not&nbsp;have&nbsp;role&nbsp;for&nbsp;the&nbsp;corresponding&nbsp;issuance&nbsp;category.<br />
+*040&nbsp;&nbsp;&nbsp;&1&nbsp;has&nbsp;been&nbsp;saved!<br />
+*044&nbsp;&nbsp;&nbsp;Please&nbsp;select&nbsp;only&nbsp;one&nbsp;line.<br />
+*047&nbsp;&nbsp;&nbsp;&1&nbsp;data&nbsp;is&nbsp;already&nbsp;registered.<br />
+*048&nbsp;&nbsp;&nbsp;&1&nbsp;contains&nbsp;duplicate&nbsp;data.&nbsp;Please&nbsp;check.<br />
+*108&nbsp;&nbsp;&nbsp;There&nbsp;is&nbsp;no&nbsp;HS&nbsp;code<br />
+*131&nbsp;&nbsp;&nbsp;Customer&nbsp;Hscode&nbsp;and&nbsp;product&nbsp;Hscode&nbsp;do&nbsp;not&nbsp;match<br />
+*132&nbsp;&nbsp;&nbsp;The&nbsp;sales&nbsp;amount&nbsp;is&nbsp;less&nbsp;than&nbsp;1<br />
+*155&nbsp;&nbsp;&nbsp;Unit&nbsp;price&nbsp;of&nbsp;material&nbsp;is&nbsp;less&nbsp;than&nbsp;1.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>
