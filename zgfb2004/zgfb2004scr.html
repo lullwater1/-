@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFB2004SCR</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFB2004SCR</h2>
+<h3> Description: Include ZGFB2002SCR</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFB2002SCR<br />
+*&---------------------------------------------------------------------*<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;SCREEN-DISPLAY<br />
+*----------------------------------------------------------------------*<br />
+<br />
+*&-------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF TABBED BLOCK tabb1 FOR 9 LINES.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(30)&nbsp;tab1&nbsp;USER-COMMAND&nbsp;push1&nbsp;DEFAULT&nbsp;SCREEN&nbsp;101.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(30)&nbsp;tab2&nbsp;USER-COMMAND&nbsp;push2&nbsp;DEFAULT&nbsp;SCREEN&nbsp;102.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(30)&nbsp;tab3&nbsp;USER-COMMAND&nbsp;push3&nbsp;DEFAULT&nbsp;SCREEN&nbsp;103.<br />
+SELECTION-SCREEN END OF BLOCK tabb1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 101 AS SUBSCREEN.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;&nbsp;BLOCK&nbsp;b1&nbsp;&nbsp;WITH&nbsp;FRAME.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;pbukrs2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;30.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;p_bukrs2&nbsp;type&nbsp;bukrs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;sccno.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;s_ccno2&nbsp;FOR&nbsp;zgft8000-ccno&nbsp;NO&nbsp;INTERVALS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;scucc.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;s_cucc2&nbsp;FOR&nbsp;zgft8000-cust_ccno&nbsp;NO&nbsp;INTERVALS.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;svldat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;s_vldat2&nbsp;FOR&nbsp;zgft8000-datab.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+   </div>
+   <div class="codeComment">
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;&nbsp;szdeno2.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;s_zdeno2&nbsp;for&nbsp;zgft8001-zdeno&nbsp;VISIBLE&nbsp;LENGTH&nbsp;18&nbsp;no&nbsp;INTERVALS.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;smatnr2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;s_matnr2&nbsp;FOR&nbsp;ekbe-matnr&nbsp;NO&nbsp;INTERVALS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;&nbsp;swerks2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;s_werks2&nbsp;FOR&nbsp;t001w-werks&nbsp;NO&nbsp;INTERVALS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;&nbsp;slifnr2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;s_lifnr2&nbsp;for&nbsp;lfa1-lifnr&nbsp;no&nbsp;INTERVALS.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;45(20)&nbsp;s_litxt.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;sidate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;s_idate&nbsp;FOR&nbsp;zgft8000-idate.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;b1.<br />
+SELECTION-SCREEN END OF SCREEN 101.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 102 AS SUBSCREEN.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;&nbsp;BLOCK&nbsp;b2&nbsp;&nbsp;WITH&nbsp;FRAME.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;pbukrs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;30.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;p_bukrs&nbsp;type&nbsp;bukrs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;sbudat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;s_budat&nbsp;FOR&nbsp;zgft0200-budat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;&nbsp;szdeno.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;s_zdeno&nbsp;for&nbsp;zgft8001-zdeno&nbsp;VISIBLE&nbsp;LENGTH&nbsp;18&nbsp;no&nbsp;INTERVALS.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;smatnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;s_matnr&nbsp;FOR&nbsp;ekbe-matnr&nbsp;NO&nbsp;INTERVALS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;&nbsp;swerks.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;s_werks&nbsp;FOR&nbsp;t001w-werks&nbsp;NO&nbsp;INTERVALS.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(25)&nbsp;&nbsp;slifnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;27.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;p_lifnr&nbsp;LIKE&nbsp;lfa1-lifnr.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select-options&nbsp;s_lifnr&nbsp;for&nbsp;lfa1-lifnr&nbsp;no&nbsp;INTERVALS&nbsp;no-EXTENSION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;50(20)&nbsp;s_litxt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;b2.<br />
+SELECTION-SCREEN END OF SCREEN 102.<br />
+<br />
+   </div>
+   <div class="codeComment">
+********************************************************************************<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF SCREEN 103 AS SUBSCREEN.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;&nbsp;BLOCK&nbsp;b3&nbsp;&nbsp;WITH&nbsp;FRAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;&nbsp;pfile1&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;p_fname&nbsp;LIKE&nbsp;rlgrap-filename&nbsp;DEFAULT&nbsp;'C:\'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBLIGATORY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;&nbsp;BLOCK&nbsp;b3.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 103.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

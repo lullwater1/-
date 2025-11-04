@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFB2004</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFB2004</h2>
+<h3> Description: [Global FTA] Manual C/O Registration Management_DOM</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;PROGRAM&nbsp;ID&nbsp;&nbsp;:&nbsp;ZGFB2003<br />
+*&nbsp;Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[Global&nbsp;FTA]&nbsp;Manual&nbsp;C/O&nbsp;Registration&nbsp;Management_DOM<br />
+*&nbsp;Created&nbsp;By&nbsp;&nbsp;:&nbsp;KPMG<br />
+*&nbsp;Created&nbsp;On&nbsp;&nbsp;:&nbsp;2025.&nbsp;07.&nbsp;02.<br />
+*&nbsp;Category&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Master<br />
+*&nbsp;Description&nbsp;:&nbsp;Manual&nbsp;C/O&nbsp;Registration&nbsp;Management<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFICATION&nbsp;LOG<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Date.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description.<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;2025.07.02&nbsp;|&nbsp;E04070&nbsp;|&nbsp;Initially&nbsp;created<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zgfb2004 NO STANDARD PAGE HEADING MESSAGE-ID zgfmc.<br />
+<br />
+include <a href ="zgfb2004cls.html">zgfb2004cls</a>.<br />
+include <a href ="zgfb2004t01.html">zgfb2004t01</a>.<br />
+include <a href ="zgfb2004scr.html">zgfb2004scr</a>.<br />
+include <a href ="zgfb2004alv.html">zgfb2004alv</a>.<br />
+include <a href ="zgfb2004f01.html">zgfb2004f01</a>.<br />
+include <a href ="zgfb2004o01.html">zgfb2004o01</a>.<br />
+include <a href ="zgfb2004i01.html">zgfb2004i01</a>.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;INITIALIZATION.<br />
+*&---------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_init.<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;Tab&nbsp;####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;tab_screen_set.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_fname.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;f4_p_fname(zgf_form_sub_routine)&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;'XLS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_fname.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;PERFORM&nbsp;tab_screen_postion_set.<br />
+&nbsp;&nbsp;PERFORM&nbsp;change_code.<br />
+&nbsp;&nbsp;IF&nbsp;gv_ucomm&nbsp;=&nbsp;'ONLI'&nbsp;OR&nbsp;gv_ucomm&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;input_check.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CASE&nbsp;g_dynnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;101.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;p_bukrs2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_data_0100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;100.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;102.&nbsp;"##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;p_bukrs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_data_0200.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;200.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;103."Excel&nbsp;Upload<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;internal_data_set_0300.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;excel_upload_exec_0300.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;data_convert_0300.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;300.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+END-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+<br />
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;0100&nbsp;--&gt;&nbsp;[Global&nbsp;FTA]&nbsp;C/O&nbsp;Manual&nbsp;Management-&nbsp;DOM&nbsp;Material<br />
+*&nbsp;0200&nbsp;--&gt;&nbsp;[Global&nbsp;FTA]&nbsp;Manual&nbsp;C/O&nbsp;Registration&nbsp;Management<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_BLNO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMP&nbsp;Declaraton&nbsp;Number<br />
+*&nbsp;P_LIFNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vendor<br />
+*&nbsp;S_BLDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMP&nbsp;Declaration&nbsp;Date<br />
+*&nbsp;S_MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Material&nbsp;Code<br />
+*&nbsp;S_WERKS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Plant<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;At&nbsp;least&nbsp;one&nbsp;row&nbsp;must&nbsp;remain.&nbsp;Deletion&nbsp;canceled.<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZGFMC<br />
+*004&nbsp;&nbsp;&nbsp;Failed&nbsp;to&nbsp;save&nbsp;data.&nbsp;&1<br />
+*005&nbsp;&nbsp;&nbsp;Select&nbsp;at&nbsp;least&nbsp;one&nbsp;line<br />
+*136&nbsp;&nbsp;&nbsp;There&nbsp;is&nbsp;no&nbsp;extracted&nbsp;Excel&nbsp;data.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>
