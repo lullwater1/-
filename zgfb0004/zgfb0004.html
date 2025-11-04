@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFB0004</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFB0004</h2>
+<h3> Description: [Global FTA] Customer HS code Management</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;PROGRAM&nbsp;ID&nbsp;&nbsp;:&nbsp;ZGFB0004<br />
+*&nbsp;Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Customer&nbsp;Hs&nbsp;code&nbsp;##<br />
+*&nbsp;Created&nbsp;By&nbsp;&nbsp;:&nbsp;KPMG<br />
+*&nbsp;Created&nbsp;On&nbsp;&nbsp;:&nbsp;0000-00-00<br />
+*&nbsp;Category&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Master<br />
+*&nbsp;Description&nbsp;:&nbsp;Customer&nbsp;Hs&nbsp;code&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFICATION&nbsp;LOG<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Date.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description.<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT  zgfb0004 NO STANDARD PAGE HEADING MESSAGE-ID zgfmc.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;INCLUDE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+include <a href ="zgfb0004t01.html">zgfb0004t01</a>.<br />
+include <a href ="zgfb0004alv.html">zgfb0004alv</a>.<br />
+include <a href ="zgfb0004class.html">zgfb0004class</a>.<br />
+include <a href ="zgfb0004f01.html">zgfb0004f01</a>.<br />
+include <a href ="zgfb0004o01.html">zgfb0004o01</a>.<br />
+include <a href ="zgfb0004i01.html">zgfb0004i01</a>.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;INITIALIZATION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_init.<br />
+&nbsp;&nbsp;PERFORM&nbsp;change_cocd.<br />
+<br />
+&nbsp;&nbsp;g_repid&nbsp;=&nbsp;sy-repid.<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;&nbsp;PERFORM&nbsp;upload_doc_template_check(zgf_form_sub_routine)<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;sscrfields<br />
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_repid.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;ADD_FUNCTION_BTN&nbsp;USING&nbsp;SSCRFIELDS.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;tab_screen_set.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN&nbsp;OUTPUT.<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;modify_screen.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN&nbsp;ON&nbsp;VALUE-REQUEST<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_fname.<br />
+&nbsp;&nbsp;PERFORM&nbsp;f4_p_fname(zgf_form_sub_routine)&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;'XLS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_fname.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;IF&nbsp;g_ucomm&nbsp;CP&nbsp;'FC*'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;sy-ucomm,&nbsp;g_ucomm.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;excel_format_download.&nbsp;&nbsp;&nbsp;"##&nbsp;Format&nbsp;down<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;PERFORM&nbsp;change_cocd.<br />
+&nbsp;&nbsp;PERFORM&nbsp;tab_screen_postion_set.<br />
+&nbsp;&nbsp;IF&nbsp;g_ucomm&nbsp;=&nbsp;'ONLI'&nbsp;OR&nbsp;g_ucomm&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;input_check.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;START-OF-SELECTION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;internal_data_set.<br />
+&nbsp;&nbsp;IF&nbsp;g_dynnr&nbsp;=&nbsp;101.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;INQUIRY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;p_bukrs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;data_inquiry.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;g_dynnr&nbsp;=&nbsp;102.&nbsp;&nbsp;"&nbsp;ENTRY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_entry&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;p_bukrs2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;data_entry.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;g_dynnr&nbsp;=&nbsp;103.&nbsp;&nbsp;"&nbsp;UPLOAD<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;p_bukrs3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;excel_upload_exec.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;data_convert.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;salv_call.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;T0100&nbsp;--&gt;&nbsp;Customer&nbsp;HS&nbsp;code&nbsp;Management&nbsp;&<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;A01&nbsp;Company&nbsp;Code<br />
+*&nbsp;A02&nbsp;FTA&nbsp;Agreement<br />
+*&nbsp;A03&nbsp;Customer<br />
+*&nbsp;A04&nbsp;Material<br />
+*&nbsp;A05&nbsp;HS&nbsp;code<br />
+*&nbsp;A06&nbsp;Valid-From&nbsp;Date<br />
+*&nbsp;A07&nbsp;Valid&nbsp;To&nbsp;Date<br />
+*&nbsp;A08&nbsp;Country&nbsp;Key<br />
+*&nbsp;A09&nbsp;Message<br />
+*&nbsp;A10&nbsp;Attach&nbsp;File<br />
+*&nbsp;C01&nbsp;ICON<br />
+*&nbsp;C02&nbsp;Message<br />
+*&nbsp;E01&nbsp;Please&nbsp;check&nbsp;status&nbsp;of&nbsp;data<br />
+*&nbsp;E02&nbsp;It&nbsp;has&nbsp;duplicate&nbsp;data&nbsp;of&nbsp;selected&nbsp;datas<br />
+*&nbsp;E03&nbsp;Valid&nbsp;data(payment&nbsp;request&nbsp;date)is&nbsp;for&nbsp;more&nbsp;than&nbsp;2&nbsp;datas&nbsp;from&nbsp;current&nbsp;date<br />
+*&nbsp;E04&nbsp;No&nbsp;data&nbsp;to&nbsp;modify&nbsp;or&nbsp;add<br />
+*&nbsp;E05&nbsp;Exclusive&nbsp;of&nbsp;validation&nbsp;effective&nbsp;date,&nbsp;same&nbsp;data&nbsp;has&nbsp;already&nbsp;been&nbsp;existed&nbsp;in&nbsp;HS&nbsp;code&nbsp;master<br />
+*&nbsp;E06&nbsp;Error&nbsp;during&nbsp;deletion<br />
+*&nbsp;E07&nbsp;Scope&nbsp;of&nbsp;validation&nbsp;effective&nbsp;date&nbsp;is&nbsp;duplicated&nbsp;with&nbsp;existing&nbsp;data<br />
+*&nbsp;R01&nbsp;Inquiry<br />
+*&nbsp;R02&nbsp;Entry<br />
+*&nbsp;R03&nbsp;Upload<br />
+*&nbsp;T01&nbsp;Import&nbsp;HS&nbsp;code&nbsp;Upload<br />
+*&nbsp;T02&nbsp;Upload&nbsp;Condition<br />
+*&nbsp;T80&nbsp;Company&nbsp;Code<br />
+*&nbsp;T81&nbsp;Customer<br />
+*&nbsp;T82&nbsp;Parent&nbsp;Item<br />
+*&nbsp;T83&nbsp;Valid&nbsp;From<br />
+*&nbsp;T84&nbsp;File&nbsp;Name<br />
+*&nbsp;T85&nbsp;Child&nbsp;Item<br />
+*&nbsp;T86&nbsp;FTA&nbsp;Agreement<br />
+*&nbsp;T87&nbsp;Bom&nbsp;Explosion<br />
+*&nbsp;T88&nbsp;Item<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_BUKRS&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;P_DATAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Base&nbsp;date<br />
+*&nbsp;P_FNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File&nbsp;name<br />
+*&nbsp;S_KUNAG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customer<br />
+*&nbsp;S_MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Material<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;Company&nbsp;Code&nbsp;is&nbsp;required.<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZGFMC<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*001&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;found<br />
+*002&nbsp;&nbsp;&nbsp;Would&nbsp;you&nbsp;like&nbsp;to&nbsp;save&nbsp;your&nbsp;data?<br />
+*003&nbsp;&nbsp;&nbsp;Data&nbsp;&1&nbsp;items&nbsp;were&nbsp;saved.<br />
+*004&nbsp;&nbsp;&nbsp;Failed&nbsp;to&nbsp;save&nbsp;data.&nbsp;&1<br />
+*005&nbsp;&nbsp;&nbsp;Select&nbsp;at&nbsp;least&nbsp;one&nbsp;line<br />
+*008&nbsp;&nbsp;&nbsp;Check&nbsp;the&nbsp;effective&nbsp;start&nbsp;date&nbsp;and&nbsp;effective&nbsp;end&nbsp;date.<br />
+*016&nbsp;&nbsp;&nbsp;&1&nbsp;is&nbsp;a&nbsp;mandatory&nbsp;input&nbsp;field<br />
+*046&nbsp;&nbsp;&nbsp;&1&nbsp;value&nbsp;is&nbsp;invalid.<br />
+*127&nbsp;&nbsp;&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;delete&nbsp;the&nbsp;data?<br />
+*136&nbsp;&nbsp;&nbsp;There&nbsp;is&nbsp;no&nbsp;extracted&nbsp;Excel&nbsp;data.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,1164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFB0005F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFB0005F01</h2>
+<h3> Description: Include ZKGB0005F01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFB0005F01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SELECT_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM select_data .<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_outtab,&nbsp;gs_outtab.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_outtab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zgft0009<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;=&nbsp;p_bukr1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datab&nbsp;&lt;=&nbsp;p_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;p_date.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gt_outtab[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;i001&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;salv_call.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.                    " SELECT_DATA<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SALV_CALL<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM salv_call .<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cl_salv_table=&gt;factory(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r_salv_table&nbsp;=&nbsp;go_alv<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t_table&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_outtab&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_msg.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_pf_status.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_layout.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_event.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_table_settings.<br />
+<br />
+&nbsp;&nbsp;go_alv-&gt;display(&nbsp;).<br />
+<br />
+ENDFORM.                    " SALV_CALL<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_PF_STATUS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_pf_status .<br />
+<br />
+ENDFORM.                    " SET_PF_STATUS<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_layout .<br />
+&nbsp;&nbsp;gs_salv_layout-repid&nbsp;=&nbsp;sy-repid.<br />
+&nbsp;&nbsp;gs_salv_layout-default&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_salv_layout-layout&nbsp;=&nbsp;'/STANDARD'.<br />
+&nbsp;&nbsp;gs_key-report&nbsp;=&nbsp;g_repid.<br />
+<br />
+&nbsp;&nbsp;go_layout&nbsp;=&nbsp;go_alv-&gt;get_layout(&nbsp;).<br />
+&nbsp;&nbsp;go_layout-&gt;set_key(&nbsp;gs_key&nbsp;).<br />
+<br />
+&nbsp;&nbsp;gs_salv_layout-restrict&nbsp;=&nbsp;if_salv_c_layout=&gt;restrict_none.<br />
+&nbsp;&nbsp;go_layout-&gt;set_default(&nbsp;gs_salv_layout-default&nbsp;).<br />
+&nbsp;&nbsp;go_layout-&gt;set_save_restriction(&nbsp;gs_salv_layout-restrict&nbsp;).<br />
+&nbsp;&nbsp;go_layout-&gt;set_initial_layout(&nbsp;gs_salv_layout-layout&nbsp;).<br />
+<br />
+ENDFORM.                    " SET_LAYOUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_EVENT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_event .<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;EVENT<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;lr_events&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_salv_events_table.<br />
+<br />
+&nbsp;&nbsp;go_functions&nbsp;=&nbsp;go_alv-&gt;get_functions(&nbsp;).<br />
+&nbsp;&nbsp;go_functions-&gt;set_all(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;lr_events&nbsp;=&nbsp;go_alv-&gt;get_event(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;g_event_receiver.<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER&nbsp;g_event_receiver-&gt;on_double_click&nbsp;FOR&nbsp;lr_events.<br />
+<br />
+ENDFORM.                    " SET_EVENT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_TABLE_SETTINGS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_table_settings .<br />
+&nbsp;&nbsp;DATA:&nbsp;lr_columns&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_salv_columns_table.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;set&nbsp;column<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;lr_columns&nbsp;=&nbsp;go_alv-&gt;get_columns(&nbsp;).<br />
+&nbsp;&nbsp;lr_columns-&gt;set_optimize(&nbsp;gc_true&nbsp;).<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_columns_technical&nbsp;USING&nbsp;lr_columns.<br />
+<br />
+ENDFORM.                    " SET_TABLE_SETTINGS<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_COLUMNS_TECHNICAL<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_columns_technical  USING ir_columns TYPE REF TO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cl_salv_columns_table.<br />
+&nbsp;&nbsp;DATA&nbsp;lr_column&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_salv_column_table.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lr_selections&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_salv_selections,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lt_column&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;salv_t_column.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'ZORGPO'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;TEXT-c01&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'ZORGPO2'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;TEXT-c02&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'ZDEPNO'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;TEXT-c03&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'ZDEPNO2'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;TEXT-c04&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'MANDT'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'DATAB'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'DATBI'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'RETXT'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'RVTXT'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'ZIMANM'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'ERDAT'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'ERZET'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'ERNAM'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'AEDAT'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'AEZET'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'AENAM'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;ESKO:&nbsp;BEGIN<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'ORICH'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'ORICH_FRCH'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'VOLCH'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'VOLCH_FRCH'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'INVCH'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'INVCH_FRCH'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'INSCH'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'INSCH_FRCH'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;ESKO:&nbsp;END<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+ENDFORM.                    " SET_COLUMNS_TECHNICAL<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DATA_SAVE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM data_save .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;l_oref&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cx_root,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_text&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;l_fname(100)&nbsp;TYPE&nbsp;c.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;l_docid&nbsp;TYPE&nbsp;stxbitmaps-docid.<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;fs1&gt;&nbsp;TYPE&nbsp;any.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;g_save.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gs_zkgt0009&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_zkgt0009-datab&nbsp;=&nbsp;'20000101'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_zkgt0009-datbi&nbsp;=&nbsp;'99991231'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;gs_zkgt0009&nbsp;TO&nbsp;&lt;fs1&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_create_change_data(zgf_form_sub_routine)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'M'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&lt;fs1&gt;.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;image_mime_save&nbsp;CHANGING&nbsp;l_docid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_fname.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;l_docid&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;i000&nbsp;WITH&nbsp;TEXT-e03&nbsp;DISPLAY&nbsp;LIKE&nbsp;zgftp_e.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;zgft0009-zimanm&nbsp;=&nbsp;l_fname.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;l_text.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zgft0009&nbsp;&nbsp;FROM&nbsp;gs_zkgt0009.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;zgft0009&nbsp;&nbsp;FROM&nbsp;zgft0009.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s018&nbsp;DISPLAY&nbsp;LIKE&nbsp;zgftp_s.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_save&nbsp;=&nbsp;zgftp_true.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_sy_open_sql_db&nbsp;INTO&nbsp;l_oref.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_text&nbsp;=&nbsp;l_oref-&gt;get_text(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s004&nbsp;DISPLAY&nbsp;LIKE&nbsp;zgftp_e.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+ENDFORM.                    " DATA_SAVE<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DATA_MODIFY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM data_modify .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;ls_zgft0009&nbsp;TYPE&nbsp;zgft0009.<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;fs1&gt;&nbsp;TYPE&nbsp;any.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;zgft0009<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;ls_zgft0009<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;=&nbsp;p_bukr1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;pernr&nbsp;=&nbsp;zgft0009-pernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datab&nbsp;&lt;=&nbsp;p_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;p_date.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ls_zgft0009-telf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;zgft0009-telf.<br />
+&nbsp;&nbsp;ls_zgft0009-telfx&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;zgft0009-telfx.<br />
+&nbsp;&nbsp;ls_zgft0009-email&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;zgft0009-email.<br />
+&nbsp;&nbsp;ls_zgft0009-zorgpo&nbsp;&nbsp;&nbsp;=&nbsp;zgft0009-zorgpo.<br />
+&nbsp;&nbsp;ls_zgft0009-zorgpo2&nbsp;&nbsp;=&nbsp;zgft0009-zorgpo2.<br />
+&nbsp;&nbsp;ls_zgft0009-zdepno&nbsp;&nbsp;&nbsp;=&nbsp;zgft0009-zdepno.<br />
+&nbsp;&nbsp;ls_zgft0009-zdepno2&nbsp;&nbsp;=&nbsp;zgft0009-zdepno2.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;ls_zgft0009-&nbsp;&nbsp;=&nbsp;zgft0009-zdepno2.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_zgft0009-datab&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'20000101'.<br />
+&nbsp;&nbsp;ls_zgft0009-datbi&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'99991231'.<br />
+<br />
+&nbsp;&nbsp;ASSIGN&nbsp;zgft0009&nbsp;TO&nbsp;&lt;fs1&gt;.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_create_change_data(zgf_form_sub_routine)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'M'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&lt;fs1&gt;.<br />
+<br />
+&nbsp;&nbsp;ls_zgft0009&nbsp;=&nbsp;CORRESPONDING&nbsp;#(&nbsp;&lt;fs1&gt;&nbsp;).<br />
+<br />
+&nbsp;&nbsp;MODIFY&nbsp;zgft0009&nbsp;FROM&nbsp;ls_zgft0009.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_outtab,&nbsp;gs_outtab.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_outtab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zgft0009<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;=&nbsp;p_bukr1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datab&nbsp;&lt;=&nbsp;p_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;p_date.<br />
+<br />
+&nbsp;&nbsp;go_alv-&gt;refresh(&nbsp;refresh_mode&nbsp;=&nbsp;if_salv_c_refresh=&gt;full&nbsp;).<br />
+<br />
+&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+<br />
+ENDFORM.                    " DATA_MODIFY<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ALV_DOUBLE_CLICK<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM alv_double_click USING  p_row<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_column&nbsp;.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;l_rvtxt&nbsp;TYPE&nbsp;zgft0009-rvtxt.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gs_outtab,&nbsp;zgft0009,&nbsp;g_relv.<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_outtab&nbsp;INTO&nbsp;gs_outtab&nbsp;INDEX&nbsp;p_row.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;gs_outtab&nbsp;TO&nbsp;zgft0009.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;rvtxt&nbsp;INTO&nbsp;l_rvtxt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zgft0009<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;&nbsp;=&nbsp;zgft0009-bukrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;pernr&nbsp;&nbsp;=&nbsp;zgft0009-pernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;zgft0009-datbi.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0&nbsp;AND&nbsp;l_rvtxt&nbsp;IS&nbsp;NOT&nbsp;INITIAL.&nbsp;"##&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;g_relv&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_image_mime.<br />
+&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;200&nbsp;&nbsp;STARTING&nbsp;AT&nbsp;3&nbsp;3.<br />
+<br />
+ENDFORM.                    " ALV_DOUBLE_CLICK<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;INPUT_CHECK<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM input_check .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;&nbsp;:&nbsp;l_type&nbsp;&nbsp;LIKE&nbsp;dd01v-datatype,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_date&nbsp;&nbsp;LIKE&nbsp;sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_datab&nbsp;TYPE&nbsp;dats,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_dummy&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;l_check.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;lt_zkgt0009&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;zgft0009&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_zkgt0009,&nbsp;gs_zkgt0009.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;g_check.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;zgft0009-telfx&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;numeric_check&nbsp;USING&nbsp;zgft0009-telfx<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;l_type.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;l_type&nbsp;=&nbsp;'CHAR'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S000&nbsp;WITH&nbsp;'FAX&nbsp;###&nbsp;###&nbsp;##&nbsp;#####'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s000&nbsp;WITH&nbsp;'NUMBERIC&nbsp;ONLY&nbsp;IN&nbsp;FAX.'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISPLAY&nbsp;LIKE&nbsp;zgftp_e.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;datab&nbsp;INTO&nbsp;l_datab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zgft0009<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;=&nbsp;zgft0009-bukrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;pernr&nbsp;=&nbsp;zgft0009-pernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datab&nbsp;&gt;=&nbsp;zgft0009-datab.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s030&nbsp;WITH&nbsp;zgft0009-datab&nbsp;l_datab&nbsp;DISPLAY&nbsp;LIKE&nbsp;zgftp_e.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;g_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;g_mode&nbsp;=&nbsp;zgftp_false.&nbsp;&nbsp;&nbsp;"####<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;####&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;zgft0009-retxt&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s028&nbsp;WITH&nbsp;TEXT-m01&nbsp;DISPLAY&nbsp;LIKE&nbsp;zgftp_e.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_zkgt0009<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zgft0009<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;=&nbsp;zgft0009-bukrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;pernr&nbsp;=&nbsp;zgft0009-pernr.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;gt_zkgt0009&nbsp;BY&nbsp;datab&nbsp;DESCENDING.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;gt_zkgt0009<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;pernr.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_zkgt0009&nbsp;INTO&nbsp;gs_zkgt0009&nbsp;INDEX&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_zkgt0009-rvtxt&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s027&nbsp;DISPLAY&nbsp;LIKE&nbsp;zgftp_e.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_zkgt0009-datbi&nbsp;=&nbsp;zgft0009-datab&nbsp;-&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##&nbsp;##&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;(&nbsp;zgft0009-orich_frch&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgft0009-orich&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS&nbsp;INITIAL&nbsp;)&nbsp;OR<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;zgft0009-volch_frch&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgft0009-volch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS&nbsp;INITIAL&nbsp;)&nbsp;OR<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;zgft0009-invch_frch&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgft0009-invch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS&nbsp;INITIAL&nbsp;)&nbsp;OR<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;zgft0009-insch_frch&nbsp;IS&nbsp;NOT&nbsp;INITIAL&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgft0009-insch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IS&nbsp;INITIAL&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s000&nbsp;WITH&nbsp;TEXT-e04&nbsp;DISPLAY&nbsp;LIKE&nbsp;zgftp_e.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;####&nbsp;##&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;lt_zkgt0009<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zgft0009<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;=&nbsp;zgft0009-bukrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;pernr&nbsp;&lt;&gt;&nbsp;zgft0009-pernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datab&nbsp;&lt;=&nbsp;zgft0009-datab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;zgft0009-datab.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPENDING&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;lt_zkgt0009<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zgft0009<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;=&nbsp;zgft0009-bukrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;pernr&nbsp;&lt;&gt;&nbsp;zgft0009-pernr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datab&nbsp;&lt;=&nbsp;zgft0009-datbi<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;zgft0009-datbi.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;lt_zkgt0009&nbsp;BY&nbsp;pernr&nbsp;datab.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;lt_zkgt0009<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;pernr&nbsp;datab.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_zkgt0009.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;zgft0009-orich_frch&nbsp;=&nbsp;zgftp_true&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lt_zkgt0009-orich_frch&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;zgft0009-volch_frch&nbsp;=&nbsp;zgftp_true&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lt_zkgt0009-volch_frch&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;zgft0009-invch_frch&nbsp;=&nbsp;zgftp_true&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lt_zkgt0009-invch_frch&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;zgft0009-insch_frch&nbsp;=&nbsp;zgftp_true&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lt_zkgt0009-insch_frch&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.                    " INPUT_CHECK<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;NUMERIC_CHECK<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM numeric_check  USING    p_value<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_type.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_value(30).<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;p_type,&nbsp;lv_value.<br />
+<br />
+&nbsp;&nbsp;lv_value&nbsp;=&nbsp;p_value.<br />
+<br />
+&nbsp;&nbsp;REPLACE&nbsp;ALL&nbsp;OCCURRENCES&nbsp;OF&nbsp;'-'&nbsp;IN&nbsp;lv_value&nbsp;WITH&nbsp;''.<br />
+<br />
+&nbsp;&nbsp;__numeric_check&nbsp;:&nbsp;lv_value&nbsp;p_type.<br />
+<br />
+ENDFORM.                    " NUMERIC_CHECK<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;IMAG_FILE_UPLOAD<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM imag_file_upload .<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_file&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gt_mime,&nbsp;gt_mime[],&nbsp;g_check,&nbsp;g_file_len.<br />
+<br />
+&nbsp;&nbsp;lv_file&nbsp;=&nbsp;p_fname.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;##&nbsp;##<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_fname&nbsp;NP&nbsp;'*bmp'&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_fname&nbsp;NP&nbsp;'*BMP'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s000&nbsp;WITH&nbsp;TEXT-e02<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;g_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'GUI_UPLOAD'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;&nbsp;&nbsp;=&nbsp;lv_file<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filetype&nbsp;&nbsp;&nbsp;=&nbsp;'BIN'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filelength&nbsp;=&nbsp;g_file_len<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data_tab&nbsp;&nbsp;&nbsp;=&nbsp;gt_mime.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gt_mime[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s000&nbsp;WITH&nbsp;TEXT-e01<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;g_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.                    " IMAG_FILE_UPLOAD<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;CUSTOM_CONTAINER_FREE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM custom_container_free  USING p_custom_container<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_custom_container.<br />
+&nbsp;&nbsp;IF&nbsp;NOT&nbsp;p_custom_container&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;p_custom_container-&gt;free.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;p_custom_container.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.                    " CUSTOM_CONTAINER_FREE<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;INITIAL_CHECK<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM initial_check .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;g_mode.<br />
+&nbsp;&nbsp;CASE&nbsp;&nbsp;tabb1-dynnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;zgftp_true&nbsp;TO&nbsp;g_mode.&nbsp;&nbsp;&nbsp;"###&nbsp;##<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.                    " INITIAL_CHECK<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;INITIAL_SCREEN_SET<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM initial_screen_set .<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;fs1&gt;&nbsp;TYPE&nbsp;any.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;zgft0009.<br />
+&nbsp;&nbsp;MOVE:&nbsp;p_bukr2&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;zgft0009-bukrs,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'99991231'&nbsp;TO&nbsp;zgft0009-datbi,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sy-datum&nbsp;&nbsp;&nbsp;TO&nbsp;zgft0009-datab,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'20000101'&nbsp;TO&nbsp;zgft0009-datab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgftp_true&nbsp;TO&nbsp;zgft0009-orich,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgftp_true&nbsp;TO&nbsp;zgft0009-volch,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgftp_true&nbsp;TO&nbsp;zgft0009-invch,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgftp_true&nbsp;TO&nbsp;zgft0009-insch.<br />
+<br />
+&nbsp;&nbsp;ASSIGN&nbsp;zgft0009&nbsp;TO&nbsp;&lt;fs1&gt;.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_create_change_data(zgf_form_sub_routine)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&lt;fs1&gt;.<br />
+<br />
+ENDFORM.                    " INITIAL_SCREEN_SET<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_IMAGE_MIME<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_image_mime .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;l_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;tdobname.<br />
+&nbsp;&nbsp;DATA&nbsp;l_content&nbsp;&nbsp;TYPE&nbsp;xstring.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;lo_root&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cx_root.<br />
+<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_mime,&nbsp;gt_mime[].<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;MIME&nbsp;###&nbsp;(&nbsp;'KG'&nbsp;####&nbsp;+&nbsp;##&nbsp;+&nbsp;###&nbsp;)<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CONCATENATE&nbsp;zgftp_k&nbsp;zgftp_g<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgft0009-bukrs&nbsp;zgft0009-pernr&nbsp;zgft0009-datab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;l_name.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;cl_ssf_xsf_utilities=&gt;get_bds_graphic_as_bmp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_object&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'GRAPHICS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;l_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'BMAP'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_btype&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'BCOL'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;RECEIVING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_bmp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;l_content<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;not_found&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;internal_error&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SCMS_XSTRING_TO_BINARY'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buffer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;l_content<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary_tab&nbsp;=&nbsp;gt_mime.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.                    " GET_IMAGE_MIME<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;IMAGE_MIME_SAVE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM image_mime_save CHANGING p_docid TYPE stxbitmaps-docid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_name.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;l_name&nbsp;&nbsp;&nbsp;TYPE&nbsp;stxbitmaps-tdname.<br />
+&nbsp;&nbsp;DATA&nbsp;l_title&nbsp;&nbsp;LIKE&nbsp;bapisignat-prop_value.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;l_object&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;stxbitmaps-tdobject,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;stxbitmaps-tdid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_btype&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;stxbitmaps-tdbtype,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_format&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;dappl,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_resident&nbsp;&nbsp;&nbsp;TYPE&nbsp;stxbitmaps-resident,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_autoheight&nbsp;TYPE&nbsp;stxbitmaps-autoheight,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_docid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;stxbitmaps-docid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_resolution&nbsp;TYPE&nbsp;stxbitmaps-resolution,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_bmcomp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;stxbitmaps-bmcomp.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;zgftp_k&nbsp;zgftp_g<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zgft0009-bukrs&nbsp;zgft0009-pernr&nbsp;zgft0009-datab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;l_name.<br />
+<br />
+&nbsp;&nbsp;l_object&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'GRAPHICS'.<br />
+&nbsp;&nbsp;l_id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'BMAP'.<br />
+&nbsp;&nbsp;l_btype&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'BCOL'.<br />
+&nbsp;&nbsp;l_format&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'BMP'.<br />
+&nbsp;&nbsp;l_autoheight&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;l_title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-title.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;import_bitmap_bds&nbsp;IN&nbsp;PROGRAM&nbsp;saplstxbitmaps<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;p_fname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_object<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_btype<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_format<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_title<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_resident<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_autoheight<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_bmcomp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;p_docid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_resolution.<br />
+<br />
+&nbsp;&nbsp;p_name&nbsp;=&nbsp;l_name.<br />
+<br />
+ENDFORM.                    " IMAGE_MIME_SAVE<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_TEXT_EDITOR<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_text_editor USING    p_code<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;ps_zkgt0009&nbsp;STRUCTURE&nbsp;zgft0009.<br />
+<br />
+&nbsp;&nbsp;CONSTANTS&nbsp;len&nbsp;&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;72.<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;l_bin&gt;&nbsp;TYPE&nbsp;char255.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;l_mode&nbsp;TYPE&nbsp;c.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;offset&nbsp;&nbsp;TYPE&nbsp;i.<br />
+&nbsp;&nbsp;DATA&nbsp;l_title&nbsp;TYPE&nbsp;sytitle.<br />
+&nbsp;&nbsp;DATA&nbsp;l_line&nbsp;&nbsp;TYPE&nbsp;i.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;gt_text.<br />
+<br />
+&nbsp;&nbsp;MOVE&nbsp;g_mode&nbsp;TO&nbsp;l_mode.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;p_code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'RETXT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE:&nbsp;&nbsp;TEXT-m01&nbsp;TO&nbsp;l_title.&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'RVTXT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;TEXT-m02&nbsp;TO&nbsp;l_title.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;ASSIGN&nbsp;COMPONENT&nbsp;p_code&nbsp;OF&nbsp;STRUCTURE&nbsp;ps_zkgt0009&nbsp;TO&nbsp;&lt;l_bin&gt;.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;g_mode&nbsp;=&nbsp;zgftp_true.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;l_line&nbsp;=&nbsp;strlen(&nbsp;&lt;l_bin&gt;&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHILE&nbsp;l_line&nbsp;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;&lt;l_bin&gt;+offset&nbsp;TO&nbsp;gs_text.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;&nbsp;gs_text&nbsp;TO&nbsp;gt_text.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;len&nbsp;TO&nbsp;offset.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBTRACT&nbsp;len&nbsp;FROM&nbsp;l_line.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDWHILE.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;####&nbsp;###&nbsp;##&nbsp;#######&nbsp;#####&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;g_mode&nbsp;=&nbsp;zgftp_true&nbsp;AND&nbsp;g_relv&nbsp;=&nbsp;zgftp_false.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;l_mode.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'CATSXT_SIMPLE_TEXT_EDITOR'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;im_title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;l_title<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;im_display_mode&nbsp;=&nbsp;l_mode<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;im_start_column&nbsp;=&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;im_start_row&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_text.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;LINES&nbsp;OF&nbsp;gt_text&nbsp;INTO&nbsp;&lt;l_bin&gt;&nbsp;.<br />
+<br />
+ENDFORM.                    " SET_TEXT_EDITOR<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;RELV_CHECK<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM relv_check .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;g_check.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;zgft0009-rvtxt&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s028&nbsp;WITH&nbsp;TEXT-m02&nbsp;DISPLAY&nbsp;LIKE&nbsp;zgftp_e.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;g_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;zgft0009-retxt&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s028&nbsp;WITH&nbsp;TEXT-m01&nbsp;DISPLAY&nbsp;LIKE&nbsp;zgftp_e.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;g_check&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.                    " RELV_CHECK<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DATA_SAVE_RELV<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM data_save_relv .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;l_oref&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cx_root,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_text&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;fs1&gt;&nbsp;TYPE&nbsp;any.<br />
+<br />
+&nbsp;&nbsp;ASSIGN&nbsp;zgft0009&nbsp;TO&nbsp;&lt;fs1&gt;.<br />
+&nbsp;&nbsp;gs_zkgt0009-datab&nbsp;=&nbsp;'99991231'.<br />
+&nbsp;&nbsp;gs_zkgt0009-datbi&nbsp;=&nbsp;'99991231'.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_create_change_data(zgf_form_sub_routine)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'M'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&lt;fs1&gt;.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**--&nbsp;#####&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;MOVE&nbsp;sy-datum&nbsp;TO&nbsp;zgft0009-datbi.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;l_text.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;zgft0009&nbsp;&nbsp;FROM&nbsp;zgft0009.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s018&nbsp;DISPLAY&nbsp;LIKE&nbsp;'S'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_outtab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zgft0009<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;=&nbsp;p_bukr1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datab&nbsp;&lt;=&nbsp;p_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;datbi&nbsp;&gt;=&nbsp;p_date.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_sy_open_sql_db&nbsp;INTO&nbsp;l_oref.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_text&nbsp;=&nbsp;l_oref-&gt;get_text(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s004&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+ENDFORM.                    " DATA_SAVE_RELV<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_INIT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text&nbsp;:&nbsp;bukrs&nbsp;#&nbsp;desc#&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_init .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_t001&nbsp;LIKE&nbsp;t001.<br />
+<br />
+&nbsp;&nbsp;p_bukr2&nbsp;=&nbsp;p_bukr1&nbsp;.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_bukr1&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;ls_t001.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;ls_t001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;t001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;EQ&nbsp;p_bukr1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;ls_t001&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;p_butxt&nbsp;=&nbsp;ls_t001-butxt.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_bukr2&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;ls_t001.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;ls_t001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;t001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;EQ&nbsp;p_bukr2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;ls_t001&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;p_butx2&nbsp;=&nbsp;ls_t001-butxt.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;pbukr1&nbsp;=&nbsp;TEXT-t80.<br />
+&nbsp;&nbsp;pdate&nbsp;=&nbsp;TEXT-t81.<br />
+&nbsp;&nbsp;pbukr2&nbsp;=&nbsp;TEXT-t82.<br />
+&nbsp;&nbsp;pfname&nbsp;=&nbsp;TEXT-t83.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CREATE_BUTTON<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM create_button .<br />
+<br />
+&nbsp;&nbsp;gs_functxt-icon_id&nbsp;&nbsp;&nbsp;=&nbsp;icon_system_settings.<br />
+&nbsp;&nbsp;gs_functxt-quickinfo&nbsp;=&nbsp;TEXT-t10.&nbsp;"'####-####&nbsp;Mapping'.<br />
+&nbsp;&nbsp;gs_functxt-icon_text&nbsp;=&nbsp;TEXT-t10.&nbsp;"'####-####&nbsp;Mapping'.<br />
+&nbsp;&nbsp;sscrfields-functxt_01&nbsp;=&nbsp;gs_functxt.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CHANGE_COCD<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM change_cocd .<br />
+&nbsp;&nbsp;IF&nbsp;p_bukr1&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;t001_read&nbsp;USING&nbsp;p_bukr1&nbsp;CHANGING&nbsp;p_butxt.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;p_bukr2&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;t001_read&nbsp;USING&nbsp;p_bukr2&nbsp;CHANGING&nbsp;p_butx2.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;T001_READ<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;P_BUKR1<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;P_BUTXT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM t001_read  USING  pv_bukrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;pv_butxt.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_t001&nbsp;LIKE&nbsp;t001.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;ls_t001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;t001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;EQ&nbsp;pv_bukrs.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;ls_t001&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;pv_butxt&nbsp;=&nbsp;ls_t001-butxt.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;TAB_SCREEN_SET<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM tab_screen_set .<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_latest_tab(zgf_form_sub_routine)&nbsp;USING&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;g_dynnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabb1-activetab.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;g_dynnr&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tabb1-dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tabb1-activetab&nbsp;=&nbsp;'UCOMM1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;g_dynnr&nbsp;=&nbsp;tabb1-dynnr.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tabb1-dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;g_dynnr.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;tabb1-prog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-repid.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;TAB_SCREEN_POSTION_SET<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM tab_screen_postion_set .<br />
+<br />
+&nbsp;&nbsp;g_ucomm&nbsp;=&nbsp;sy-ucomm.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;sy-ucomm.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;g_ucomm.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'UCOMM1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabb1-dynnr&nbsp;=&nbsp;101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabb1-activetab&nbsp;=&nbsp;'UCOMM1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_dynnr&nbsp;=&nbsp;tabb1-dynnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'UCOMM2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabb1-dynnr&nbsp;=&nbsp;102.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabb1-activetab&nbsp;=&nbsp;'UCOMM2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_dynnr&nbsp;=&nbsp;tabb1-dynnr.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_latest_tab(zgf_form_sub_routine)&nbsp;USING&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_dynnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabb1-activetab.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>
