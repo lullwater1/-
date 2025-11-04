@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0040T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0040T01</h2>
+<h3> Description: Include ZKGR0040T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR0040T01<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPE-POOLS: ZGFTP.<br />
+<br />
+include <a href ="zgf_alv_class.html">ZGF_ALV_CLASS</a>.<br />
+INCLUDE &lt;ICON&gt;.<br />
+<br />
+TABLES: T001W, MARA, ZGFT5060, ZGFT0004, ZGFT0400.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Type&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_MAKT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;MAKTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_MAKT.<br />
+<br />
+TYPES: BEGIN OF TY_KNA1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KUNNR&nbsp;TYPE&nbsp;KUNNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME1&nbsp;TYPE&nbsp;NAME1_GP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KONZS&nbsp;TYPE&nbsp;KONZS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_KNA1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Internal&nbsp;Table&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGT0500 TYPE TABLE OF ZGFS0033 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0501&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0026&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0502&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0028&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0550&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0030&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA GT_ZKGT0500_ALL TYPE TABLE OF ZGFS0033 WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;#####<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGT0004 TYPE HASHED TABLE OF ZGFT0004<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;PFONA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;TREE&nbsp;data<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGS0019      TYPE TABLE OF ZGFS0019 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGS0019_TREE&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFS0019&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA GT_KNA1 TYPE TABLE OF TY_KNA1 WITH HEADER LINE.<br />
+<br />
+DATA GT_MAKT TYPE TABLE OF TY_MAKT WITH HEADER LINE.<br />
+<br />
+DATA: G_CONTAINER_LEFT    TYPE REF TO CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_CONTAINER_MAIN&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_CONTAINER_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_CONTAINER_SUB_SUB&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_CONTAINER.<br />
+<br />
+DATA: G_TREE_LEFT    TYPE REF TO CL_GUI_ALV_TREE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_GRID_MAIN&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_GRID_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_GRID_SUB_SUB&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+DATA: G_FIELDCAT_LEFT    TYPE LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_FIELDCAT_MAIN&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_FIELDCAT_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_FIELDCAT_SUB_SUB&nbsp;TYPE&nbsp;LVC_T_FCAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_LAYOUT_LEFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_LAYOUT_MAIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_LAYOUT_SUB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_LAYOUT_SUB_SUB&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_S_LAYO.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Vari&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: G_CODE  LIKE SY-UCOMM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OK_CODE&nbsp;LIKE&nbsp;SY-UCOMM.<br />
+DATA G_ANSWER.<br />
+DATA G_CHECK.<br />
+DATA G_COUNT TYPE I.<br />
+DATA G_BUDAT TYPE DATS.  "###<br />
+DATA: G_ICON_HEADER TYPE SALV_DE_TREE_IMAGE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_ICON_PLANT&nbsp;&nbsp;TYPE&nbsp;SALV_DE_TREE_IMAGE.<br />
+DATA: G_REPTXT TYPE C LENGTH 20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_DATETX&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_DEPTXT&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;20.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Constants<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CONSTANTS: GC_SGUBUN  TYPE ZKGE_SGUBUN VALUE 'OCR'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Macro<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DEFINE MAKE_ICON.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'ICON_CREATE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INFO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RESULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICON_NOT_FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUTPUTFIELD_TOO_SHORT&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+END-OF-DEFINITION.<br />
+DEFINE _RANGES.<br />
+&nbsp;&nbsp;&1-SIGN&nbsp;&nbsp;&nbsp;=&nbsp;&2.<br />
+&nbsp;&nbsp;&1-OPTION&nbsp;=&nbsp;&3.<br />
+&nbsp;&nbsp;&1-LOW&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&4.<br />
+&nbsp;&nbsp;&1-HIGH&nbsp;&nbsp;&nbsp;=&nbsp;&5.<br />
+&nbsp;&nbsp;APPEND&nbsp;&1.<br />
+END-OF-DEFINITION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK BL1 WITH FRAME TITLE TEXT-T01.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(23)  PBUKRS.<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS : P_BUKRS LIKE T001-BUKRS OBLIGATORY MEMORY ID BUK.<br />
+SELECTION-SCREEN COMMENT 45(40) P_BUTXT.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  SWERKS.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS : S_WERKS FOR  T001W-WERKS MEMORY ID WRK.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  SMATNR.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS : S_MATNR FOR  MARA-MATNR  MEMORY ID MAT.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  SKDMAT.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS : S_KDMAT FOR  ZGFT0400-KDMAT.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  SPFONA .<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS : S_PFONA FOR  ZGFT0004-PFONA NO-EXTENSION  NO INTERVALS.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(23)  PSVALUE.<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS P_SVALUE TYPE ZKGE_SVALUE AS LISTBOX VISIBLE LENGTH 15<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBLIGATORY&nbsp;USER-COMMAND&nbsp;CHG.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(23)  PDETP.<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS: P_DETP AS LISTBOX LIKE ZGFT0400-DETP VISIBLE LENGTH 10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBLIGATORY&nbsp;&nbsp;DEFAULT&nbsp;ZGFTP_INPT.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(23)  PSPMON.<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS: P_SPMON LIKE ZGFT0400-SPMON DEFAULT SY-DATUM(06) OBLIGATORY.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+<br />
+SELECTION-SCREEN END OF BLOCK BL1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

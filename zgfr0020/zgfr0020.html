@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0020</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0020</h2>
+<h3> Description: [Global FTA] C/O Printing management</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;PROGRAM&nbsp;ID&nbsp;&nbsp;:&nbsp;ZGFR0020<br />
+*&nbsp;Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;######(###)&nbsp;##&nbsp;##<br />
+*&nbsp;Created&nbsp;By&nbsp;&nbsp;:&nbsp;KPMG<br />
+*&nbsp;Created&nbsp;On&nbsp;&nbsp;:&nbsp;0000-00-00<br />
+*&nbsp;Category&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;REPORT<br />
+*&nbsp;Description&nbsp;:&nbsp;######(###)&nbsp;##&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFICATION&nbsp;LOG<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Date.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description.<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zgfr0020 NO STANDARD PAGE HEADING MESSAGE-ID zgfmc.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;INCLUDE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+include <a href ="zgfr0020t01.html">zgfr0020t01</a>.<br />
+include <a href ="zgfr0020class.html">zgfr0020class</a>.<br />
+include <a href ="zgfr0020f01.html">zgfr0020f01</a>.<br />
+include <a href ="zgfr0020f02.html">zgfr0020f02</a>.<br />
+include <a href ="zgfr0020o01.html">zgfr0020o01</a>.<br />
+include <a href ="zgfr0020i01.html">zgfr0020i01</a>.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;INITIALIZATION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_init.<br />
+&nbsp;&nbsp;g_repid&nbsp;=&nbsp;sy-repid.<br />
+&nbsp;&nbsp;PERFORM&nbsp;initial_data_set.<br />
+&nbsp;&nbsp;PERFORM&nbsp;init_set.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN&nbsp;OUTPUT.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;list_box_set.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_screen.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN&nbsp;ON&nbsp;VALUE-REQUEST<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_spmon.<br />
+&nbsp;&nbsp;PERFORM&nbsp;f4_p_month(zgf_form_sub_routine)&nbsp;USING&nbsp;sy-repid.<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR s_rexno-low.<br />
+&nbsp;&nbsp;PERFORM&nbsp;f4_rexno&nbsp;USING&nbsp;'S_REXNO-LOW'.<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR s_rexno-high.<br />
+&nbsp;&nbsp;PERFORM&nbsp;f4_rexno&nbsp;USING&nbsp;'S_REXNO-HIGH'.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;AT&nbsp;SELECTION-SCREEN.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;PERFORM&nbsp;change_cocd.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;START-OF-SELECTION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;p_bukrs.<br />
+&nbsp;&nbsp;PERFORM&nbsp;data_get.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;gv_return&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;PERFORM&nbsp;data_process.<br />
+&nbsp;&nbsp;PERFORM&nbsp;salv_call.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;C01&nbsp;Domestic/exportation&nbsp;history<br />
+*&nbsp;C02&nbsp;Total&nbsp;number&nbsp;of&nbsp;material<br />
+*&nbsp;C03&nbsp;Number&nbsp;of&nbsp;originating&nbsp;material<br />
+*&nbsp;C04&nbsp;Number&nbsp;of&nbsp;non-originating&nbsp;material<br />
+*&nbsp;C05&nbsp;Determination&nbsp;type<br />
+*&nbsp;C06&nbsp;Authorized&nbsp;signatory<br />
+*&nbsp;C07&nbsp;Commercial&nbsp;Invoice<br />
+*&nbsp;C08&nbsp;Declaration&nbsp;no.&nbsp;for&nbsp;export<br />
+*&nbsp;C09&nbsp;Acceptance&nbsp;date<br />
+*&nbsp;C10&nbsp;Invoice&nbsp;no.<br />
+*&nbsp;C11&nbsp;REX&nbsp;No.<br />
+*&nbsp;C12&nbsp;Origin&nbsp;Y/N<br />
+*&nbsp;E01&nbsp;There's&nbsp;no&nbsp;target&nbsp;to&nbsp;print<br />
+*&nbsp;M01&nbsp;Blanket&nbsp;supplier's&nbsp;declaration<br />
+*&nbsp;M02&nbsp;Issuance<br />
+*&nbsp;M03&nbsp;Blanket&nbsp;supplier's&nbsp;declaration<br />
+*&nbsp;M04&nbsp;Korea-US&nbsp;Certificate&nbsp;of&nbsp;origin<br />
+*&nbsp;M05&nbsp;C/O&nbsp;Issuance&nbsp;Register<br />
+*&nbsp;M06&nbsp;Signature&nbsp;Card&nbsp;List<br />
+*&nbsp;M07&nbsp;Origin&nbsp;Verification&nbsp;Questionnaire<br />
+*&nbsp;M08&nbsp;Bill&nbsp;of&nbsp;material<br />
+*&nbsp;M09&nbsp;KMM&nbsp;Portal<br />
+*&nbsp;M10&nbsp;Certificate&nbsp;of&nbsp;origin<br />
+*&nbsp;M11&nbsp;Select&nbsp;same&nbsp;customer&nbsp;code<br />
+*&nbsp;M12&nbsp;Select&nbsp;same&nbsp;valid&nbsp;date<br />
+*&nbsp;M13&nbsp;Select&nbsp;rows&nbsp;with&nbsp;the&nbsp;number&nbsp;of&nbsp;originating&nbsp;items&nbsp;greater&nbsp;than&nbsp;0<br />
+*&nbsp;M14&nbsp;Print&nbsp;out&nbsp;through&nbsp;LTSD&nbsp;for&nbsp;not&nbsp;Having(18)<br />
+*&nbsp;M15&nbsp;Print&nbsp;out&nbsp;through&nbsp;LTSD&nbsp;for&nbsp;not&nbsp;Having(16)<br />
+*&nbsp;M16&nbsp;No&nbsp;target&nbsp;item&nbsp;found<br />
+*&nbsp;M17&nbsp;Check&nbsp;number&nbsp;of&nbsp;originating&nbsp;items.<br />
+*&nbsp;M50&nbsp;Commercial&nbsp;Invoice<br />
+*&nbsp;M51&nbsp;Certificate&nbsp;of&nbsp;Origin(EN)<br />
+*&nbsp;M52&nbsp;Declaration&nbsp;of&nbsp;Origin(KO)<br />
+*&nbsp;M99&nbsp;You&nbsp;are&nbsp;trying&nbsp;to&nbsp;print&nbsp;out&nbsp;unidentified&nbsp;document.<br />
+*&nbsp;T01&nbsp;Pirnt<br />
+*&nbsp;T02&nbsp;Download<br />
+*&nbsp;T10&nbsp;#<br />
+*&nbsp;T11&nbsp;###<br />
+*&nbsp;T12&nbsp;Certificate&nbsp;of&nbsp;Origin(KO)<br />
+*&nbsp;T13&nbsp;ANNEX&nbsp;22-16<br />
+*&nbsp;T14&nbsp;ANNEX&nbsp;22-18<br />
+*&nbsp;T15&nbsp;Certificate&nbsp;of&nbsp;Origin<br />
+*&nbsp;T16&nbsp;##<br />
+*&nbsp;T17&nbsp;###<br />
+*&nbsp;T18&nbsp;###&nbsp;##&nbsp;##<br />
+*&nbsp;T19&nbsp;Yes<br />
+*&nbsp;T20&nbsp;No<br />
+*&nbsp;T21&nbsp;Qualified<br />
+*&nbsp;T22&nbsp;Non-Qualified<br />
+*&nbsp;T23&nbsp;C/O&nbsp;No.<br />
+*&nbsp;T24&nbsp;(KOREA-EU)<br />
+*&nbsp;T25&nbsp;No&nbsp;&&nbsp;Date&nbsp;of&nbsp;Invoice<br />
+*&nbsp;T26&nbsp;Select&nbsp;a&nbsp;single&nbsp;row&nbsp;at&nbsp;a&nbsp;time<br />
+*&nbsp;T27&nbsp;Bill&nbsp;of&nbsp;Material<br />
+*&nbsp;T80&nbsp;Company&nbsp;code<br />
+*&nbsp;T81&nbsp;Export&nbsp;type<br />
+*&nbsp;T82&nbsp;Year-month<br />
+*&nbsp;T83&nbsp;Determination&nbsp;type<br />
+*&nbsp;T84&nbsp;Date<br />
+*&nbsp;T85&nbsp;Invoice&nbsp;No.<br />
+*&nbsp;T86&nbsp;Customer<br />
+*&nbsp;T87&nbsp;Material<br />
+*&nbsp;T88&nbsp;Sales&nbsp;doc&nbsp;/&nbsp;Bill<br />
+*&nbsp;T89&nbsp;Plant<br />
+*&nbsp;T90&nbsp;REX&nbsp;No.<br />
+*&nbsp;T91&nbsp;Invoice&nbsp;No.<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_BUKRS&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;P_DIV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Input&nbsp;Value&nbsp;Code<br />
+*&nbsp;P_NOISS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inquiry&nbsp;the&nbsp;un-issued&nbsp;only<br />
+*&nbsp;P_SPMON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Year-month<br />
+*&nbsp;P_SVALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Determination&nbsp;calssification<br />
+*&nbsp;S_DATUV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Valid-From&nbsp;Date<br />
+*&nbsp;S_INVNO&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_KUNAG&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_MATNR&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_SALNO&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_WERKS&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;###&nbsp;###&nbsp;###&nbsp;#####.<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;SD<br />
+*899&nbsp;&nbsp;&nbsp;&<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZGFMC<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*001&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;found<br />
+*004&nbsp;&nbsp;&nbsp;Failed&nbsp;to&nbsp;save&nbsp;data.&nbsp;&1<br />
+*005&nbsp;&nbsp;&nbsp;Select&nbsp;at&nbsp;least&nbsp;one&nbsp;line<br />
+*018&nbsp;&nbsp;&nbsp;&nbsp;&1&nbsp;data&nbsp;saved&nbsp;successfully!<br />
+*022&nbsp;&nbsp;&nbsp;You&nbsp;can&nbsp;only&nbsp;search&nbsp;for&nbsp;the&nbsp;same&nbsp;month&nbsp;period.<br />
+*030&nbsp;&nbsp;&nbsp;There&nbsp;is&nbsp;an&nbsp;valid&nbsp;from&nbsp;(&2)&nbsp;greater&nbsp;than&nbsp;the&nbsp;valid&nbsp;from&nbsp;(&1)&nbsp;entered<br />
+*033&nbsp;&nbsp;&nbsp;&1&nbsp;is&nbsp;being&nbsp;printed.&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;print&nbsp;it?<br />
+*034&nbsp;&nbsp;&nbsp;Error&nbsp;occurred&nbsp;when&nbsp;executing&nbsp;SSF_FUNCTION_MODULE_NAME!<br />
+*035&nbsp;&nbsp;&nbsp;Error&nbsp;occurred&nbsp;while&nbsp;running&nbsp;SMART-FORM!&nbsp;(INTERNAL_ERROR)<br />
+*036&nbsp;&nbsp;&nbsp;Error&nbsp;occurred&nbsp;while&nbsp;running&nbsp;SMART-FORM!&nbsp;(SEND_ERROR)<br />
+*037&nbsp;&nbsp;&nbsp;Printing&nbsp;has&nbsp;been&nbsp;cancelled.<br />
+*038&nbsp;&nbsp;&nbsp;Error&nbsp;when&nbsp;running&nbsp;SMART-FORM!&nbsp;(OTHERS)<br />
+*039&nbsp;&nbsp;&nbsp;&1&nbsp;is&nbsp;canceled.&nbsp;Are&nbsp;you&nbsp;sure&nbsp;you&nbsp;want&nbsp;to&nbsp;cancel?<br />
+*050&nbsp;&nbsp;&nbsp;Cancelled&nbsp;items&nbsp;cannot&nbsp;be&nbsp;printed.&nbsp;Please&nbsp;select&nbsp;again.<br />
+*051&nbsp;&nbsp;&nbsp;Only&nbsp;finished/semi-finished&nbsp;products&nbsp;can&nbsp;be&nbsp;printed.<br />
+*141&nbsp;&nbsp;&nbsp;A&nbsp;sales&nbsp;outlet&nbsp;is&nbsp;required<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>
