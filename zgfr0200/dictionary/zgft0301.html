@@ -1,0 +1,585 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>Dictionary object- ZGFT0301</title>
+<style type="text/css">
+  th{text-align:left}
+  .cell{
+     font-family:"Courier New", Courier, monospace;
+     color:#000;
+     font-size:12px;
+     background-color:#F2F4F7;
+  }
+  .cell td { border: thin solid #ccc; }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+  <table class="outerTable">
+    <tr>
+      <td><h2>Table: ZGFT0301</h2>
+  <h3>Description: [FTA] Sales master : Item</h3></td>
+    </tr>
+    <tr>
+      <td><!--This is where our main table begins  -->
+<table class="innerTable">
+<tr>
+  <th>Row</th>
+  <th>Field name</th>
+  <th>Position</th>
+  <th>Key</th>
+  <th>Data element</th>
+  <th>Domain</th>
+  <th>Datatype</th>
+  <th>Length</th>
+  <th>Lowercase</th>
+  <th>Domain text</th>
+</tr>
+<tr class="cell">
+  <td> 1</td>
+  <td>MANDT</td>
+  <td>1</td>
+  <td>X</td>
+  <td>MANDT</td>
+  <td>MANDT</td>
+  <td>CLNT</td>
+  <td>3</td>
+  <td>&nbsp;</td>
+  <td>Client</td>
+</tr>
+<tr class="cell">
+  <td> 2</td>
+  <td>VBELN</td>
+  <td>2</td>
+  <td>X</td>
+  <td>VBELN_VF</td>
+  <td>VBELN</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>Billing Document</td>
+</tr>
+<tr class="cell">
+  <td> 3</td>
+  <td>POSNR</td>
+  <td>3</td>
+  <td>X</td>
+  <td>POSNR_VF</td>
+  <td>POSNR</td>
+  <td>NUMC</td>
+  <td>6</td>
+  <td>&nbsp;</td>
+  <td>Billing Item</td>
+</tr>
+<tr class="cell">
+  <td> 4</td>
+  <td>PRETP</td>
+  <td>4</td>
+  <td>X</td>
+  <td>ZGFE_PRETP</td>
+  <td>ZGFD_PRETP</td>
+  <td>CHAR</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Determination type</td>
+</tr>
+<tr class="cell">
+  <td> 5</td>
+  <td>ZBLDN</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>CHAR1</td>
+  <td>CHAR1</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Single-Character Flag</td>
+</tr>
+<tr class="cell">
+  <td> 6</td>
+  <td>BUKRS</td>
+  <td>6</td>
+  <td>&nbsp;</td>
+  <td>BUKRS</td>
+  <td>BUKRS</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Company Code</td>
+</tr>
+<tr class="cell">
+  <td> 7</td>
+  <td>MATNR</td>
+  <td>7</td>
+  <td>&nbsp;</td>
+  <td>MATNR</td>
+  <td>MATNR</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>&nbsp;</td>
+  <td>Material Number</td>
+</tr>
+<tr class="cell">
+  <td> 8</td>
+  <td>ARKTX</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>ARKTX</td>
+  <td>TEXT40</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>X</td>
+  <td>Short text for sales order item</td>
+</tr>
+<tr class="cell">
+  <td> 9</td>
+  <td>WERK2</td>
+  <td>9</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_WERKS</td>
+  <td>WERKS</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Consignment store for sales</td>
+</tr>
+<tr class="cell">
+  <td>10</td>
+  <td>WERKS</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>WERKS_D</td>
+  <td>WERKS</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Plant</td>
+</tr>
+<tr class="cell">
+  <td>11</td>
+  <td>KDMAT</td>
+  <td>11</td>
+  <td>&nbsp;</td>
+  <td>KDMAT</td>
+  <td>IDNEX</td>
+  <td>CHAR</td>
+  <td>35</td>
+  <td>&nbsp;</td>
+  <td>Customer Material</td>
+</tr>
+<tr class="cell">
+  <td>12</td>
+  <td>FKIMG</td>
+  <td>12</td>
+  <td>&nbsp;</td>
+  <td>FKIMG</td>
+  <td>MENG13</td>
+  <td>QUAN</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>Actual billed quantity</td>
+</tr>
+<tr class="cell">
+  <td>13</td>
+  <td>VRKME</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>VRKME</td>
+  <td>MEINS</td>
+  <td>UNIT</td>
+  <td>3</td>
+  <td>X</td>
+  <td>Sales unit</td>
+</tr>
+<tr class="cell">
+  <td>14</td>
+  <td>AUBEL</td>
+  <td>14</td>
+  <td>&nbsp;</td>
+  <td>VBELN_VA</td>
+  <td>VBELN</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>Sales Document</td>
+</tr>
+<tr class="cell">
+  <td>15</td>
+  <td>AUPOS</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>POSNR_VA</td>
+  <td>POSNR</td>
+  <td>NUMC</td>
+  <td>6</td>
+  <td>&nbsp;</td>
+  <td>Sales Document Item</td>
+</tr>
+<tr class="cell">
+  <td>16</td>
+  <td>NETPR</td>
+  <td>16</td>
+  <td>&nbsp;</td>
+  <td>NETPR</td>
+  <td>WERTV6</td>
+  <td>CURR</td>
+  <td>11</td>
+  <td>&nbsp;</td>
+  <td>Net Price</td>
+</tr>
+<tr class="cell">
+  <td>17</td>
+  <td>CCNGN</td>
+  <td>17</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_CCNGN</td>
+  <td>ZKGD_CCNGN</td>
+  <td>CHAR</td>
+  <td>17</td>
+  <td>&nbsp;</td>
+  <td>HS code ( Product LEVEL )</td>
+</tr>
+<tr class="cell">
+  <td>18</td>
+  <td>DMBTR</td>
+  <td>18</td>
+  <td>&nbsp;</td>
+  <td>DMBTR</td>
+  <td>AFLE13D2O16N_TO_23D2O30N</td>
+  <td>CURR</td>
+  <td>23</td>
+  <td>&nbsp;</td>
+  <td>Amount in local currency</td>
+</tr>
+<tr class="cell">
+  <td>19</td>
+  <td>NETWR</td>
+  <td>19</td>
+  <td>&nbsp;</td>
+  <td>NETWR_FP</td>
+  <td>WERTV8</td>
+  <td>CURR</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>Net Value of Billing item in Document Currency</td>
+</tr>
+<tr class="cell">
+  <td>20</td>
+  <td>KURSK</td>
+  <td>20</td>
+  <td>&nbsp;</td>
+  <td>KURSK</td>
+  <td>KURRF</td>
+  <td>DEC</td>
+  <td>9</td>
+  <td>&nbsp;</td>
+  <td>Exchange Rate for Price Determination</td>
+</tr>
+<tr class="cell">
+  <td>21</td>
+  <td>PRSDT</td>
+  <td>21</td>
+  <td>&nbsp;</td>
+  <td>PRSDT</td>
+  <td>DATUM</td>
+  <td>DATS</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Date for Pricing and Exchange Rate</td>
+</tr>
+<tr class="cell">
+  <td>22</td>
+  <td>NTGEW</td>
+  <td>22</td>
+  <td>&nbsp;</td>
+  <td>NTGEW</td>
+  <td>MENG13</td>
+  <td>QUAN</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>Net weight</td>
+</tr>
+<tr class="cell">
+  <td>23</td>
+  <td>BRGEW</td>
+  <td>23</td>
+  <td>&nbsp;</td>
+  <td>BRGEW</td>
+  <td>MENG13</td>
+  <td>QUAN</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>Gross weight</td>
+</tr>
+<tr class="cell">
+  <td>24</td>
+  <td>GEWEI</td>
+  <td>24</td>
+  <td>&nbsp;</td>
+  <td>GEWEI</td>
+  <td>MEINS</td>
+  <td>UNIT</td>
+  <td>3</td>
+  <td>X</td>
+  <td>Weight Unit</td>
+</tr>
+<tr class="cell">
+  <td>25</td>
+  <td>FOBPR</td>
+  <td>25</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_FOBPR</td>
+  <td>WERTV8</td>
+  <td>CURR</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>Amount of Sales value(Free on Board)</td>
+</tr>
+<tr class="cell">
+  <td>26</td>
+  <td>EXWPR</td>
+  <td>26</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_EXWPR</td>
+  <td>WERTV8</td>
+  <td>CURR</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>Amount of Sales value(Ex Works)</td>
+</tr>
+<tr class="cell">
+  <td>27</td>
+  <td>NCSPR</td>
+  <td>27</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_NCSPR</td>
+  <td>WERTV8</td>
+  <td>CURR</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>Amount of Sales value(Net Cost)</td>
+</tr>
+<tr class="cell">
+  <td>28</td>
+  <td>WAERS</td>
+  <td>28</td>
+  <td>&nbsp;</td>
+  <td>FCIW_LCUR</td>
+  <td>WAERS</td>
+  <td>CUKY</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Currency Key for Local Currency</td>
+</tr>
+<tr class="cell">
+  <td>29</td>
+  <td>GOODS</td>
+  <td>29</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_GOODS</td>
+  <td>XFELD</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Commodity Y/N</td>
+</tr>
+<tr class="cell">
+  <td>30</td>
+  <td>PRCTR</td>
+  <td>30</td>
+  <td>&nbsp;</td>
+  <td>PRCTR</td>
+  <td>PRCTR</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>Profit Center</td>
+</tr>
+<tr class="cell">
+  <td>31</td>
+  <td>ZIVNO</td>
+  <td>31</td>
+  <td>&nbsp;</td>
+  <td>CHAR15</td>
+  <td>CHAR15</td>
+  <td>CHAR</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>Char 15</td>
+</tr>
+<tr class="cell">
+  <td>32</td>
+  <td>ZIVDT</td>
+  <td>32</td>
+  <td>&nbsp;</td>
+  <td>DATUM</td>
+  <td>DATUM</td>
+  <td>DATS</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Date</td>
+</tr>
+<tr class="cell">
+  <td>33</td>
+  <td>.INCLUDE</td>
+  <td>33</td>
+  <td>&nbsp;</td>
+  <td>ZKGS0001</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>0</td>
+  <td>&nbsp;</td>
+  <td>[FTA] Creation and Modification Information</td>
+</tr>
+<tr class="cell">
+  <td>34</td>
+  <td>ERDAT</td>
+  <td>34</td>
+  <td>&nbsp;</td>
+  <td>ERDAT</td>
+  <td>DATUM</td>
+  <td>DATS</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Date on which the record was created</td>
+</tr>
+<tr class="cell">
+  <td>35</td>
+  <td>ERZET</td>
+  <td>35</td>
+  <td>&nbsp;</td>
+  <td>ERZET</td>
+  <td>UZEIT</td>
+  <td>TIMS</td>
+  <td>6</td>
+  <td>&nbsp;</td>
+  <td>Entry time</td>
+</tr>
+<tr class="cell">
+  <td>36</td>
+  <td>ERNAM</td>
+  <td>36</td>
+  <td>&nbsp;</td>
+  <td>ERNAM</td>
+  <td>USNAM</td>
+  <td>CHAR</td>
+  <td>12</td>
+  <td>&nbsp;</td>
+  <td>Name of Person Responsible for Creating the Object</td>
+</tr>
+<tr class="cell">
+  <td>37</td>
+  <td>AEDAT</td>
+  <td>37</td>
+  <td>&nbsp;</td>
+  <td>AEDAT</td>
+  <td>DATUM</td>
+  <td>DATS</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Last Changed On</td>
+</tr>
+<tr class="cell">
+  <td>38</td>
+  <td>AEZET</td>
+  <td>38</td>
+  <td>&nbsp;</td>
+  <td>AEZET</td>
+  <td>UZEIT</td>
+  <td>TIMS</td>
+  <td>6</td>
+  <td>&nbsp;</td>
+  <td>Time last change was made</td>
+</tr>
+<tr class="cell">
+  <td>39</td>
+  <td>AENAM</td>
+  <td>39</td>
+  <td>&nbsp;</td>
+  <td>AENAM</td>
+  <td>USNAM</td>
+  <td>CHAR</td>
+  <td>12</td>
+  <td>&nbsp;</td>
+  <td>Name of Person Who Changed Object</td>
+</tr>
+      </table>
+     </td>
+   </tr>
+<br/>
+  <table class="outerTable">
+    <tr>
+      <td><h2>Fixed Domain Values </h2>
+    </tr>
+    <tr>
+      <td><!--This is where our main table begins  -->
+<table class="innerTable">
+<tr>
+  <th>Domain Name</th>
+  <th>Value Low</th>
+  <th>Value High</th>
+  <th>Text</th>
+</tr>
+<tr class="cell">
+  <td>ZGFD_PRETP</td>
+  <td>11</td>
+  <td>&nbsp;</td>
+  <td>Good Issue Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZGFD_PRETP</td>
+  <td>12</td>
+  <td>&nbsp;</td>
+  <td>Closing Origin</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Yes</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>No</td>
+</tr>
+      </table>
+     </td>
+   </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

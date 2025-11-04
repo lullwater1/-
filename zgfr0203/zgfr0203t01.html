@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0203T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0203T01</h2>
+<h3> Description: Include ZKGR0203T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR0203T01<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES : MBEW,ZGFT5060.<br />
+<br />
+TYPE-POOLS ZGFTP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Type&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_CKML,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KALNR&nbsp;&nbsp;TYPE&nbsp;CK_KALNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BDATJ&nbsp;&nbsp;TYPE&nbsp;BDATJ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POPER&nbsp;&nbsp;TYPE&nbsp;POPER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNTPER&nbsp;TYPE&nbsp;CK_UNTPER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CURTP&nbsp;&nbsp;TYPE&nbsp;CURTP,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VPRSV&nbsp;&nbsp;TYPE&nbsp;VPRSV,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEINH&nbsp;&nbsp;TYPE&nbsp;CK_PEINH_1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STPRS&nbsp;&nbsp;TYPE&nbsp;CK_STPRS_1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PVPRS&nbsp;&nbsp;TYPE&nbsp;CK_PVPRS_1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;&nbsp;TYPE&nbsp;WAERS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BWKEY&nbsp;&nbsp;TYPE&nbsp;BWKEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;TYPE&nbsp;WERKS_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_CKML.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Internal&nbsp;Table&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA GT_CKML       TYPE TABLE OF TY_CKML    WITH HEADER LINE.<br />
+DATA GT_ZKGT0204 TYPE TABLE OF ZGFT0204 WITH HEADER LINE.<br />
+DATA GT_T001W      TYPE TABLE OF T001W      WITH HEADER LINE.<br />
+<br />
+DATA GT_WERKS       TYPE TABLE OF TY_CKML    WITH HEADER LINE.<br />
+RANGES GR_WERKS FOR ZGFT0204-WERKS.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Vari&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA G_CHECK.<br />
+DATA G_ANSWER.<br />
+DATA: G_BDATJ TYPE BDATJ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G_POPER&nbsp;TYPE&nbsp;POPER.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Macro<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF TABBED BLOCK TABB1 FOR 2 LINES.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(30)&nbsp;TAB1&nbsp;USER-COMMAND&nbsp;PUSH1&nbsp;DEFAULT&nbsp;SCREEN&nbsp;101.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;TAB&nbsp;(30)&nbsp;TAB2&nbsp;USER-COMMAND&nbsp;PUSH2&nbsp;DEFAULT&nbsp;SCREEN&nbsp;102.<br />
+SELECTION-SCREEN END OF BLOCK TABB1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 101 AS SUBSCREEN.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;PBUKRS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_BUKRS&nbsp;LIKE&nbsp;T001-BUKRS&nbsp;MEMORY&nbsp;ID&nbsp;BUK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;35(40)&nbsp;P_BUTXT.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;PSPMO2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;P_SPMO2&nbsp;TYPE&nbsp;SPMON&nbsp;DEFAULT&nbsp;SY-DATUM(6)&nbsp;OBLIGATORY.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 101.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 102 AS SUBSCREEN.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;PBUKR2&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;P_BUKR2&nbsp;LIKE&nbsp;T001-BUKRS&nbsp;MEMORY&nbsp;ID&nbsp;BUK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;35(40)&nbsp;P_BUTX2.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;COMMENT&nbsp;1(20)&nbsp;&nbsp;PSPMON&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;POSITION&nbsp;&nbsp;21.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;P_SPMON&nbsp;TYPE&nbsp;SPMON&nbsp;DEFAULT&nbsp;SY-DATUM(6)&nbsp;OBLIGATORY.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LINE.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 102.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

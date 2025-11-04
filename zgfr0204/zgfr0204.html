@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0204</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0204</h2>
+<h3> Description: [Global FTA] Imported Material Origin Management</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;PROGRAM&nbsp;ID&nbsp;&nbsp;:&nbsp;ZGFR0204<br />
+*&nbsp;Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;####&nbsp;######&nbsp;##<br />
+*&nbsp;Created&nbsp;By&nbsp;&nbsp;:&nbsp;KPMG<br />
+*&nbsp;Created&nbsp;On&nbsp;&nbsp;:&nbsp;2019-12-03<br />
+*&nbsp;Category&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Source&nbsp;data<br />
+*&nbsp;Description&nbsp;:&nbsp;####&nbsp;######&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFICATION&nbsp;LOG<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Date.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description.<br />
+*----------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT  zgfr0204 NO STANDARD PAGE HEADING MESSAGE-ID zgfmc.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+*&nbsp;INCLUDE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+include <a href ="zgfr0204t01.html">zgfr0204t01</a>.<br />
+include <a href ="zgfr0204scr.html">zgfr0204scr</a>.<br />
+include <a href ="zgfr0204alv.html">zgfr0204alv</a>.<br />
+include <a href ="zgfr0204o01.html">zgfr0204o01</a>.<br />
+include <a href ="zgfr0204i01.html">zgfr0204i01</a>.<br />
+include <a href ="zgfr0204f01.html">zgfr0204f01</a>.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;set_init.<br />
+&nbsp;&nbsp;gv_repid&nbsp;=&nbsp;sy-repid.<br />
+&nbsp;&nbsp;PERFORM&nbsp;tab_screen_set.<br />
+&nbsp;&nbsp;PERFORM&nbsp;alv_var_initial.<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_default_variant.<br />
+&nbsp;&nbsp;PERFORM&nbsp;init_variant.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN OUTPUT.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;tab_screen_postion_set.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;sy-batch&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_dynnr&nbsp;=&nbsp;102.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_main_data.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;sy-batch.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'X'."batch##&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;batch_save."U01&nbsp;##<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gt_main[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#####&nbsp;####&nbsp;####&nbsp;####.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s001&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+END-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+<br />
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;0100&nbsp;--&gt;&nbsp;Imported&nbsp;Material&nbsp;Origin&nbsp;Management<br />
+*&nbsp;0100&nbsp;--&gt;&nbsp;####&nbsp;###&nbsp;##<br />
+<br />
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;A01&nbsp;Company&nbsp;code<br />
+*&nbsp;A02&nbsp;Plant<br />
+*&nbsp;A03&nbsp;Year-month<br />
+*&nbsp;A04&nbsp;Supplier&nbsp;name<br />
+*&nbsp;A05&nbsp;Reason&nbsp;of&nbsp;closing<br />
+*&nbsp;A06&nbsp;Deletion&nbsp;indicator<br />
+*&nbsp;A07&nbsp;Created&nbsp;date<br />
+*&nbsp;A08&nbsp;Created&nbsp;time<br />
+*&nbsp;A09&nbsp;Creator<br />
+*&nbsp;A10&nbsp;Modified&nbsp;date<br />
+*&nbsp;A11&nbsp;Modified&nbsp;time<br />
+*&nbsp;A12&nbsp;Modifier<br />
+*&nbsp;A13&nbsp;Upload&nbsp;Y/N<br />
+*&nbsp;A14&nbsp;Quantity<br />
+*&nbsp;A15&nbsp;Unit<br />
+*&nbsp;M01&nbsp;Beginning&nbsp;date&nbsp;of&nbsp;validity&nbsp;is&nbsp;blanked<br />
+*&nbsp;M02&nbsp;Partial&nbsp;data&nbsp;saved&nbsp;only<br />
+*&nbsp;M03&nbsp;Fail&nbsp;to&nbsp;save&nbsp;data.<br />
+*&nbsp;T01&nbsp;Inquiry<br />
+*&nbsp;T02&nbsp;Registration<br />
+*&nbsp;T80&nbsp;Company&nbsp;code<br />
+*&nbsp;T81&nbsp;Year-month<br />
+*&nbsp;T82&nbsp;Supplier<br />
+*&nbsp;T83&nbsp;Material<br />
+*&nbsp;T84&nbsp;Plant<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_BUKR2&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;P_BUKRS&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;P_SPMO2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Year-month<br />
+*&nbsp;P_SPMON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Year-month<br />
+*&nbsp;S_LIFN2&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_LIFNR&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_MATN2&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_MATNR&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_WERK2&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_WERKS&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZGFMC<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*001&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;found<br />
+*002&nbsp;&nbsp;&nbsp;Would&nbsp;you&nbsp;like&nbsp;to&nbsp;save&nbsp;your&nbsp;data?<br />
+*005&nbsp;&nbsp;&nbsp;Select&nbsp;at&nbsp;least&nbsp;one&nbsp;line<br />
+*018&nbsp;&nbsp;&nbsp;&nbsp;&1&nbsp;data&nbsp;saved&nbsp;successfully!<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

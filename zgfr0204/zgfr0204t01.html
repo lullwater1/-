@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0204T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0204T01</h2>
+<h3> Description: Include ZKGR0204T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR0204T01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;TABLES<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES: ZGFT0200, ZGFT8010.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;INFOTYPES<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;CLUSTER-DEFINITION&nbsp;&&nbsp;IMPORT&nbsp;BUFFER<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;CONTROLS&nbsp;(&nbsp;##&nbsp;#&nbsp;#####&nbsp;###&nbsp;##&nbsp;)<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;TYPE-GROUPS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPE-POOLS ZGFTP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;TYPES<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF GY_MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAKTX&nbsp;TYPE&nbsp;MAKTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GY_MATNR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;CONSTANTS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CONSTANTS: BEGIN OF GC_MODE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DIS&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'A',&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPD&nbsp;TYPE&nbsp;C&nbsp;VALUE&nbsp;'B',&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GC_MODE.<br />
+<br />
+CONSTANTS: GC_RCPTY TYPE ZGFT0200-RCPTY VALUE 'IMP',   " ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_PKRUS&nbsp;TYPE&nbsp;ZGFT0005-PFONA&nbsp;VALUE&nbsp;'PKRUS'.&nbsp;"&nbsp;#-#&nbsp;FTA<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: GV_UCOMM LIKE SY-UCOMM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;LITERALS<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;COUNTERS<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;FIELDS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: GV_ANSWER    TYPE C, " ## ##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_TEXT(100)&nbsp;TYPE&nbsp;C,&nbsp;"&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_MODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;C,&nbsp;"&nbsp;##/##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_DYNNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SY-DYNNR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;FLAG/SWITCHS<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;STRUCTURE<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;INTERNAL&nbsp;TABLES<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF GT_MAIN OCCURS 0       " Main ALV<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,FLAG(1).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zgfs1056/dictionary-zgfs1056.html">ZGFS1056</a>.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;&nbsp;&nbsp;F_COL&nbsp;&nbsp;&nbsp;TYPE&nbsp;LVC_T_SCOL,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBLDNH&nbsp;&nbsp;LIKE&nbsp;ZSSLOIMTB500H-ZBLDNH,&nbsp;"U01<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CELLTAB&nbsp;TYPE&nbsp;LVC_T_STYL.<br />
+DATA : END OF GT_MAIN.<br />
+<br />
+DATA: GT_MATNR TYPE TABLE OF GY_MATNR WITH HEADER LINE.<br />
+<br />
+DATA: GT_FCODE TYPE TABLE OF SY-UCOMM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;RANGES<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;FIELD&nbsp;SYMBOLS<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;FIELD&nbsp;GROUPS<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;MACRO<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DEFINE _SET_RANGE.<br />
+&nbsp;&nbsp;&1-SIGN&nbsp;&nbsp;&nbsp;=&nbsp;&2.<br />
+&nbsp;&nbsp;&1-OPTION&nbsp;=&nbsp;&3.<br />
+&nbsp;&nbsp;&1-LOW&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&4.<br />
+&nbsp;&nbsp;&1-HIGH&nbsp;&nbsp;&nbsp;=&nbsp;&5.<br />
+&nbsp;&nbsp;APPEND&nbsp;&1.<br />
+&nbsp;&nbsp;CLEAR&nbsp;&nbsp;&1.<br />
+END-OF-DEFINITION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;LOCAL&nbsp;CLASSES<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CLASS: LCL_DEF_RECEIVER   DEFINITION DEFERRED.<br />
+<br />
+DATA: LCL_EVENT_RECEIVER  TYPE REF TO LCL_DEF_RECEIVER.<br />
+<br />
+   </div>
+   <div class="codeComment">
+************************************************************************<br />
+*&nbsp;LOCAL&nbsp;CLASSES:&nbsp;Definition<br />
+************************************************************************<br />
+*&nbsp;Event&nbsp;##<br />
+*---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CLASS LCL_DEF_RECEIVER DEFINITION.<br />
+<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;HANDLE_TOOLBAR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;TOOLBAR&nbsp;OF&nbsp;CL_GUI_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;E_OBJECT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_INTERACTIVE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;HANDLE_USER_COMMAND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;USER_COMMAND&nbsp;OF&nbsp;CL_GUI_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;E_UCOMM.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;HANDLE_DATA_CHANGED<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;DATA_CHANGED&nbsp;OF&nbsp;CL_GUI_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;ER_DATA_CHANGED.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;HANDLE_DATA_CHANGED_FINISHED<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;DATA_CHANGED_FINISHED&nbsp;OF&nbsp;CL_GUI_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;E_MODIFIED.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;HANDLE_HOTSPOT_CLICK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;HOTSPOT_CLICK&nbsp;OF&nbsp;CL_GUI_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;E_ROW_ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_COLUMN_ID.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:&nbsp;HANDLE_DOUBLE_CLICK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;EVENT&nbsp;DOUBLE_CLICK&nbsp;OF&nbsp;CL_GUI_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;E_ROW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_COLUMN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ES_ROW_NO.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS:&nbsp;HANDLE_ON_F4&nbsp;FOR&nbsp;EVENT&nbsp;ONF4&nbsp;OF&nbsp;CL_GUI_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;SENDER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_FIELDNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_FIELDVALUE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ES_ROW_NO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ER_EVENT_DATA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ET_BAD_CELLS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E_DISPLAY.<br />
+<br />
+ENDCLASS.                    "LCL_DEF_RECEIVER DEFINITION<br />
+<br />
+   </div>
+   <div class="codeComment">
+************************************************************************<br />
+*&nbsp;LOCAL&nbsp;CLASSES:&nbsp;Implementation<br />
+************************************************************************<br />
+<br />
+*&nbsp;Event&nbsp;##<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CLASS LCL_DEF_RECEIVER IMPLEMENTATION.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;HANDLE_TOOLBAR.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;TOOLBAR_0100&nbsp;USING&nbsp;E_OBJECT&nbsp;E_INTERACTIVE.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"handle_toolbar<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;HANDLE_USER_COMMAND.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;ALV_USER_COMMAND_0100&nbsp;USING&nbsp;E_UCOMM.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"handle_user_command<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;HANDLE_DATA_CHANGED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DATA_CHANGED_0100&nbsp;USING&nbsp;ER_DATA_CHANGED.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"handle_data_changed<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;HANDLE_DATA_CHANGED_FINISHED.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DATA_CHANGED_FINISHED_0100&nbsp;USING&nbsp;E_MODIFIED.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"handle_data_changed_finished<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;HANDLE_HOTSPOT_CLICK.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;HOTSPOT_CLICK_0100&nbsp;USING&nbsp;E_ROW_ID&nbsp;E_COLUMN_ID.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"handle_hotspot_click<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;HANDLE_DOUBLE_CLICK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DOUBLE_CLICK_0100&nbsp;USING&nbsp;E_ROW&nbsp;E_COLUMN&nbsp;ES_ROW_NO.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"handle_double_click<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;HANDLE_ON_F4.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"handle_on_f4<br />
+<br />
+ENDCLASS. " lcl_def_receiver<br />
+   </div>
+   <div class="codeComment">
+*<br />
+*SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;TABBED&nbsp;BLOCK&nbsp;TABB1&nbsp;FOR&nbsp;5&nbsp;LINES.<br />
+*SELECTION-SCREEN&nbsp;TAB&nbsp;(30)&nbsp;TAB1&nbsp;USER-COMMAND&nbsp;PUSH1&nbsp;DEFAULT&nbsp;SCREEN&nbsp;101.<br />
+*SELECTION-SCREEN&nbsp;TAB&nbsp;(30)&nbsp;TAB2&nbsp;USER-COMMAND&nbsp;PUSH2&nbsp;DEFAULT&nbsp;SCREEN&nbsp;102.<br />
+*SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;TABB1.<br />
+*<br />
+*SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;SCREEN&nbsp;101&nbsp;AS&nbsp;SUBSCREEN.<br />
+*<br />
+*PARAMETERS:&nbsp;P_BUKRS&nbsp;TYPE&nbsp;ZGFT0200-BUKRS&nbsp;OBLIGATORY<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT&nbsp;ZGFTP_BUKRS.<br />
+*SELECTION-SCREEN&nbsp;COMMENT&nbsp;45(25)&nbsp;P_BUTXT."U01&nbsp;##<br />
+*<br />
+*SELECT-OPTIONS:&nbsp;S_WERKS&nbsp;FOR&nbsp;ZGFT0200-WERKS,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_LIFNR&nbsp;FOR&nbsp;ZGFT0200-LIFNR,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_MATNR&nbsp;FOR&nbsp;ZGFT0200-MATNR.<br />
+*<br />
+*PARAMETERS:&nbsp;P_SPMON&nbsp;TYPE&nbsp;SPMON&nbsp;OBLIGATORY&nbsp;DEFAULT&nbsp;SY-DATUM+0(6).<br />
+*<br />
+*SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;SCREEN&nbsp;101.<br />
+*<br />
+*SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;SCREEN&nbsp;102&nbsp;AS&nbsp;SUBSCREEN.<br />
+*<br />
+*PARAMETERS:&nbsp;P_BUKR2&nbsp;TYPE&nbsp;ZGFT0200-BUKRS&nbsp;OBLIGATORY<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT&nbsp;ZGFTP_BUKRS.<br />
+*<br />
+*SELECT-OPTIONS:&nbsp;S_WERK2&nbsp;FOR&nbsp;ZGFT0200-WERKS,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_LIFN2&nbsp;FOR&nbsp;ZGFT0200-LIFNR,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_MATN2&nbsp;FOR&nbsp;ZGFT0200-MATNR.<br />
+*<br />
+*PARAMETERS:&nbsp;P_SPMO2&nbsp;TYPE&nbsp;SPMON&nbsp;OBLIGATORY&nbsp;DEFAULT&nbsp;SY-DATUM+0(6).<br />
+*<br />
+*SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;SCREEN&nbsp;102.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

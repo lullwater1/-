@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZPPM_BOM_EXPLOSION</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for function ZPPM_BOM_EXPLOSION</h2>
+<h3> Description: BoM Explosion Function(Common)</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="code">
+FUNCTION ZPPM_BOM_EXPLOSION .<br />
+   </div>
+   <div class="codeComment">
+*"----------------------------------------------------------------------<br />
+*"*"Local Interface:<br />
+*"  IMPORTING<br />
+*"     VALUE(IV_UP_DW) TYPE  CHAR01 DEFAULT 'F'<br />
+*"     VALUE(IV_MEHRS) TYPE  CHAR01 DEFAULT 'S'<br />
+*"     VALUE(IV_MDMPS) TYPE  CHAR01 OPTIONAL<br />
+*"     VALUE(IV_FBSTP) TYPE  CHAR01 OPTIONAL<br />
+*"     VALUE(IV_SEOPF) TYPE  CHAR01 OPTIONAL<br />
+*"     VALUE(IV_LEVEL) TYPE  NUMC2 DEFAULT '99'<br />
+*"     VALUE(IV_EITEM) TYPE  Z_EITEM OPTIONAL<br />
+*"     VALUE(IV_STO) TYPE  CHAR01 OPTIONAL<br />
+*"     VALUE(IV_HINFO) TYPE  CHAR01 OPTIONAL<br />
+*"     VALUE(IV_WULPVCK) TYPE  CHAR01 OPTIONAL<br />
+*"     VALUE(IV_HALI) TYPE  CHAR01 OPTIONAL<br />
+*"  EXPORTING<br />
+*"     VALUE(EV_TYPE) TYPE  Z_PTYPE<br />
+*"     VALUE(EV_MESSAGE) TYPE  RTC_MESSAGE<br />
+*"  TABLES<br />
+*"      T_MATL STRUCTURE  ZSPPM0110<br />
+*"      T_BOMS STRUCTURE  ZSPPM0111 OPTIONAL<br />
+*"----------------------------------------------------------------------<br />
+********************************************************************<br />
+* System       : Mando Next ERP PJT.<br />
+* Modules      : PPM.<br />
+* Program ID   : ZPPM_BOM_EXPLOSION.<br />
+* T_CODE       : N/A.<br />
+* Ref. Program : N/A.<br />
+* TYPE         : Function.<br />
+* Program Desc.: BoM Explosion.<br />
+* Create Date  : 2021.12.15.<br />
+* Create User  : nerp.tbjung.<br />
+********************************************************************<br />
+*                         Change History                           *<br />
+* ---------  ----------  -----------  -----------------------------*<br />
+* Chg. No    Chg. Date   Chg. User          Change Desc.           *<br />
+* ---------  ----------  ----------  ------------------------------*<br />
+*     N      2021.12.15  nerp.tbjung       ## ##.<br />
+*  CN-001    2022.03.17  nerp.tbjung       V_T179-VTEXT ####.<br />
+*  CN-002    2022.03.22  nerp.tbjung.<br />
+*  ### ### PDCATG = 'X''PD20', 'PD30'###.<br />
+*  #### SOBSL# '50' # #### SORFT = 'POST' # ####.<br />
+*  CN-003    2022.03.29  nerp.tbjung.<br />
+*  iv_seopf #### #### ## X### ##### F, ####### ### #### ##<br />
+*  bom ## #### ## ###.<br />
+*  CN-003    2022.04.25  nerp.tbjung.<br />
+*  BOM ### #### ### ## ## ###### ###.<br />
+*  CN-004    2022.06.14  nerp.tbjung.<br />
+*  WEGXX(Path (Predecessor)),<br />
+*  VWEGX(Path (for multi-level BOM explosions)),<br />
+*  ZBOMHI(BOM hierarchy) ## # ## ##.<br />
+*  CN-005    2022.06.15  nerp.tbjung.<br />
+*  BUKRS(Company Code), MTAR0(Plant Level Material Type) ##, ## ##.<br />
+*  CN-006    2022.09.07  E03058.<br />
+*  CATG0(PU Category) ##, ## ##.<br />
+*  CN-007    2022.09.14  E03058.<br />
+*  WAERS(####) ##, ## ##.<br />
+*  CN-008    2022.09.27 sanfe, sanko ## ##.<br />
+*  CN-009    2022.09.29 sortf ## ## ##.<br />
+*  PERFORM get_sortf ###### sortf# stpo## ### ##.<br />
+*  CN-010    2022.10.05 t_matl# ###, ##, #####, ## #### ####.<br />
+*  CN-011    2022.10.27 Header Material# ### Insert # # ###<br />
+*  iv_hinfo parameter #### ## ###.<br />
+*  CN-012    2022.12.02 iv_seopf = x## ###### ##### f## bom ## X.<br />
+*  CN-013    2022.12.16 ##### bom ### #### ##### #### #### ## #<br />
+*                       ## ##### ## ##.<br />
+*  CN-014    2023.02.01 #### ### ### #### ### ### ##.<br />
+*  CN-015    2023.03.28 #### iv_wulpvck# X## #### ##### ####<br />
+*                       #### select### ## ###.<br />
+*  CN-016    2023.04.11 #### hali# #### #### ##.<br />
+*  CN-017    2023.05.01 ###, #### ##, ## ###.<br />
+*  U18       2023.07.31 BOM ### - ## Item ### ### ###<br />
+*  Quota Arrangement # ## Priority ## ##### ##(CR2307210020)<br />
+*  U19       2023.09.10 BOM ### - ## Item<br />
+*  ### ### ### Quota Arrangement # #### ##(CR2308280040)<br />
+*  U20       2023.10.18 hao06.liu ## BOM ## # Valid-To### ## ###<br />
+*                               # Component# #### ###(CR2310170015)<br />
+*  U21       2024.01.11 SS.YUAN BOM ### ## ## ##(CR2311100015)<br />
+*  U22       2024.11.05  SS.YUAN      [883972] [PP CR] SAP ZRPPMCS15<br />
+*                                 Where Used list ####(CR2410310029)<br />
+********************************************************************<br />
+*----------------------------------------------------------------------*<br />
+* description<br />
+* - it_matl #### ### BOM #### #### #### #### ##.<br />
+<br />
+*       Global data declarations<br />
+<br />
+* input parameters<br />
+* - lv_up_dw : f:forward, r:reverse.<br />
+* - iv_mehrs : Multilevel Explosion.<br />
+* - iv_mdmps : Phantom item indicator.<br />
+* - iv_fbstp : Sub-Contract indicator.<br />
+* - iv_seopf : Stop Explosion of Purchases<br />
+* - iv_level : Max Explosion Level.<br />
+* - iv_hali  : Material type Hali is like Phantom(Single Only)<br />
+<br />
+* input tables.<br />
+* - t_matl : BOM ## # ## ##.<br />
+<br />
+* output tables.<br />
+* - t_boms : ## # BOM ##.<br />
+*----------------------------------------------------------------------*<br />
+<br />
+
+<div class="codeComment">*       <a href ="global-zppm_bom_explosion.html">Global data declarations</a></div><br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;BEGIN&nbsp;OF&nbsp;LT_BUKRS&nbsp;OCCURS&nbsp;0,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;WERKS_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BWKEY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BWKEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;BUKRS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;WAERS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LT_BUKRS.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;BEGIN&nbsp;OF&nbsp;LT_MTAR0&nbsp;OCCURS&nbsp;0,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;&nbsp;TYPE&nbsp;WERKS_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BESKZ&nbsp;&nbsp;TYPE&nbsp;BESKZ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SOBSL&nbsp;&nbsp;TYPE&nbsp;SOBSL,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MTARP&nbsp;&nbsp;TYPE&nbsp;ZMDU_MTARP_MDD,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PDCATG&nbsp;TYPE&nbsp;ZMDU_PD_CATG,<br />
+   </div>
+   <div class="codeComment">
+*         23.03.21 ###.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MMSTA&nbsp;&nbsp;TYPE&nbsp;MMSTA,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MARCTX&nbsp;TYPE&nbsp;ZMDU_MARCTX,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VTYPE&nbsp;&nbsp;TYPE&nbsp;ZMDU_VTYPE,<br />
+   </div>
+   <div class="codeComment">
+*         23.05.01 ###.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEINS&nbsp;&nbsp;TYPE&nbsp;MEINS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;&nbsp;&nbsp;OF&nbsp;LT_MTAR0.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_MATL&nbsp;LIKE&nbsp;ZSPPM0110&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LS_BOMS&nbsp;TYPE&nbsp;ZSPPM0111,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BOMS&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZSPPM0111,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_PARA&nbsp;TYPE&nbsp;TYS_BOMPA.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_T460A&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;T460A&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;T_MATL[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* --- 2022.10.05 ###.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SORT&nbsp;T_MATL&nbsp;BY&nbsp;WERKS&nbsp;MATNR&nbsp;DATUV&nbsp;DATUB&nbsp;DESCENDING.<br />
+&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;T_MATL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;WERKS&nbsp;MATNR&nbsp;DATUV&nbsp;DATUB.<br />
+   </div>
+   <div class="codeComment">
+* --- 2022.10.05 ###.<br />
+<br />
+* --- Input Parameters save.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LS_PARA-LEVTY&nbsp;&nbsp;&nbsp;=&nbsp;IV_MEHRS.<br />
+&nbsp;&nbsp;LS_PARA-MDMPS&nbsp;&nbsp;&nbsp;=&nbsp;IV_MDMPS.<br />
+&nbsp;&nbsp;LS_PARA-FBSTP&nbsp;&nbsp;&nbsp;=&nbsp;IV_FBSTP.<br />
+&nbsp;&nbsp;LS_PARA-MAXLV&nbsp;&nbsp;&nbsp;=&nbsp;IV_LEVEL.<br />
+&nbsp;&nbsp;LS_PARA-SEOPF&nbsp;&nbsp;&nbsp;=&nbsp;IV_SEOPF.<br />
+&nbsp;&nbsp;LS_PARA-EITEM&nbsp;&nbsp;&nbsp;=&nbsp;IV_EITEM.<br />
+&nbsp;&nbsp;LS_PARA-STO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IV_STO.<br />
+&nbsp;&nbsp;LS_PARA-WULPVCK&nbsp;=&nbsp;IV_WULPVCK.<br />
+&nbsp;&nbsp;LS_PARA-HALI&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;IV_HALI.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;IV_UP_DW&nbsp;EQ&nbsp;GC_F.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;LS_PARA-EITEM,&nbsp;LS_PARA-WULPVCK.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;IV_UP_DW&nbsp;EQ&nbsp;GC_R.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;LS_PARA-HALI.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* --- get_special procurement key<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CLEAR:&nbsp;LT_T460A,&nbsp;LT_T460A[].<br />
+&nbsp;&nbsp;SELECT&nbsp;WERKS&nbsp;SOBSL&nbsp;BESKZ&nbsp;SOBES&nbsp;WRK02<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_T460A<br />
+&nbsp;&nbsp;FROM&nbsp;T460A.<br />
+   </div>
+   <div class="codeComment">
+*  WHERE werks EQ ps_boms-werks.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SORT&nbsp;LT_T460A&nbsp;BY&nbsp;WERKS&nbsp;SOBSL.<br />
+<br />
+   </div>
+   <div class="codeComment">
+* --- BUKRS Select.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;A~WERKS&nbsp;A~BWKEY&nbsp;B~BUKRS&nbsp;C~WAERS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_BUKRS<br />
+&nbsp;&nbsp;FROM&nbsp;T001W&nbsp;AS&nbsp;A&nbsp;JOIN&nbsp;T001K&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~BWKEY&nbsp;EQ&nbsp;B~BWKEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;T001&nbsp;&nbsp;AS&nbsp;c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;B~BUKRS&nbsp;EQ&nbsp;C~BUKRS<br />
+&nbsp;&nbsp;WHERE&nbsp;A~MANDT&nbsp;EQ&nbsp;SY-MANDT.<br />
+&nbsp;&nbsp;SORT&nbsp;LT_BUKRS&nbsp;BY&nbsp;WERKS.<br />
+<br />
+&nbsp;&nbsp;LT_MATL[]&nbsp;=&nbsp;T_MATL[].<br />
+&nbsp;&nbsp;SORT&nbsp;LT_MATL&nbsp;BY&nbsp;MATNR&nbsp;WERKS.<br />
+&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;LT_MATL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;MATNR&nbsp;WERKS.<br />
+&nbsp;&nbsp;IF&nbsp;LT_MATL[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;A~MATNR&nbsp;A~WERKS&nbsp;A~BESKZ&nbsp;A~SOBSL&nbsp;A~MTARP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~PDCATG&nbsp;A~MARCTX&nbsp;A~VTYPE&nbsp;A~MMSTA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~MEINS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;LT_MTAR0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;MARC&nbsp;AS&nbsp;A&nbsp;JOIN&nbsp;MARA&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~MATNR&nbsp;EQ&nbsp;B~MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;LT_MATL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~MATNR&nbsp;EQ&nbsp;LT_MATL-MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~WERKS&nbsp;EQ&nbsp;LT_MATL-WERKS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;LT_MTAR0&nbsp;BY&nbsp;MATNR&nbsp;WERKS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;LT_MATL,&nbsp;LT_MATL[].<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FREE:&nbsp;&nbsp;LT_MATL.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;T_MATL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;LS_BOMS,&nbsp;LT_BUKRS,&nbsp;LT_MTAR0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-MATN0&nbsp;=&nbsp;T_MATL-MATNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-BDATE&nbsp;=&nbsp;T_MATL-DATUV.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-WERKS&nbsp;=&nbsp;T_MATL-WERKS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-MATNR&nbsp;=&nbsp;T_MATL-MATNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-IDNRK&nbsp;=&nbsp;T_MATL-MATNR.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-DATUV&nbsp;=&nbsp;T_MATL-DATUV.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-DATUB&nbsp;=&nbsp;T_MATL-DATUB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-STLAN&nbsp;=&nbsp;T_MATL-STLAN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-MENG0&nbsp;=&nbsp;T_MATL-MENGV.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*   --- bukrs.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_BUKRS&nbsp;WITH&nbsp;KEY&nbsp;WERKS&nbsp;=&nbsp;LS_BOMS-WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-BUKRS&nbsp;=&nbsp;LT_BUKRS-BUKRS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-WAERS&nbsp;=&nbsp;LT_BUKRS-WAERS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*   --- mtar0(mtarp).<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;LT_MTAR0&nbsp;WITH&nbsp;KEY&nbsp;MATNR&nbsp;=&nbsp;LS_BOMS-MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;=&nbsp;LS_BOMS-WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-MTAR0&nbsp;=&nbsp;LT_MTAR0-MTARP.<br />
+   </div>
+   <div class="codeComment">
+*     --- ###### PD Category## ## ##. 22.09.07.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-CATG0&nbsp;=&nbsp;LT_MTAR0-PDCATG.<br />
+   </div>
+   <div class="codeComment">
+*     --- 23.03.31 ###.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-MMST0&nbsp;&nbsp;=&nbsp;LT_MTAR0-MMSTA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-VTYP0&nbsp;&nbsp;=&nbsp;LT_MTAR0-VTYPE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-MARCT0&nbsp;=&nbsp;LT_MTAR0-MARCTX.<br />
+   </div>
+   <div class="codeComment">
+*     --- 23.05.01 ###.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-MEIN0&nbsp;=&nbsp;LT_MTAR0-MEINS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+   </div>
+   <div class="codeComment">
+*   --- 2022.12.02 ## ##.<br />
+*   --- ### ### ##### F### ####### ##,<br />
+*   --- IV_SEOPF = 'X'## bom #### ###.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;IV_SEOPF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EQ&nbsp;GC_X&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_MTAR0-BESKZ&nbsp;EQ&nbsp;GC_F&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_MTAR0-SOBSL&nbsp;EQ&nbsp;GC_SPACE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_BOMS-STLAN&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-STLAN&nbsp;=&nbsp;GC_1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-STLAL&nbsp;=&nbsp;T_MATL-STLAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;LS_BOMS-STLAL&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-STLAL&nbsp;=&nbsp;GC_01.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;T_MATL-MENGV&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_MATL-MENGV&nbsp;=&nbsp;GC_1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BOMS-MENGV&nbsp;=&nbsp;LS_BOMS-ZMENGE_B&nbsp;=&nbsp;T_MATL-MENGV.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*   --- 2022.10.27 Header material information# insert##.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;IV_HINFO&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;LT_BOMS[].<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_HEADER_INFORMATION&nbsp;TABLES&nbsp;LT_T460A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;&nbsp;LS_BOMS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LT_BOMS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T_MATL-MENGV.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;LT_BOMS[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LINES&nbsp;OF&nbsp;LT_BOMS&nbsp;TO&nbsp;T_BOMS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;LT_BOMS[].<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;IV_UP_DW&nbsp;EQ&nbsp;GC_F.<br />
+   </div>
+   <div class="codeComment">
+*     --- Forward.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_BOM_INFO_DOWN&nbsp;TABLES&nbsp;LT_T460A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;&nbsp;LS_BOMS&nbsp;LT_BOMS&nbsp;LS_PARA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+   </div>
+   <div class="codeComment">
+*     --- Reverse.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_BOM_INFO_UP&nbsp;&nbsp;&nbsp;TABLES&nbsp;LT_T460A<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;&nbsp;LS_BOMS&nbsp;LT_BOMS&nbsp;LS_PARA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LINES&nbsp;OF&nbsp;LT_BOMS&nbsp;TO&nbsp;T_BOMS.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*  IF iv_eitem EQ gc_x.<br />
+*    DELETE t_boms WHERE zeitem EQ space.<br />
+*  ENDIF.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;T_BOMS[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EV_TYPE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GC_S.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EV_MESSAGE&nbsp;=&nbsp;text-M20.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EV_TYPE&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GC_E.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EV_MESSAGE&nbsp;=&nbsp;text-M21.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFUNCTION.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+* Message class: ZPPM1<br />
+*000   & & & &<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

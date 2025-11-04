@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0203</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0203</h2>
+<h3> Description: [Global FTA] Standard Cost Extraction</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;PROGRAM&nbsp;ID&nbsp;&nbsp;:&nbsp;ZGFR0203<br />
+*&nbsp;Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;####&nbsp;##<br />
+*&nbsp;Created&nbsp;By&nbsp;&nbsp;:&nbsp;KPMG<br />
+*&nbsp;Created&nbsp;On&nbsp;&nbsp;:&nbsp;2019-12-03<br />
+*&nbsp;Category&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Source&nbsp;data<br />
+*&nbsp;Description&nbsp;:&nbsp;####&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFICATION&nbsp;LOG<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Date.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description.<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT  zgfr0203 NO STANDARD PAGE HEADING MESSAGE-ID zgfmc.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;INCLUDE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+include <a href ="zgfr0203t01.html">zgfr0203t01</a>.<br />
+include <a href ="zgf_alv_class.html">zgf_alv_class</a>.<br />
+include <a href ="zgfr0203class.html">zgfr0203class</a>.<br />
+include <a href ="zgfr0203f01.html">zgfr0203f01</a>.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;set_init.<br />
+&nbsp;&nbsp;g_repid&nbsp;=&nbsp;sy-repid.<br />
+&nbsp;&nbsp;PERFORM&nbsp;tab_screen_set.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_spmon.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;f4_p_month(zgf_form_sub_routine)&nbsp;USING&nbsp;sy-repid.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_spmo2.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;f4_p_month(zgf_form_sub_routine)&nbsp;USING&nbsp;sy-repid.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;tab_screen_postion_set.<br />
+&nbsp;&nbsp;PERFORM&nbsp;change_cocd.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;sy-batch&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;g_dynnr&nbsp;=&nbsp;102.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;g_dynnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'101'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;p_bukrs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_table_data.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gt_outtab[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;salv_call.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'102'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;auth_bukrs(zgf_form_sub_routine)&nbsp;USING&nbsp;p_bukr2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;initial_set.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;data_get.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;data_process.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;data_save.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;N01&nbsp;Inquiry<br />
+*&nbsp;N02&nbsp;Extraction<br />
+*&nbsp;T01&nbsp;Standard&nbsp;cost&nbsp;extraction<br />
+*&nbsp;T80&nbsp;Company&nbsp;Code<br />
+*&nbsp;T81&nbsp;Year-month<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_BUKR2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Company&nbsp;Code<br />
+*&nbsp;P_BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Company&nbsp;Code<br />
+*&nbsp;P_SPMO2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Year-month<br />
+*&nbsp;P_SPMON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Year-month<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZGFMC<br />
+*001&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;found<br />
+*004&nbsp;&nbsp;&nbsp;Failed&nbsp;to&nbsp;save&nbsp;data.&nbsp;&1<br />
+*010&nbsp;&nbsp;&nbsp;&1:&nbsp;Extraction&nbsp;completed.&nbsp;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;save?<br />
+*014&nbsp;&nbsp;&nbsp;&1:&nbsp;(&2&nbsp;records)&nbsp;extracted&nbsp;successfully.<br />
+*019&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;to&nbsp;save<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

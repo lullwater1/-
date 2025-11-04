@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0202</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0202</h2>
+<h3> Description: [Global FTA] Standard BOM Extraction</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;PROGRAM&nbsp;ID&nbsp;&nbsp;:&nbsp;ZGFR0202<br />
+*&nbsp;Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;##&nbsp;BOM&nbsp;##<br />
+*&nbsp;Created&nbsp;By&nbsp;&nbsp;:&nbsp;KPMG<br />
+*&nbsp;Created&nbsp;On&nbsp;&nbsp;:&nbsp;2019-12-03<br />
+*&nbsp;Category&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Source&nbsp;data<br />
+*&nbsp;Description&nbsp;:&nbsp;##&nbsp;BOM&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFICATION&nbsp;LOG<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;Date.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Author.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description.<br />
+*----------------------------------------------------------------------*<br />
+*<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT  ZGFR0202 NO STANDARD PAGE HEADING MESSAGE-ID ZGFMC.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;INCLUDE<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+include <a href ="zgfr0202t01.html">ZGFR0202T01</a>.<br />
+include <a href ="zgf_alv_class.html">ZGF_ALV_CLASS</a>.<br />
+include <a href ="zgfr0202class.html">ZGFR0202CLASS</a>.<br />
+include <a href ="zgfr0202f01.html">ZGFR0202F01</a>.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;SET_INIT."U01&nbsp;##<br />
+&nbsp;&nbsp;G_REPID&nbsp;=&nbsp;SY-REPID.<br />
+&nbsp;&nbsp;PERFORM&nbsp;TAB_SCREEN_SET.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN OUTPUT.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;LIST_BOX_SET.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR S_WERK2-LOW.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;F4_WERKS.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR S_SPMO-LOW.<br />
+&nbsp;&nbsp;PERFORM&nbsp;F4_P_MONTH(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;SY-REPID.<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR S_SPMO-HIGH.<br />
+&nbsp;&nbsp;PERFORM&nbsp;F4_P_MONTH(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;SY-REPID.<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR S_SPMO2-LOW.<br />
+&nbsp;&nbsp;PERFORM&nbsp;F4_P_MONTH(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;SY-REPID.<br />
+<br />
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR S_SPMO2-HIGH.<br />
+&nbsp;&nbsp;PERFORM&nbsp;F4_P_MONTH(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;SY-REPID.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+AT SELECTION-SCREEN.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;TAB_SCREEN_POSTION_SET.<br />
+&nbsp;&nbsp;PERFORM&nbsp;CHANGE_COCD.<br />
+&nbsp;&nbsp;IF&nbsp;G_UCOMM&nbsp;=&nbsp;'ONLI'&nbsp;OR&nbsp;G_UCOMM&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;INPUT_CHECK.<br />
+&nbsp;&nbsp;ENDIF.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;G_DYNNR&nbsp;=&nbsp;101.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;AUTH_BUKRS(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;P_BUKRS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_BASE_MATNR&nbsp;CHANGING&nbsp;GV_RET.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GV_RET&nbsp;&lt;&gt;&nbsp;'E'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_TABLE_DATA.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GT_OUTTAB[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SALV_CALL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ELSEIF&nbsp;G_DYNNR&nbsp;=&nbsp;102.&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;AUTH_BUKRS(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;P_BUKR2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;INITIAL_SET.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;GET_BASE_MATNR&nbsp;CHANGING&nbsp;GV_RET.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;GV_RET&nbsp;&lt;&gt;&nbsp;'E'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DATA_GET.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DATA_PROCESS.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;B01&nbsp;Execute&nbsp;parent&nbsp;product&nbsp;classification<br />
+*&nbsp;N01&nbsp;Inquiry<br />
+*&nbsp;N02&nbsp;Extraction<br />
+*&nbsp;T01&nbsp;Standard&nbsp;BOM&nbsp;data<br />
+*&nbsp;T80&nbsp;Company&nbsp;Code<br />
+*&nbsp;T81&nbsp;Material&nbsp;type<br />
+*&nbsp;T82&nbsp;Date<br />
+*&nbsp;T83&nbsp;Material<br />
+*&nbsp;T84&nbsp;Plant<br />
+*&nbsp;T85&nbsp;Year-Month<br />
+*&nbsp;T86&nbsp;No&nbsp;target&nbsp;material&nbsp;found&nbsp;during&nbsp;the&nbsp;period.<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;P_BUKR2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Company&nbsp;Code<br />
+*&nbsp;P_BUKRS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Company&nbsp;Code<br />
+*&nbsp;P_SVALU2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Material&nbsp;extraction&nbsp;criteria<br />
+*&nbsp;P_SVALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Standard&nbsp;of&nbsp;MaterialExtraction<br />
+*&nbsp;S_BUDA2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date<br />
+*&nbsp;S_BUDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date<br />
+*&nbsp;S_MATN2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Material<br />
+*&nbsp;S_MATNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Material<br />
+*&nbsp;S_WERK2&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;S_WERKS&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;MANDATORY&nbsp;FIELD&nbsp;ERROR<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;ZGFMC<br />
+*000&nbsp;&nbsp;&nbsp;&&nbsp;&&nbsp;&&nbsp;&<br />
+*001&nbsp;&nbsp;&nbsp;No&nbsp;data&nbsp;found<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

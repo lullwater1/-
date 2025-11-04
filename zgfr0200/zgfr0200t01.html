@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0200T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0200T01</h2>
+<h3> Description: Include ZKGR0200T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR2000T01<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES: EKBE, T001, LFA1, T001W, MBEW, ZGFT5040, ZGFT0301.<br />
+<br />
+TYPE-POOLS ZGFTP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Type&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF TY_VBELN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;WERKS_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GOODS&nbsp;TYPE&nbsp;ZKGE_GOODS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_VBELN.<br />
+<br />
+TYPES: BEGIN OF TY_MBEW,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;MATNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;WERKS_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BKLAS&nbsp;TYPE&nbsp;BKLAS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_MBEW.<br />
+<br />
+TYPES: BEGIN OF TY_IDNRK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IDNRK&nbsp;TYPE&nbsp;IDNRK,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;WERKS_D,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;TY_IDNRK.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Internal&nbsp;Table&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGT0200 TYPE TABLE OF ZGFT0200 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EKBE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;EKBE&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EKKO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;HASHED&nbsp;TABLE&nbsp;OF&nbsp;EKKO&nbsp;WITH&nbsp;UNIQUE&nbsp;DEFAULT&nbsp;KEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_EKPO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;HASHED&nbsp;TABLE&nbsp;OF&nbsp;EKPO&nbsp;WITH&nbsp;UNIQUE&nbsp;DEFAULT&nbsp;KEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT5040&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT5040&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0014&nbsp;LIKE&nbsp;ZGFT0014&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE,&nbsp;"U01<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT5090&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT5090&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MBEW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;TY_MBEW&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA: BEGIN OF GT_PURCH OCCURS 0,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GJAHR&nbsp;TYPE&nbsp;EKBE-GJAHR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BELNR&nbsp;TYPE&nbsp;EKBE-BELNR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUZEI&nbsp;TYPE&nbsp;EKBE-BUZEI.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zgft0200/dictionary-zgft0200.html">ZGFT0200</a>.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;EKORG&nbsp;TYPE&nbsp;EKKO-EKORG,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UMREZ&nbsp;TYPE&nbsp;EKPO-UMREZ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UMREN&nbsp;TYPE&nbsp;EKPO-UMREN,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAND1&nbsp;LIKE&nbsp;LFA1-LAND1.&nbsp;"U01&nbsp;##<br />
+DATA: END OF GT_PURCH.<br />
+<br />
+DATA GT_VBELN TYPE HASHED TABLE OF TY_VBELN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;WERKS&nbsp;MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA : GT_ZKGT7009 LIKE ZGFT7009 OCCURS 0 WITH HEADER LINE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Vari&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA G_CHECK.<br />
+DATA G_ANSWER.<br />
+<br />
+RANGES: R_BUDAT FOR EKBE-BUDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_BWART&nbsp;FOR&nbsp;EKBE-BWART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_BKLAS&nbsp;FOR&nbsp;MBEW-BKLAS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_EKORG&nbsp;FOR&nbsp;EKKO-EKORG.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Constants<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CONSTANTS: GC_ROH1 TYPE MARA-MTART VALUE 'ROH1',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GC_ROH2&nbsp;TYPE&nbsp;MARA-MTART&nbsp;VALUE&nbsp;'ROH2'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&-------------------------------------------------------------------*<br />
+<br />
+*&-------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF TABBED BLOCK TABB1 FOR 3 LINES.<br />
+SELECTION-SCREEN TAB (30) TAB1 USER-COMMAND PUSH1 DEFAULT SCREEN 101.<br />
+SELECTION-SCREEN TAB (30) TAB2 USER-COMMAND PUSH2 DEFAULT SCREEN 102.<br />
+SELECTION-SCREEN END OF BLOCK TABB1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 101 AS SUBSCREEN.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) PBUKR2.<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS: P_BUKR2 TYPE T001-BUKRS MEMORY ID BUK.<br />
+SELECTION-SCREEN COMMENT 35(40) P_BUTX2.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) SWERK2.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_WERK2 FOR T001W-WERKS.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) SBUDAT.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS S_BUDAT FOR EKBE-BUDAT OBLIGATORY DEFAULT SY-DATUM.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 101.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 102 AS SUBSCREEN.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) PBUKRS .<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS P_BUKRS TYPE T001-BUKRS MEMORY ID BUK.<br />
+SELECTION-SCREEN COMMENT 35(40) P_BUTXT.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  SWERKS.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS: S_WERKS FOR T001W-WERKS.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) SDATE.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS S_DATE FOR EKBE-BUDAT OBLIGATORY DEFAULT SY-DATUM.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 102.<br />
+   </div>
+   <div class="codeComment">
+*--<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

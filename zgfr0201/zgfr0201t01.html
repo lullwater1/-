@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0201T01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0201T01</h2>
+<h3> Description: Include ZKGR0201T01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR0201T01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES: EKBE, T001, LFA1, T001W, MBEW, ZGFT0490.<br />
+<br />
+TYPE-POOLS ZGFTP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Type&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF GY_BUKRS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;T001W-WERKS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BUKRS&nbsp;TYPE&nbsp;T001K-BUKRS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GY_BUKRS.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Internal&nbsp;Table&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA: GT_ZKGT0201 TYPE TABLE OF ZGFT0201 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MKPF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;MKPF&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MSEG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;HASHED&nbsp;TABLE&nbsp;OF&nbsp;MSEG&nbsp;WITH&nbsp;UNIQUE&nbsp;DEFAULT&nbsp;KEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_MBEW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;MBEW&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+   </div>
+   <div class="codeComment">
+***&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZCOT0010&nbsp;LIKE&nbsp;ZCOT0010&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.&nbsp;"u01<br />
+<br />
+   </div>
+   <div class="code">
+DATA : GT_ZKGT0490 LIKE ZGFT0490 OCCURS 0 WITH HEADER LINE."u01<br />
+<br />
+DATA: GT_ZKGT5050 TYPE TABLE OF ZGFT5050 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT5040&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT5040&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT5060&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT5060&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA: GT_T001W TYPE TABLE OF T001W WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_T001K&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;T001K&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+DATA: GT_BUKRS TYPE TABLE OF GY_BUKRS WITH HEADER LINE.<br />
+<br />
+DATA : BEGIN OF GT_MONTH OCCURS 0,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BDATJ&nbsp;TYPE&nbsp;BDATJ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POPER&nbsp;TYPE&nbsp;POPER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GT_MONTH.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Vari&nbsp;Def<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+DATA G_CHECK.<br />
+DATA G_ANSWER.<br />
+DATA: G_MON TYPE SPMON. "##<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Macro<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+RANGES: R_BUDAT    FOR EKBE-BUDAT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_BWART&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;MSEG-BWART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_BKLAS&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;MBEW-BKLAS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_BWKEY&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;T001K-BWKEY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_BWART_GR&nbsp;FOR&nbsp;MSEG-BWART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_BWART_ER&nbsp;FOR&nbsp;MSEG-BWART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_BWART_GI&nbsp;FOR&nbsp;MSEG-BWART,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R_BWART_EI&nbsp;FOR&nbsp;MSEG-BWART.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;Mando&nbsp;specific<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF GTY_DATA,<br />
+&nbsp;&nbsp;ZPERIO&nbsp;TYPE&nbsp;ZTCOD0040-ZPERIO,<br />
+&nbsp;&nbsp;WERKS&nbsp;TYPE&nbsp;ZTCOD0040-WERKS,<br />
+&nbsp;&nbsp;MATNR&nbsp;TYPE&nbsp;ZTCOD0040-MATNR,<br />
+&nbsp;&nbsp;MEINS&nbsp;TYPE&nbsp;MARA-MEINS,<br />
+&nbsp;&nbsp;WAERS&nbsp;TYPE&nbsp;ZTCOD0040-WAERS,<br />
+&nbsp;&nbsp;BKLAS&nbsp;TYPE&nbsp;ZTCOD0040-BKLAS,&nbsp;"&nbsp;ADDED<br />
+&nbsp;&nbsp;MATKL&nbsp;TYPE&nbsp;MARA-MATKL,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ADDED<br />
+&nbsp;&nbsp;BEGIN_QTY&nbsp;TYPE&nbsp;ZTCOD0040-QTY,<br />
+&nbsp;&nbsp;BEGIN_AMT&nbsp;TYPE&nbsp;ZTCOD0040-AMT,<br />
+&nbsp;&nbsp;IN_QTY&nbsp;TYPE&nbsp;ZTCOD0040-QTY,<br />
+&nbsp;&nbsp;IN_AMT&nbsp;TYPE&nbsp;ZTCOD0040-AMT,<br />
+&nbsp;&nbsp;OUT_QTY&nbsp;TYPE&nbsp;ZTCOD0040-QTY,<br />
+&nbsp;&nbsp;OUT_AMT&nbsp;TYPE&nbsp;ZTCOD0040-AMT,<br />
+&nbsp;&nbsp;END_QTY&nbsp;TYPE&nbsp;ZTCOD0040-QTY,<br />
+&nbsp;&nbsp;END_AMT&nbsp;TYPE&nbsp;ZTCOD0040-AMT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GTY_DATA.<br />
+DATA: GT_DATA TYPE TABLE OF GTY_DATA WITH HEADER LINE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&-------------------------------------------------------------------*<br />
+<br />
+*&-------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF TABBED BLOCK TABB1 FOR 4 LINES.<br />
+SELECTION-SCREEN TAB (30) TAB1 USER-COMMAND PUSH1 DEFAULT SCREEN 101.<br />
+SELECTION-SCREEN TAB (30) TAB2 USER-COMMAND PUSH2 DEFAULT SCREEN 102.<br />
+SELECTION-SCREEN END OF BLOCK TABB1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 101 AS SUBSCREEN.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  PSPMO2.<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS P_SPMO2 TYPE SPMON DEFAULT SY-DATUM(6) OBLIGATORY.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  PBUKRS.<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS P_BUKRS LIKE T001-BUKRS MEMORY ID BUK.<br />
+SELECTION-SCREEN COMMENT 35(40) P_BUTXT."U01 ##<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  SWERKS.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS S_WERKS FOR T001W-WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;INTERVALS.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) SMATN2.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS S_MATN2 FOR EKBE-MATNR.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 101.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 102 AS SUBSCREEN.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) PSPMON.<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS P_SPMON TYPE SPMON DEFAULT SY-DATUM(6) OBLIGATORY.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) PBUKRS2.<br />
+SELECTION-SCREEN  POSITION  24.<br />
+PARAMETERS P_BUKRS2 LIKE T001-BUKRS MEMORY ID BUK.<br />
+SELECTION-SCREEN COMMENT 35(40) P_BUTX2.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20)  SWERKS2.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS S_WERKS2 FOR T001W-WERKS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;INTERVALS.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN  BEGIN OF LINE.<br />
+SELECTION-SCREEN  COMMENT 1(20) SMATNR.<br />
+SELECTION-SCREEN  POSITION  21.<br />
+SELECT-OPTIONS S_MATNR FOR EKBE-MATNR.<br />
+SELECTION-SCREEN  END   OF LINE.<br />
+<br />
+SELECTION-SCREEN END OF SCREEN 102.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

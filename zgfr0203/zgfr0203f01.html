@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0203F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0203F01</h2>
+<h3> Description: Include ZKGR0203F01</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR0203F01<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;desc&nbsp;:&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;INITIAL_SET<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM INITIAL_SET .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;L_SDATE&nbsp;TYPE&nbsp;SY-DATUM,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_EDATE&nbsp;TYPE&nbsp;SY-DATUM.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;G_BDATJ,&nbsp;G_POPER.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-BATCH&nbsp;=&nbsp;ZGFTP_TRUE&nbsp;AND&nbsp;SY-DATUM+6(2)&nbsp;&gt;=&nbsp;'25'.<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;P_SPMON&nbsp;'01'&nbsp;INTO&nbsp;L_SDATE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'SG_PS_ADD_MONTH_TO_DATE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MONTHS&nbsp;&nbsp;=&nbsp;'-1'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OLDDATE&nbsp;=&nbsp;L_SDATE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NEWDATE&nbsp;=&nbsp;L_EDATE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;P_SPMON&nbsp;=&nbsp;L_EDATE+0(6).<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;MOVE:&nbsp;P_SPMON(4)&nbsp;&nbsp;&nbsp;TO&nbsp;G_BDATJ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P_SPMON+4(2)&nbsp;TO&nbsp;G_POPER.<br />
+<br />
+ENDFORM.                    " INITIAL_SET<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DATA_GET<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;desc&nbsp;:&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DATA_GET .<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GT_CKML,&nbsp;&nbsp;GT_CKML[],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_T001W,&nbsp;GT_T001W[].<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;A~KALNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~BDATJ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~POPER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~UNTPER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~CURTP<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~VPRSV<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~PEINH<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~STPRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~PVPRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A~WAERS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~MATNR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B~BWKEY"eq&nbsp;werks&nbsp;&nbsp;&nbsp;U01<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C~WERKS&nbsp;&nbsp;&nbsp;"U01<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_CKML<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;CKMLCR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS&nbsp;A<br />
+&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;CKMLHD&nbsp;&nbsp;&nbsp;AS&nbsp;B&nbsp;ON&nbsp;A~KALNR&nbsp;EQ&nbsp;B~KALNR<br />
+&nbsp;&nbsp;&nbsp;INNER&nbsp;JOIN&nbsp;ZGFT5060&nbsp;AS&nbsp;C&nbsp;ON&nbsp;B~BWKEY&nbsp;EQ&nbsp;C~WERKS&nbsp;"U01##<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~BDATJ&nbsp;EQ&nbsp;G_BDATJ<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~POPER&nbsp;EQ&nbsp;G_POPER<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;C~BUKRS&nbsp;EQ&nbsp;P_BUKR2."U01&nbsp;##<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;ESKO,&nbsp;0513<br />
+****&&nbsp;###&nbsp;0#&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DELETE&nbsp;GT_CKML&nbsp;WHERE&nbsp;STPRS&nbsp;EQ&nbsp;0&nbsp;AND&nbsp;PVPRS&nbsp;EQ&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;GT_CKML[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S001&nbsp;DISPLAY&nbsp;LIKE&nbsp;ZGFTP_E.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;---&nbsp;20250904<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CLEAR:&nbsp;GT_WERKS[],&nbsp;GT_WERKS,&nbsp;GR_WERKS[],&nbsp;GR_WERKS.<br />
+&nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;GT_CKML[]&nbsp;TO&nbsp;GT_WERKS[].<br />
+&nbsp;&nbsp;SORT&nbsp;GT_WERKS[]&nbsp;BY&nbsp;WERKS.<br />
+&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;GT_WERKS[]&nbsp;COMPARING&nbsp;WERKS.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_WERKS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GR_WERKS-LOW&nbsp;=&nbsp;GT_WERKS-WERKS.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GR_WERKS-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GR_WERKS-OPTION&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GR_WERKS.&nbsp;CLEAR&nbsp;GR_WERKS.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.                     " DATA_GET<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DATA_PROCESS<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;desc&nbsp;;&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DATA_PROCESS .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;L_OREF&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CX_ROOT.<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;&lt;FS1&gt;&nbsp;TYPE&nbsp;ANY.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;GT_ZKGT0204,&nbsp;GT_ZKGT0204[].<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&&nbsp;Loop&nbsp;###&nbsp;####&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_CKML.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;###<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;GT_CKML-BDATJ&nbsp;GT_CKML-POPER+1(2)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;GT_ZKGT0204-SPMON.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE:&nbsp;GT_CKML-MATNR&nbsp;TO&nbsp;GT_ZKGT0204-MATNR,&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_CKML-WAERS&nbsp;TO&nbsp;GT_ZKGT0204-WAERS,&nbsp;"&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_CKML-BWKEY&nbsp;TO&nbsp;GT_ZKGT0204-WERKS.&nbsp;"###<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;##&nbsp;=&nbsp;##&nbsp;/&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;GT_CKML-VPRSV.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'S'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0204-STPRS&nbsp;=&nbsp;&nbsp;GT_CKML-STPRS&nbsp;/<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_CKML-PEINH&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'V'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_ZKGT0204-STPRS&nbsp;=&nbsp;&nbsp;GT_CKML-PVPRS&nbsp;/<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_CKML-PEINH&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SY_ZERODIVIDE&nbsp;INTO&nbsp;L_OREF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;GT_ZKGT0204&nbsp;TO&nbsp;&lt;FS1&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;SET_CREATE_CHANGE_DATA(ZGF_FORM_SUB_ROUTINE)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&lt;FS1&gt;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;GT_ZKGT0204.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;&nbsp;GT_ZKGT0204.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.                    " DATA_PROCESS<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;DATA_SAVE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;desc&nbsp;:&nbsp;##<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DATA_SAVE .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;L_OREF&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CX_ROOT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_TEXT&nbsp;TYPE&nbsp;STRING.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;L_DUMMY&nbsp;TYPE&nbsp;C&nbsp;LENGTH&nbsp;100.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;L_LINE&nbsp;TYPE&nbsp;I.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;&nbsp;GT_ZKGT0204[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S019&nbsp;&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-BATCH&nbsp;=&nbsp;ZGFTP_FALSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S010&nbsp;WITH&nbsp;TEXT-T01&nbsp;INTO&nbsp;L_DUMMY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CONFIRM_STEP(ZGF_FORM_SUB_ROUTINE)&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;L_DUMMY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;G_ANSWER.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;G_ANSWER&nbsp;=&nbsp;'1'.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;DESCRIBE&nbsp;TABLE&nbsp;GT_ZKGT0204&nbsp;LINES&nbsp;L_LINE.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;GT_ZKGT0204[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL."U01<br />
+&nbsp;&nbsp;SORT&nbsp;GT_ZKGT0204&nbsp;BY&nbsp;SPMON&nbsp;WERKS&nbsp;MATNR."U01<br />
+&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;GT_ZKGT0204&nbsp;"U01<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COMPARING&nbsp;SPMON&nbsp;WERKS&nbsp;MATNR."U01<br />
+&nbsp;&nbsp;CHECK&nbsp;GT_ZKGT0204[]&nbsp;IS&nbsp;NOT&nbsp;INITIAL."U01<br />
+&nbsp;&nbsp;SORT&nbsp;GT_ZKGT0204&nbsp;BY&nbsp;SPMON&nbsp;WERKS&nbsp;MATNR."U01<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;L_TEXT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;ZGFT0204&nbsp;WHERE&nbsp;SPMON&nbsp;=&nbsp;P_SPMON<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;WERKS&nbsp;IN&nbsp;GR_WERKS.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ZGFT0204&nbsp;FROM&nbsp;TABLE&nbsp;GT_ZKGT0204.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S014&nbsp;WITH&nbsp;TEXT-T01&nbsp;L_LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;CX_SY_OPEN_SQL_DB&nbsp;INTO&nbsp;L_OREF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L_TEXT&nbsp;=&nbsp;L_OREF-&gt;GET_TEXT(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROLLBACK&nbsp;WORK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;S004&nbsp;WITH&nbsp;TEXT-T01&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+ENDFORM.                    " DATA_SAVE<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_INIT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_INIT .<br />
+<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;LT_ZKGT5060&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ZGFT5060&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;P_BUKR2&nbsp;=&nbsp;P_BUKRS.<br />
+&nbsp;&nbsp;IF&nbsp;P_BUKRS&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;READ_T001&nbsp;USING&nbsp;P_BUKRS&nbsp;CHANGING&nbsp;P_BUTXT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_BUKR2&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;READ_T001&nbsp;USING&nbsp;P_BUKR2&nbsp;CHANGING&nbsp;P_BUTX2.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;PBUKR2&nbsp;&nbsp;=&nbsp;TEXT-T80."####<br />
+&nbsp;&nbsp;PBUKRS&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;TEXT-T80."####<br />
+&nbsp;&nbsp;PSPMO2&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;TEXT-T81."###<br />
+&nbsp;&nbsp;PSPMON&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;TEXT-T81."###<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;READ_T001<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;P_BUKRS<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;P_BUTXT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM READ_T001  USING PV_BUKRS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;PV_BUTXT.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LS_T001&nbsp;LIKE&nbsp;T001.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;LS_T001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;T001<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;BUKRS&nbsp;EQ&nbsp;PV_BUKRS.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;LS_T001&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;PV_BUTXT&nbsp;=&nbsp;LS_T001-BUTXT.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CHANGE_COCD<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CHANGE_COCD .<br />
+&nbsp;&nbsp;IF&nbsp;P_BUKRS&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;READ_T001&nbsp;USING&nbsp;P_BUKRS&nbsp;CHANGING&nbsp;P_BUTXT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;P_BUKR2&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;READ_T001&nbsp;USING&nbsp;P_BUKR2&nbsp;CHANGING&nbsp;P_BUTX2.<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

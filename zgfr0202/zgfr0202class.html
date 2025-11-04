@@ -1,0 +1,777 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZGFR0202CLASS</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZGFR0202CLASS</h2>
+<h3> Description: Include ZKGR0202CLASS</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR0202CLASS<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF ty_outtab,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exdat_h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zgft0202-exdat,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;werks_h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zgft0202-werks,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matnr_h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zgft0202-matnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mtart_h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zgft0202-mtart,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datuv_h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zgft0202-datuv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datub_h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zgft0202-datub,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bmein_h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zgft0202-bmein,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bmeng_h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zgft0202-bmeng,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stlst_h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zgft0202-stlst,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imyn_h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;zgft0202-imyn,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lifnm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lifnmstr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matnr_h_name&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent_mat_name&nbsp;TYPE&nbsp;string.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="zgft0203/dictionary-zgft0203.html">zgft0203</a>.<br />
+TYPES: END OF ty_outtab.<br />
+<br />
+DATA: g_dynnr TYPE sy-dynnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_ucomm&nbsp;TYPE&nbsp;sy-ucomm.<br />
+<br />
+DATA: gs_outtab TYPE ty_outtab.<br />
+<br />
+DATA: gt_head   TYPE TABLE OF zgft0202 WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_outtab&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ty_outtab.<br />
+<br />
+CLASS lcl_event_receiver DEFINITION DEFERRED.<br />
+DATA  g_event_receiver   TYPE REF TO lcl_event_receiver.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;LOCAL&nbsp;CLASS&nbsp;Definition<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_event_receiver DEFINITION.<br />
+<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on_user_command&nbsp;FOR&nbsp;EVENT&nbsp;added_function&nbsp;OF&nbsp;cl_salv_events<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;e_salv_function,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on_double_click&nbsp;FOR&nbsp;EVENT&nbsp;double_click&nbsp;OF&nbsp;cl_salv_events_table<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;row&nbsp;column.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;error_in_data&nbsp;TYPE&nbsp;c.<br />
+<br />
+<br />
+ENDCLASS. "lcl_event_receiver DEFINITION<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&nbsp;LOCAL&nbsp;CLASS&nbsp;Implementation<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_event_receiver IMPLEMENTATION.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;on_user_command.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;handle_user_command&nbsp;USING&nbsp;e_salv_function.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"on_user_command<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;on_double_click.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;handle_double_click&nbsp;USING&nbsp;row&nbsp;column.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ON_DOUBLE_CLICK<br />
+<br />
+ENDCLASS.                    "LCL_EVENT_RECEIVER IMPLEMENTATION<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SALV_CALL<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM salv_call .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;go_sorts&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_salv_sorts.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cl_salv_table=&gt;factory(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r_salv_table&nbsp;=&nbsp;go_alv<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t_table&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_outtab&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_msg.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_pf_status.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_layout.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_event.<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_table_settings.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_sorts&nbsp;=&nbsp;go_alv-&gt;get_sorts(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_sorts-&gt;add_sort('EXDAT_H').<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_sorts-&gt;add_sort('WERKS_H').<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_sorts-&gt;add_sort('MATNR_H').<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_sorts-&gt;add_sort('ZBOMHI').<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_root.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;go_alv-&gt;display(&nbsp;).<br />
+<br />
+ENDFORM.                    " SALV_CALL<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_TABLE_SETTINGS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_table_settings .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lr_columns&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_salv_columns_table.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;set&nbsp;column<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;lr_columns&nbsp;=&nbsp;go_alv-&gt;get_columns(&nbsp;).<br />
+&nbsp;&nbsp;lr_columns-&gt;set_optimize(&nbsp;zgftp_true&nbsp;).<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_columns_technical&nbsp;USING&nbsp;lr_columns.<br />
+<br />
+ENDFORM.                    " SET_TABLE_SETTINGS<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_COLUMNS_TECHNICAL<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_columns_technical USING ir_columns TYPE REF TO<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cl_salv_columns_table.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;ls_color&nbsp;TYPE&nbsp;lvc_s_colo.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lr_column&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_salv_column_table.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lr_selections&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_salv_selections,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lt_column&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;salv_t_column.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_hide_cols&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;lvc_fname&nbsp;WITH&nbsp;EMPTY&nbsp;KEY.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_colname&nbsp;&nbsp;TYPE&nbsp;lvc_fname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_colnames&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;lvc_fname.<br />
+<br />
+&nbsp;&nbsp;lt_hide_cols&nbsp;=&nbsp;VALUE&nbsp;#(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;'MANDT'&nbsp;)&nbsp;(&nbsp;'EXDAT'&nbsp;)&nbsp;(&nbsp;'STLST_H'&nbsp;)&nbsp;(&nbsp;'IMYN_H'&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;'STLTY'&nbsp;)&nbsp;(&nbsp;'STLAL'&nbsp;)&nbsp;(&nbsp;'ISTLKN'&nbsp;)&nbsp;(&nbsp;'ISTPOZ'&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;'VERID'&nbsp;)&nbsp;(&nbsp;'STAWN'&nbsp;)&nbsp;(&nbsp;'STUFE'&nbsp;)&nbsp;&nbsp;(&nbsp;'WEGXX'&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;'TTIDX'&nbsp;)&nbsp;(&nbsp;'VWEGX'&nbsp;)&nbsp;(&nbsp;'XTLTY'&nbsp;)&nbsp;(&nbsp;'XTLNR'&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;'XTLAN'&nbsp;)&nbsp;(&nbsp;'XTLAL'&nbsp;)&nbsp;(&nbsp;'ALPGR'&nbsp;)&nbsp;(&nbsp;'MTYPE'&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;'MTOMMAT'&nbsp;)&nbsp;(&nbsp;'SUBCT'&nbsp;)&nbsp;(&nbsp;'SCHGT'&nbsp;)&nbsp;).<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_hide_cols&nbsp;INTO&nbsp;lv_colname.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;lv_colname&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_visible(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDTRY.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'EXDAT_H'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_key(&nbsp;if_salv_c_bool_sap=&gt;true&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'WERKS_H'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_key(&nbsp;if_salv_c_bool_sap=&gt;true&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'MATNR_H'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_key(&nbsp;if_salv_c_bool_sap=&gt;true&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'MTART_H'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_key(&nbsp;if_salv_c_bool_sap=&gt;true&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'STPOS'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_key(&nbsp;if_salv_c_bool_sap=&gt;false&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_color-col&nbsp;=&nbsp;'4'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_color-int&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_color-inv&nbsp;=&nbsp;'0'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'STPOS'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_color(&nbsp;ls_color&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'ISTLNR'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_color(&nbsp;ls_color&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'MATNR_H'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;&nbsp;&nbsp;'Highest&nbsp;Assy&nbsp;No.'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_medium_text(&nbsp;'Highest&nbsp;Assy&nbsp;No.'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_short_text(&nbsp;&nbsp;'Top&nbsp;Asy&nbsp;No'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'PARENT_MAT'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;&nbsp;&nbsp;'Ass''y&nbsp;No.'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_medium_text(&nbsp;'Ass''y&nbsp;No.'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_short_text(&nbsp;&nbsp;'Ass''y&nbsp;No.'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'OJTXP'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;&nbsp;&nbsp;'Component&nbsp;Description'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_medium_text(&nbsp;'Component&nbsp;Desc.'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_short_text(&nbsp;&nbsp;'Comp&nbsp;Desc.'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'SANKA'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;&nbsp;&nbsp;'Costing&nbsp;flag'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_medium_text(&nbsp;'Costing&nbsp;flag'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_short_text(&nbsp;&nbsp;'Cost&nbsp;flag'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'ZBOMHI'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;&nbsp;&nbsp;'BOM&nbsp;Hierarchy'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_medium_text(&nbsp;'BOM&nbsp;Hierarchy'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_short_text(&nbsp;&nbsp;'Hierarchy'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'LIFNM'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;&nbsp;&nbsp;'Vendor&nbsp;Name'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_medium_text(&nbsp;'Vendor&nbsp;Name'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_short_text(&nbsp;&nbsp;'VendorName'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'LIFNMSTR'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;&nbsp;&nbsp;'Vendor&nbsp;List&nbsp;Name'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_medium_text(&nbsp;'Vendor&nbsp;List&nbsp;Name'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_short_text(&nbsp;&nbsp;'List&nbsp;Name'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'MATNR_H_NAME'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;&nbsp;&nbsp;'Highest&nbsp;Assy&nbsp;No.&nbsp;Name'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_medium_text(&nbsp;'Highest&nbsp;Assy&nbsp;Name'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_short_text(&nbsp;&nbsp;'TopAsyName'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column&nbsp;?=&nbsp;ir_columns-&gt;get_column(&nbsp;'PARENT_MAT_NAME'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_long_text(&nbsp;&nbsp;&nbsp;'Ass''y&nbsp;No.&nbsp;Name'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_medium_text(&nbsp;'Ass''y&nbsp;No.&nbsp;Name'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_column-&gt;set_short_text(&nbsp;&nbsp;'Ass''y&nbsp;Name'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA(lv_lifnr_pos)&nbsp;=&nbsp;ir_columns-&gt;get_column_position(&nbsp;'LIFNR'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ir_columns-&gt;set_column_position(&nbsp;columnname&nbsp;=&nbsp;'LIFNM'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;=&nbsp;lv_lifnr_pos&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA(lv_lifnrstr_pos)&nbsp;=&nbsp;ir_columns-&gt;get_column_position(&nbsp;'LIFNRSTR'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ir_columns-&gt;set_column_position(&nbsp;columnname&nbsp;=&nbsp;'LIFNMSTR'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;&nbsp;&nbsp;=&nbsp;lv_lifnrstr_pos&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA(lv_matnrh_pos)&nbsp;=&nbsp;ir_columns-&gt;get_column_position(&nbsp;'MATNR_H'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ir_columns-&gt;set_column_position(&nbsp;columnname&nbsp;=&nbsp;'MATNR_H_NAME'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;&nbsp;&nbsp;=&nbsp;lv_matnrh_pos&nbsp;+&nbsp;1&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA(lv_parentmat_pos)&nbsp;=&nbsp;ir_columns-&gt;get_column_position(&nbsp;'PARENT_MAT'&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ir_columns-&gt;set_column_position(&nbsp;columnname&nbsp;=&nbsp;'PARENT_MAT_NAME'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;&nbsp;&nbsp;=&nbsp;lv_parentmat_pos&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_salv_not_found.<br />
+&nbsp;&nbsp;ENDTRY.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;SELECT&nbsp;FIELD&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;lr_selections&nbsp;=&nbsp;go_alv-&gt;get_selections(&nbsp;).<br />
+&nbsp;&nbsp;lr_selections-&gt;set_selection_mode(&nbsp;if_salv_c_selection_mode=&gt;cell&nbsp;).<br />
+<br />
+ENDFORM.                    " set_columns_technical<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;HANDLE_USER_COMMAND<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM handle_user_command  USING p_ucomm TYPE salv_de_function.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;l_dummy&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;100.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;p_ucomm.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;''.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+ENDFORM.                    " HANDLE_USER_COMMAND<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;HANDLE_DOUBLE_CLICK<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_COLUMN&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM handle_double_click  USING p_row<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_column.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_outtab&nbsp;INTO&nbsp;gs_outtab&nbsp;INDEX&nbsp;p_row.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;p_column.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'MATNR_H'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;gs_outtab-matnr_h&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'MAT'&nbsp;FIELD&nbsp;gs_outtab-matnr_h.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'MXX'&nbsp;FIELD&nbsp;'K'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'MM03'&nbsp;AND&nbsp;SKIP&nbsp;FIRST&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'IDNRK'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;gs_outtab-matnr_h&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'MAT'&nbsp;FIELD&nbsp;gs_outtab-idnrk.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'MXX'&nbsp;FIELD&nbsp;'K'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'MM03'&nbsp;AND&nbsp;SKIP&nbsp;FIRST&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'STLNR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;gs_outtab-werks_h&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;gs_outtab-matnr_h&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'MAT'&nbsp;FIELD&nbsp;gs_outtab-matnr_h.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'WRK'&nbsp;FIELD&nbsp;gs_outtab-werks_h.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'CSV'&nbsp;FIELD&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'CS03'&nbsp;AND&nbsp;SKIP&nbsp;FIRST&nbsp;SCREEN.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ISTLNR'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;gs_outtab-endpo&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;gs_outtab-werks&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK&nbsp;gs_outtab-idnrk&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'MAT'&nbsp;FIELD&nbsp;gs_outtab-idnrk.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'WRK'&nbsp;FIELD&nbsp;gs_outtab-werks.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;'CSV'&nbsp;FIELD&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;TRANSACTION&nbsp;'CS03'&nbsp;AND&nbsp;SKIP&nbsp;FIRST&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.                    " HANDLE_USER_COMMAND<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_EVENT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_event .<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;EVENT<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;lr_events&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_salv_events_table.<br />
+<br />
+&nbsp;&nbsp;go_functions&nbsp;=&nbsp;go_alv-&gt;get_functions(&nbsp;).<br />
+&nbsp;&nbsp;go_functions-&gt;set_all(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;lr_events&nbsp;=&nbsp;go_alv-&gt;get_event(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;g_event_receiver.<br />
+&nbsp;&nbsp;SET&nbsp;HANDLER:&nbsp;g_event_receiver-&gt;on_user_command&nbsp;FOR&nbsp;lr_events,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_event_receiver-&gt;on_double_click&nbsp;FOR&nbsp;lr_events.<br />
+<br />
+ENDFORM.                    " SET_EVENT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_PF_STATUS<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_pf_status .<br />
+<br />
+&nbsp;&nbsp;go_alv-&gt;set_screen_status(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;pfstatus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;'STANDARD'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;report&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;g_repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;set_functions&nbsp;=&nbsp;go_alv-&gt;c_functions_all&nbsp;).<br />
+<br />
+ENDFORM.                    " SET_PF_STATUS<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;SET_LAYOUT<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_layout .<br />
+<br />
+&nbsp;&nbsp;gs_salv_layout-repid&nbsp;=&nbsp;sy-repid.<br />
+&nbsp;&nbsp;gs_salv_layout-default&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_salv_layout-layout&nbsp;=&nbsp;'/STANDARD'.<br />
+&nbsp;&nbsp;gs_key-report&nbsp;=&nbsp;g_repid.<br />
+<br />
+&nbsp;&nbsp;go_layout&nbsp;=&nbsp;go_alv-&gt;get_layout(&nbsp;).<br />
+&nbsp;&nbsp;go_layout-&gt;set_key(&nbsp;gs_key&nbsp;).<br />
+<br />
+&nbsp;&nbsp;gs_salv_layout-restrict&nbsp;=&nbsp;if_salv_c_layout=&gt;restrict_none.<br />
+&nbsp;&nbsp;go_layout-&gt;set_default(&nbsp;gs_salv_layout-default&nbsp;).<br />
+&nbsp;&nbsp;go_layout-&gt;set_save_restriction(&nbsp;gs_salv_layout-restrict&nbsp;).<br />
+&nbsp;&nbsp;go_layout-&gt;set_initial_layout(&nbsp;gs_salv_layout-layout&nbsp;).<br />
+<br />
+ENDFORM.                    " SET_LAYOUT<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZGFR2000F01<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+FORM tab_screen_set .<br />
+<br />
+&nbsp;&nbsp;tab1&nbsp;=&nbsp;TEXT-n01.<br />
+&nbsp;&nbsp;tab2&nbsp;=&nbsp;TEXT-n02.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-batch&nbsp;=&nbsp;zgftp_true.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tabb1-dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;102.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tabb1-activetab&nbsp;=&nbsp;'PUSH2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tabb1-prog&nbsp;=&nbsp;sy-repid.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;g_dynnr&nbsp;=&nbsp;tabb1-dynnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_latest_tab(zgf_form_sub_routine)&nbsp;USING&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;g_dynnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabb1-activetab.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;g_dynnr&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tabb1-dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tabb1-activetab&nbsp;=&nbsp;'PUSH1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;g_dynnr&nbsp;=&nbsp;tabb1-dynnr.<br />
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tabb1-dynnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;g_dynnr.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;tabb1-prog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-repid.<br />
+<br />
+ENDFORM.                    " TAB_SCREEN_SET<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;TAB_SCREEN_POSTION_SET<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM tab_screen_postion_set .<br />
+<br />
+&nbsp;&nbsp;g_ucomm&nbsp;=&nbsp;sy-ucomm.<br />
+&nbsp;&nbsp;CLEAR:&nbsp;sy-ucomm.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;g_ucomm.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'PUSH1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabb1-dynnr&nbsp;=&nbsp;101.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabb1-activetab&nbsp;=&nbsp;'PUSH1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_dynnr&nbsp;=&nbsp;tabb1-dynnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'PUSH2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabb1-dynnr&nbsp;=&nbsp;102.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabb1-activetab&nbsp;=&nbsp;'PUSH2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_dynnr&nbsp;=&nbsp;tabb1-dynnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;set_latest_tab(zgf_form_sub_routine)&nbsp;USING&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_dynnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tabb1-activetab.<br />
+<br />
+ENDFORM.                    " TAB_SCREEN_POSTION_SET<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_TABLE_DATA<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_table_data.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_index&nbsp;TYPE&nbsp;sy-tabix.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_matnrs&nbsp;TYPE&nbsp;SORTED&nbsp;TABLE&nbsp;OF&nbsp;matnr&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;table_line,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lt_lifnrs&nbsp;TYPE&nbsp;SORTED&nbsp;TABLE&nbsp;OF&nbsp;lifnr&nbsp;WITH&nbsp;UNIQUE&nbsp;KEY&nbsp;table_line.<br />
+<br />
+&nbsp;&nbsp;TYPES:&nbsp;BEGIN&nbsp;OF&nbsp;ty_makt,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matnr&nbsp;TYPE&nbsp;matnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maktx&nbsp;TYPE&nbsp;maktx,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_makt.<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_makt&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ty_makt&nbsp;WITH&nbsp;EMPTY&nbsp;KEY.<br />
+<br />
+&nbsp;&nbsp;TYPES:&nbsp;BEGIN&nbsp;OF&nbsp;ty_lfa1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lifnr&nbsp;TYPE&nbsp;lifnr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name1&nbsp;TYPE&nbsp;lfa1-name1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ty_lfa1.<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_lfa1&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ty_lfa1&nbsp;WITH&nbsp;EMPTY&nbsp;KEY.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;lv_lifnr&nbsp;TYPE&nbsp;lifnr.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_head,&nbsp;gt_outtab.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---&nbsp;BOM&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@gt_head<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zgft0202<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;=&nbsp;@p_bukrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;exdat&nbsp;IN&nbsp;@gr_prsdt&nbsp;"@s_buda2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;werks&nbsp;IN&nbsp;@s_werk2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;matnr&nbsp;IN&nbsp;@gr_matnr.&nbsp;&nbsp;&nbsp;&nbsp;"@s_matn2.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gt_head[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s001&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;SORT&nbsp;gt_head&nbsp;BY&nbsp;exdat&nbsp;stlty&nbsp;stlnr&nbsp;stlal.<br />
+&nbsp;&nbsp;DELETE&nbsp;ADJACENT&nbsp;DUPLICATES&nbsp;FROM&nbsp;gt_head.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---&nbsp;BOM&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@gt_outtab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zgft0203<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;@gt_head<br />
+&nbsp;&nbsp;&nbsp;WHERE&nbsp;bukrs&nbsp;=&nbsp;@p_bukrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;exdat&nbsp;=&nbsp;@gt_head-exdat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;stlty&nbsp;=&nbsp;@gt_head-stlty<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;stlnr&nbsp;=&nbsp;@gt_head-stlnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;stlal&nbsp;=&nbsp;@gt_head-stlal.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gt_outtab[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;s001&nbsp;DISPLAY&nbsp;LIKE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_head&nbsp;ASSIGNING&nbsp;FIELD-SYMBOL(&lt;h&gt;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;&lt;h&gt;-matnr&nbsp;INTO&nbsp;TABLE&nbsp;lt_matnrs.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_outtab&nbsp;ASSIGNING&nbsp;FIELD-SYMBOL(&lt;o&gt;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;&lt;o&gt;-idnrk&nbsp;INTO&nbsp;TABLE&nbsp;lt_matnrs.&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&lt;o&gt;-lifnr&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;&lt;o&gt;-lifnr&nbsp;INTO&nbsp;TABLE&nbsp;lt_lifnrs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&lt;o&gt;-lifnrstr&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;lt_parts&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;string&nbsp;WITH&nbsp;EMPTY&nbsp;KEY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPLIT&nbsp;&lt;o&gt;-lifnrstr&nbsp;AT&nbsp;',&nbsp;'&nbsp;INTO&nbsp;TABLE&nbsp;lt_parts.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_parts&nbsp;INTO&nbsp;lv_lifnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lv_lifnr&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;lv_lifnr&nbsp;INTO&nbsp;TABLE&nbsp;lt_lifnrs.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lt_matnrs&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;matnr,&nbsp;maktx<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;makt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;@lt_matnrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;matnr&nbsp;=&nbsp;@lt_matnrs-table_line<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;spras&nbsp;=&nbsp;@sy-langu<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@lt_makt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;lt_makt&nbsp;BY&nbsp;matnr.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;lt_lifnrs&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;lifnr,&nbsp;name1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;lfa1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;ALL&nbsp;ENTRIES&nbsp;IN&nbsp;@lt_lifnrs<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;lifnr&nbsp;=&nbsp;@lt_lifnrs-table_line<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;@lt_lfa1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SORT&nbsp;lt_lfa1&nbsp;BY&nbsp;lifnr.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_outtab&nbsp;INTO&nbsp;gs_outtab.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_index&nbsp;+=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_head&nbsp;WITH&nbsp;KEY&nbsp;exdat&nbsp;=&nbsp;gs_outtab-exdat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stlty&nbsp;=&nbsp;gs_outtab-stlty<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stlnr&nbsp;=&nbsp;gs_outtab-stlnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stlal&nbsp;=&nbsp;gs_outtab-stlal<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-exdat_h&nbsp;=&nbsp;gt_head-exdat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-werks_h&nbsp;=&nbsp;gt_head-werks.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-matnr_h&nbsp;=&nbsp;gt_head-matnr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-mtart_h&nbsp;=&nbsp;gt_head-mtart.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-datuv_h&nbsp;=&nbsp;gt_head-datuv.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-datub_h&nbsp;=&nbsp;gt_head-datub.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-bmein_h&nbsp;=&nbsp;gt_head-bmein.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-bmeng_h&nbsp;=&nbsp;gt_head-bmeng.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-stlst_h&nbsp;=&nbsp;gt_head-stlst.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-imyn_h&nbsp;&nbsp;=&nbsp;gt_head-imyn.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_makt&nbsp;INTO&nbsp;DATA(ls_makt)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;matnr&nbsp;=&nbsp;gt_head-matnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-matnr_h_name&nbsp;=&nbsp;ls_makt-maktx.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_makt&nbsp;INTO&nbsp;ls_makt<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;matnr&nbsp;=&nbsp;gs_outtab-idnrk<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-parent_mat_name&nbsp;=&nbsp;ls_makt-maktx.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_outtab-lifnr&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_lfa1&nbsp;INTO&nbsp;DATA(ls_lfa1)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;lifnr&nbsp;=&nbsp;gs_outtab-lifnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-lifnm&nbsp;=&nbsp;ls_lfa1-name1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_outtab-lifnrstr&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;lt_parts2&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;string&nbsp;WITH&nbsp;EMPTY&nbsp;KEY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPLIT&nbsp;gs_outtab-lifnrstr&nbsp;AT&nbsp;',&nbsp;'&nbsp;INTO&nbsp;TABLE&nbsp;lt_parts2.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_parts2&nbsp;INTO&nbsp;DATA(lv2).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_lfa1&nbsp;INTO&nbsp;ls_lfa1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;lifnr&nbsp;=&nbsp;|{&nbsp;lv2&nbsp;ALPHA&nbsp;=&nbsp;IN&nbsp;}|<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_outtab-lifnmstr&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-lifnmstr&nbsp;=&nbsp;ls_lfa1-name1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_outtab-lifnmstr&nbsp;=&nbsp;|{&nbsp;gs_outtab-lifnmstr&nbsp;},&nbsp;{&nbsp;ls_lfa1-name1&nbsp;}|.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_outtab&nbsp;FROM&nbsp;gs_outtab&nbsp;INDEX&nbsp;lv_index.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_outtab.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.                    "GET_TABLE_DATA<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

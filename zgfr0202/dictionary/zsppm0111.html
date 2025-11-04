@@ -1,0 +1,1629 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>Dictionary object- ZSPPM0111</title>
+<style type="text/css">
+  th{text-align:left}
+  .cell{
+     font-family:"Courier New", Courier, monospace;
+     color:#000;
+     font-size:12px;
+     background-color:#F2F4F7;
+  }
+  .cell td { border: thin solid #ccc; }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+  <table class="outerTable">
+    <tr>
+      <td><h2>Table: ZSPPM0111</h2>
+  <h3>Description: BoM Expolosion Results</h3></td>
+    </tr>
+    <tr>
+      <td><!--This is where our main table begins  -->
+<table class="innerTable">
+<tr>
+  <th>Row</th>
+  <th>Field name</th>
+  <th>Position</th>
+  <th>Key</th>
+  <th>Data element</th>
+  <th>Domain</th>
+  <th>Datatype</th>
+  <th>Length</th>
+  <th>Lowercase</th>
+  <th>Domain text</th>
+</tr>
+<tr class="cell">
+  <td> 1</td>
+  <td>HISTU</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>HISTU</td>
+  <td>DEC2</td>
+  <td>DEC</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Level (in multi-level BOM explosions)</td>
+</tr>
+<tr class="cell">
+  <td> 2</td>
+  <td>WEGXX</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>CS_E_VWEGX</td>
+  <td>DEC4</td>
+  <td>DEC</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Path (Predecessor)</td>
+</tr>
+<tr class="cell">
+  <td> 3</td>
+  <td>VWEGX</td>
+  <td>3</td>
+  <td>&nbsp;</td>
+  <td>WEGXX</td>
+  <td>DEC4</td>
+  <td>DEC</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Path (for multi-level BOM explosions)</td>
+</tr>
+<tr class="cell">
+  <td> 4</td>
+  <td>ZBOMHI</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Z_BOMHI</td>
+  <td>&nbsp;</td>
+  <td>CHAR</td>
+  <td>128</td>
+  <td>&nbsp;</td>
+  <td>BOM hierarchy</td>
+</tr>
+<tr class="cell">
+  <td> 5</td>
+  <td>BDATE</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>DATUV</td>
+  <td>DATUM</td>
+  <td>DATS</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Valid-From Date</td>
+</tr>
+<tr class="cell">
+  <td> 6</td>
+  <td>MATN0</td>
+  <td>6</td>
+  <td>&nbsp;</td>
+  <td>MATNR</td>
+  <td>MATNR</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>&nbsp;</td>
+  <td>Material Number</td>
+</tr>
+<tr class="cell">
+  <td> 7</td>
+  <td>BUKRS</td>
+  <td>7</td>
+  <td>&nbsp;</td>
+  <td>BUKRS</td>
+  <td>BUKRS</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Company Code</td>
+</tr>
+<tr class="cell">
+  <td> 8</td>
+  <td>MTAR0</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>ZMDU_MTARP_MDD</td>
+  <td>ZMDU_MTARP_MDD</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Plant Level Material Type</td>
+</tr>
+<tr class="cell">
+  <td> 9</td>
+  <td>REVL0</td>
+  <td>9</td>
+  <td>&nbsp;</td>
+  <td>CC_REVLV</td>
+  <td>CC_REVLV</td>
+  <td>CHAR</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Revision Level</td>
+</tr>
+<tr class="cell">
+  <td>10</td>
+  <td>CATG0</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>ZMDU_PD_CATG</td>
+  <td>XFELD</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>[MDM-MM] Post Operation</td>
+</tr>
+<tr class="cell">
+  <td>11</td>
+  <td>MARCT0</td>
+  <td>11</td>
+  <td>&nbsp;</td>
+  <td>ZMDU_MARCTX</td>
+  <td>ZMDU_MARCTX</td>
+  <td>CHAR</td>
+  <td>255</td>
+  <td>X</td>
+  <td>[MDM-MM] Plant Material Description</td>
+</tr>
+<tr class="cell">
+  <td>12</td>
+  <td>MMST0</td>
+  <td>12</td>
+  <td>&nbsp;</td>
+  <td>MMSTA</td>
+  <td>MMSTA</td>
+  <td>CHAR</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Plant-Specific Material Status</td>
+</tr>
+<tr class="cell">
+  <td>13</td>
+  <td>VTYP0</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>ZMDU_VTYPE</td>
+  <td>ZMDU_VTYPE</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>&nbsp;</td>
+  <td>[MDM-MM] Vehicle Type</td>
+</tr>
+<tr class="cell">
+  <td>14</td>
+  <td>MENG0</td>
+  <td>14</td>
+  <td>&nbsp;</td>
+  <td>MENGE_D</td>
+  <td>MENG13</td>
+  <td>QUAN</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>Quantity</td>
+</tr>
+<tr class="cell">
+  <td>15</td>
+  <td>MEIN0</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>MEINS</td>
+  <td>MEINS</td>
+  <td>UNIT</td>
+  <td>3</td>
+  <td>X</td>
+  <td>Base Unit of Measure</td>
+</tr>
+<tr class="cell">
+  <td>16</td>
+  <td>MATNR</td>
+  <td>16</td>
+  <td>&nbsp;</td>
+  <td>MATNR</td>
+  <td>MATNR</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>&nbsp;</td>
+  <td>Material Number</td>
+</tr>
+<tr class="cell">
+  <td>17</td>
+  <td>WERKS</td>
+  <td>17</td>
+  <td>&nbsp;</td>
+  <td>WERKS_D</td>
+  <td>WERKS</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Plant</td>
+</tr>
+<tr class="cell">
+  <td>18</td>
+  <td>PRDHA</td>
+  <td>18</td>
+  <td>&nbsp;</td>
+  <td>PRODH_D</td>
+  <td>PRODH</td>
+  <td>CHAR</td>
+  <td>18</td>
+  <td>&nbsp;</td>
+  <td>Product hierarchy</td>
+</tr>
+<tr class="cell">
+  <td>19</td>
+  <td>VTEXT</td>
+  <td>19</td>
+  <td>&nbsp;</td>
+  <td>BEZEI40</td>
+  <td>TEXT40</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>X</td>
+  <td>Description</td>
+</tr>
+<tr class="cell">
+  <td>20</td>
+  <td>STLAN</td>
+  <td>20</td>
+  <td>&nbsp;</td>
+  <td>STLAN</td>
+  <td>STLAN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>BOM Usage</td>
+</tr>
+<tr class="cell">
+  <td>21</td>
+  <td>STLNR</td>
+  <td>21</td>
+  <td>&nbsp;</td>
+  <td>STNUM</td>
+  <td>STNUM</td>
+  <td>CHAR</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Bill of Material</td>
+</tr>
+<tr class="cell">
+  <td>22</td>
+  <td>STLAL</td>
+  <td>22</td>
+  <td>&nbsp;</td>
+  <td>STALT</td>
+  <td>ALTNR</td>
+  <td>CHAR</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Alternative BOM</td>
+</tr>
+<tr class="cell">
+  <td>23</td>
+  <td>STLKN</td>
+  <td>23</td>
+  <td>&nbsp;</td>
+  <td>STLKN</td>
+  <td>KNTNR</td>
+  <td>NUMC</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>BOM item node number</td>
+</tr>
+<tr class="cell">
+  <td>24</td>
+  <td>STPOZ</td>
+  <td>24</td>
+  <td>&nbsp;</td>
+  <td>CIM_COUNT</td>
+  <td>CIM_COUNT</td>
+  <td>NUMC</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Internal counter</td>
+</tr>
+<tr class="cell">
+  <td>25</td>
+  <td>STVKN</td>
+  <td>25</td>
+  <td>&nbsp;</td>
+  <td>STVKN</td>
+  <td>KNTNR</td>
+  <td>NUMC</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Inherited node number of BOM item</td>
+</tr>
+<tr class="cell">
+  <td>26</td>
+  <td>DATUV</td>
+  <td>26</td>
+  <td>&nbsp;</td>
+  <td>DATUV</td>
+  <td>DATUM</td>
+  <td>DATS</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Valid-From Date</td>
+</tr>
+<tr class="cell">
+  <td>27</td>
+  <td>DATUB</td>
+  <td>27</td>
+  <td>&nbsp;</td>
+  <td>DATUB</td>
+  <td>DATUM</td>
+  <td>DATS</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Valid-to date</td>
+</tr>
+<tr class="cell">
+  <td>28</td>
+  <td>AENNR</td>
+  <td>28</td>
+  <td>&nbsp;</td>
+  <td>AENNR</td>
+  <td>AENNR</td>
+  <td>CHAR</td>
+  <td>12</td>
+  <td>&nbsp;</td>
+  <td>Change Number</td>
+</tr>
+<tr class="cell">
+  <td>29</td>
+  <td>AENNB</td>
+  <td>29</td>
+  <td>&nbsp;</td>
+  <td>AENRA</td>
+  <td>AENNR</td>
+  <td>CHAR</td>
+  <td>12</td>
+  <td>&nbsp;</td>
+  <td>Change Number To</td>
+</tr>
+<tr class="cell">
+  <td>30</td>
+  <td>MMSTH</td>
+  <td>30</td>
+  <td>&nbsp;</td>
+  <td>MMSTA</td>
+  <td>MMSTA</td>
+  <td>CHAR</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Plant-Specific Material Status</td>
+</tr>
+<tr class="cell">
+  <td>31</td>
+  <td>MAKTH</td>
+  <td>31</td>
+  <td>&nbsp;</td>
+  <td>ZMDU_MARCTX</td>
+  <td>ZMDU_MARCTX</td>
+  <td>CHAR</td>
+  <td>255</td>
+  <td>X</td>
+  <td>[MDM-MM] Plant Material Description</td>
+</tr>
+<tr class="cell">
+  <td>32</td>
+  <td>MTARH</td>
+  <td>32</td>
+  <td>&nbsp;</td>
+  <td>ZMDU_MTARP_MDD</td>
+  <td>ZMDU_MTARP_MDD</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Plant Level Material Type</td>
+</tr>
+<tr class="cell">
+  <td>33</td>
+  <td>MATKH</td>
+  <td>33</td>
+  <td>&nbsp;</td>
+  <td>MATKL</td>
+  <td>MATKL</td>
+  <td>CHAR</td>
+  <td>9</td>
+  <td>&nbsp;</td>
+  <td>Material Group</td>
+</tr>
+<tr class="cell">
+  <td>34</td>
+  <td>REVLH</td>
+  <td>34</td>
+  <td>&nbsp;</td>
+  <td>CC_REVLV</td>
+  <td>CC_REVLV</td>
+  <td>CHAR</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Revision Level</td>
+</tr>
+<tr class="cell">
+  <td>35</td>
+  <td>BESKH</td>
+  <td>35</td>
+  <td>&nbsp;</td>
+  <td>BESKZ</td>
+  <td>BESKZ</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Procurement Type</td>
+</tr>
+<tr class="cell">
+  <td>36</td>
+  <td>VTYPH</td>
+  <td>36</td>
+  <td>&nbsp;</td>
+  <td>ZMDU_VTYPE</td>
+  <td>ZMDU_VTYPE</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>&nbsp;</td>
+  <td>[MDM-MM] Vehicle Type</td>
+</tr>
+<tr class="cell">
+  <td>37</td>
+  <td>MENGH</td>
+  <td>37</td>
+  <td>&nbsp;</td>
+  <td>MENGE_D</td>
+  <td>MENG13</td>
+  <td>QUAN</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>Quantity</td>
+</tr>
+<tr class="cell">
+  <td>38</td>
+  <td>MEINH</td>
+  <td>38</td>
+  <td>&nbsp;</td>
+  <td>MEINS</td>
+  <td>MEINS</td>
+  <td>UNIT</td>
+  <td>3</td>
+  <td>X</td>
+  <td>Base Unit of Measure</td>
+</tr>
+<tr class="cell">
+  <td>39</td>
+  <td>SOBSL</td>
+  <td>39</td>
+  <td>&nbsp;</td>
+  <td>CS_SOBSL</td>
+  <td>SOBSL</td>
+  <td>CHAR</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Special Procurement Type for BOM Item</td>
+</tr>
+<tr class="cell">
+  <td>40</td>
+  <td>STLKZ</td>
+  <td>40</td>
+  <td>&nbsp;</td>
+  <td>STLKZ</td>
+  <td>CHAR1</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Indicator: assembly</td>
+</tr>
+<tr class="cell">
+  <td>41</td>
+  <td>IDNRK</td>
+  <td>41</td>
+  <td>&nbsp;</td>
+  <td>IDNRK</td>
+  <td>MATNR</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>&nbsp;</td>
+  <td>BOM component</td>
+</tr>
+<tr class="cell">
+  <td>42</td>
+  <td>MAKTX</td>
+  <td>42</td>
+  <td>&nbsp;</td>
+  <td>ZMDU_MARCTX</td>
+  <td>ZMDU_MARCTX</td>
+  <td>CHAR</td>
+  <td>255</td>
+  <td>X</td>
+  <td>[MDM-MM] Plant Material Description</td>
+</tr>
+<tr class="cell">
+  <td>43</td>
+  <td>POSNR</td>
+  <td>43</td>
+  <td>&nbsp;</td>
+  <td>SPOSN</td>
+  <td>SPOSN</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>BOM Item Number</td>
+</tr>
+<tr class="cell">
+  <td>44</td>
+  <td>SORTF</td>
+  <td>44</td>
+  <td>&nbsp;</td>
+  <td>SORTP</td>
+  <td>CHAR10</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>Sort String</td>
+</tr>
+<tr class="cell">
+  <td>45</td>
+  <td>MEINS</td>
+  <td>45</td>
+  <td>&nbsp;</td>
+  <td>KMPME</td>
+  <td>MEINS</td>
+  <td>UNIT</td>
+  <td>3</td>
+  <td>X</td>
+  <td>Component Unit of Measure</td>
+</tr>
+<tr class="cell">
+  <td>46</td>
+  <td>MENGE</td>
+  <td>46</td>
+  <td>&nbsp;</td>
+  <td>MENGE_D</td>
+  <td>MENG13</td>
+  <td>QUAN</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>Quantity</td>
+</tr>
+<tr class="cell">
+  <td>47</td>
+  <td>MENGV</td>
+  <td>47</td>
+  <td>&nbsp;</td>
+  <td>KMPMG</td>
+  <td>MENGV13</td>
+  <td>QUAN</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>Component Quantity</td>
+</tr>
+<tr class="cell">
+  <td>48</td>
+  <td>SANKA</td>
+  <td>48</td>
+  <td>&nbsp;</td>
+  <td>CS_SANKA</td>
+  <td>CK_SELKZ</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Indicator for relevancy to costing</td>
+</tr>
+<tr class="cell">
+  <td>49</td>
+  <td>SANFE</td>
+  <td>49</td>
+  <td>&nbsp;</td>
+  <td>SANFE</td>
+  <td>XFELD</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Indicator: item relevant to production</td>
+</tr>
+<tr class="cell">
+  <td>50</td>
+  <td>SANKO</td>
+  <td>50</td>
+  <td>&nbsp;</td>
+  <td>SANKO</td>
+  <td>XFELD</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Indicator: item relevant to engineering</td>
+</tr>
+<tr class="cell">
+  <td>51</td>
+  <td>SCHGT</td>
+  <td>51</td>
+  <td>&nbsp;</td>
+  <td>SCHGT</td>
+  <td>XFELD</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Indicator: bulk material</td>
+</tr>
+<tr class="cell">
+  <td>52</td>
+  <td>MMSTA</td>
+  <td>52</td>
+  <td>&nbsp;</td>
+  <td>MMSTA</td>
+  <td>MMSTA</td>
+  <td>CHAR</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Plant-Specific Material Status</td>
+</tr>
+<tr class="cell">
+  <td>53</td>
+  <td>BEIKZ</td>
+  <td>53</td>
+  <td>&nbsp;</td>
+  <td>BEIKZ</td>
+  <td>BEIKZ</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Material Provision Indicator</td>
+</tr>
+<tr class="cell">
+  <td>54</td>
+  <td>MTART</td>
+  <td>54</td>
+  <td>&nbsp;</td>
+  <td>ZMDU_MTARP_MDD</td>
+  <td>ZMDU_MTARP_MDD</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Plant Level Material Type</td>
+</tr>
+<tr class="cell">
+  <td>55</td>
+  <td>REVLV</td>
+  <td>55</td>
+  <td>&nbsp;</td>
+  <td>CC_REVLV</td>
+  <td>CC_REVLV</td>
+  <td>CHAR</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Revision Level</td>
+</tr>
+<tr class="cell">
+  <td>56</td>
+  <td>MATKL</td>
+  <td>56</td>
+  <td>&nbsp;</td>
+  <td>MATKL</td>
+  <td>MATKL</td>
+  <td>CHAR</td>
+  <td>9</td>
+  <td>&nbsp;</td>
+  <td>Material Group</td>
+</tr>
+<tr class="cell">
+  <td>57</td>
+  <td>BESKZ</td>
+  <td>57</td>
+  <td>&nbsp;</td>
+  <td>BESKZ</td>
+  <td>BESKZ</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Procurement Type</td>
+</tr>
+<tr class="cell">
+  <td>58</td>
+  <td>ITSOB</td>
+  <td>58</td>
+  <td>&nbsp;</td>
+  <td>CS_SOBSL</td>
+  <td>SOBSL</td>
+  <td>CHAR</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Special Procurement Type for BOM Item</td>
+</tr>
+<tr class="cell">
+  <td>59</td>
+  <td>WRK01</td>
+  <td>59</td>
+  <td>&nbsp;</td>
+  <td>Z_WRK01</td>
+  <td>Z_WRK01</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>BoM Plant</td>
+</tr>
+<tr class="cell">
+  <td>60</td>
+  <td>WRK02</td>
+  <td>60</td>
+  <td>&nbsp;</td>
+  <td>Z_WRK02</td>
+  <td>WERKS</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Stock Transfer Plant</td>
+</tr>
+<tr class="cell">
+  <td>61</td>
+  <td>LIFNR</td>
+  <td>61</td>
+  <td>&nbsp;</td>
+  <td>LIFNR</td>
+  <td>LIFNR</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>Account Number of Supplier</td>
+</tr>
+<tr class="cell">
+  <td>62</td>
+  <td>STPRS</td>
+  <td>62</td>
+  <td>&nbsp;</td>
+  <td>STPRS</td>
+  <td>WERT11V</td>
+  <td>CURR</td>
+  <td>11</td>
+  <td>&nbsp;</td>
+  <td>Standard price</td>
+</tr>
+<tr class="cell">
+  <td>63</td>
+  <td>WAERS</td>
+  <td>63</td>
+  <td>&nbsp;</td>
+  <td>WAERS</td>
+  <td>WAERS</td>
+  <td>CUKY</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Currency Key</td>
+</tr>
+<tr class="cell">
+  <td>64</td>
+  <td>PEINH</td>
+  <td>64</td>
+  <td>&nbsp;</td>
+  <td>PEINH</td>
+  <td>PACK3</td>
+  <td>DEC</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Price unit</td>
+</tr>
+<tr class="cell">
+  <td>65</td>
+  <td>NETPR</td>
+  <td>65</td>
+  <td>&nbsp;</td>
+  <td>NETPR</td>
+  <td>WERTV6</td>
+  <td>CURR</td>
+  <td>11</td>
+  <td>&nbsp;</td>
+  <td>Net Price</td>
+</tr>
+<tr class="cell">
+  <td>66</td>
+  <td>PEIN1</td>
+  <td>66</td>
+  <td>&nbsp;</td>
+  <td>PEINH</td>
+  <td>PACK3</td>
+  <td>DEC</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Price unit</td>
+</tr>
+<tr class="cell">
+  <td>67</td>
+  <td>ZSCRUS</td>
+  <td>67</td>
+  <td>&nbsp;</td>
+  <td>Z_SCRUS</td>
+  <td>Z_SCRUS</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Scrap Used</td>
+</tr>
+<tr class="cell">
+  <td>68</td>
+  <td>ANDAT</td>
+  <td>68</td>
+  <td>&nbsp;</td>
+  <td>ANDAT</td>
+  <td>DATUM</td>
+  <td>DATS</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Date Record Created On</td>
+</tr>
+<tr class="cell">
+  <td>69</td>
+  <td>DELKZ</td>
+  <td>69</td>
+  <td>&nbsp;</td>
+  <td>DELKZ</td>
+  <td>DELKZ</td>
+  <td>CHAR</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>MRP element</td>
+</tr>
+<tr class="cell">
+  <td>70</td>
+  <td>POCATG</td>
+  <td>70</td>
+  <td>&nbsp;</td>
+  <td>ZMUD_PO_CATG</td>
+  <td>ZMUD_PO_CATG</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>[MDM-MM] PU Category</td>
+</tr>
+<tr class="cell">
+  <td>71</td>
+  <td>PDCATG</td>
+  <td>71</td>
+  <td>&nbsp;</td>
+  <td>ZMDU_PD_CATG</td>
+  <td>XFELD</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>[MDM-MM] Post Operation</td>
+</tr>
+<tr class="cell">
+  <td>72</td>
+  <td>ZEITEM</td>
+  <td>72</td>
+  <td>&nbsp;</td>
+  <td>Z_EITEM</td>
+  <td>XFELD</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>End Item</td>
+</tr>
+<tr class="cell">
+  <td>73</td>
+  <td>ZMENGE_B</td>
+  <td>73</td>
+  <td>&nbsp;</td>
+  <td>Z_MENGE_B</td>
+  <td>MENG13</td>
+  <td>QUAN</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>Quantity(Base Unit To Conversion)</td>
+</tr>
+<tr class="cell">
+  <td>74</td>
+  <td>ZMEINS_B</td>
+  <td>74</td>
+  <td>&nbsp;</td>
+  <td>Z_MEINS_B</td>
+  <td>MEINS</td>
+  <td>UNIT</td>
+  <td>3</td>
+  <td>X</td>
+  <td>Base Unit of Measure</td>
+</tr>
+      </table>
+     </td>
+   </tr>
+<br/>
+  <table class="outerTable">
+    <tr>
+      <td><h2>Fixed Domain Values </h2>
+    </tr>
+    <tr>
+      <td><!--This is where our main table begins  -->
+<table class="innerTable">
+<tr>
+  <th>Domain Name</th>
+  <th>Value Low</th>
+  <th>Value High</th>
+  <th>Text</th>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Yes</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>No</td>
+</tr>
+<tr class="cell">
+  <td>BESKZ</td>
+  <td>E</td>
+  <td>&nbsp;</td>
+  <td>In-House Production</td>
+</tr>
+<tr class="cell">
+  <td>BESKZ</td>
+  <td>F</td>
+  <td>&nbsp;</td>
+  <td>External Procurement</td>
+</tr>
+<tr class="cell">
+  <td>BESKZ</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>No Procurement</td>
+</tr>
+<tr class="cell">
+  <td>BESKZ</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Both Procurement Types</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Yes</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>No</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Yes</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>No</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Yes</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>No</td>
+</tr>
+<tr class="cell">
+  <td>BESKZ</td>
+  <td>E</td>
+  <td>&nbsp;</td>
+  <td>In-House Production</td>
+</tr>
+<tr class="cell">
+  <td>BESKZ</td>
+  <td>F</td>
+  <td>&nbsp;</td>
+  <td>External Procurement</td>
+</tr>
+<tr class="cell">
+  <td>BESKZ</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>No Procurement</td>
+</tr>
+<tr class="cell">
+  <td>BESKZ</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Both Procurement Types</td>
+</tr>
+<tr class="cell">
+  <td>Z_SCRUS</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+<tr class="cell">
+  <td>Z_SCRUS</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Used</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>AR</td>
+  <td>&nbsp;</td>
+  <td>Dependent reservation</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>BA</td>
+  <td>&nbsp;</td>
+  <td>Purchase requisition</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>BB</td>
+  <td>&nbsp;</td>
+  <td>Subcontractor requirements of material provided</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>BE</td>
+  <td>&nbsp;</td>
+  <td>Order item schedule line</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>BP</td>
+  <td>&nbsp;</td>
+  <td>Gross requirements planning</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>BR</td>
+  <td>&nbsp;</td>
+  <td>Process order</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>CH</td>
+  <td>&nbsp;</td>
+  <td>Batch stock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>ER</td>
+  <td>&nbsp;</td>
+  <td>End of replenishment lead time</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>E1</td>
+  <td>&nbsp;</td>
+  <td>Subcontracting purchasing</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>FE</td>
+  <td>&nbsp;</td>
+  <td>Production order</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>FH</td>
+  <td>&nbsp;</td>
+  <td>End of planning time fence</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>IH</td>
+  <td>&nbsp;</td>
+  <td>Maintenance order</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>JI</td>
+  <td>&nbsp;</td>
+  <td>JIT call</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>IM</td>
+  <td>&nbsp;</td>
+  <td>Actual goods receipt quantity</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>IW</td>
+  <td>&nbsp;</td>
+  <td>In Plant (Shipping Notification)</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>KB</td>
+  <td>&nbsp;</td>
+  <td>Individual customer stock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>KD</td>
+  <td>&nbsp;</td>
+  <td>Customer independent requirement (currently not used)</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>KK</td>
+  <td>&nbsp;</td>
+  <td>Consignment stock for customer (availability check)</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>LA</td>
+  <td>&nbsp;</td>
+  <td>Shipping notification</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>LB</td>
+  <td>&nbsp;</td>
+  <td>Storage location stock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>LC</td>
+  <td>&nbsp;</td>
+  <td>Batch/storage location stock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>LE</td>
+  <td>&nbsp;</td>
+  <td>SA schedule line</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>LF</td>
+  <td>&nbsp;</td>
+  <td>JIT delivery schedule</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>LK</td>
+  <td>&nbsp;</td>
+  <td>Stock with subcontractor</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>LL</td>
+  <td>&nbsp;</td>
+  <td>Forecast delivery schedule</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>MB</td>
+  <td>&nbsp;</td>
+  <td>Goods issue</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>MR</td>
+  <td>&nbsp;</td>
+  <td>Reservation</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>MS</td>
+  <td>&nbsp;</td>
+  <td>Direct production</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>NE</td>
+  <td>&nbsp;</td>
+  <td>Network order</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>PA</td>
+  <td>&nbsp;</td>
+  <td>Planned order</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>PB</td>
+  <td>&nbsp;</td>
+  <td>Project stock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>PP</td>
+  <td>&nbsp;</td>
+  <td>Planned independent requirement</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>PR</td>
+  <td>&nbsp;</td>
+  <td>Forecast requirement</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>QM</td>
+  <td>&nbsp;</td>
+  <td>Inspection lot for quality management</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>RP</td>
+  <td>&nbsp;</td>
+  <td>Returns item</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>RR</td>
+  <td>&nbsp;</td>
+  <td>MRP requirement (only relevant for IS-Automotive)</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>RU</td>
+  <td>&nbsp;</td>
+  <td>Confirmation</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>S2</td>
+  <td>&nbsp;</td>
+  <td>Simulated requirement from availability check</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>SA</td>
+  <td>&nbsp;</td>
+  <td>Simulation order</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>SB</td>
+  <td>&nbsp;</td>
+  <td>Dependent requirement</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>SF</td>
+  <td>&nbsp;</td>
+  <td>Safety requirement</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>SH</td>
+  <td>&nbsp;</td>
+  <td>Safety stock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>SI</td>
+  <td>&nbsp;</td>
+  <td>Simulation requirement</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>SM</td>
+  <td>&nbsp;</td>
+  <td>Sim. dependent reqmts</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>SU</td>
+  <td>&nbsp;</td>
+  <td>Total requirements</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>TB</td>
+  <td>&nbsp;</td>
+  <td>Transfer requirements WMS</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>U1</td>
+  <td>&nbsp;</td>
+  <td>Release order for a stock transfer order</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>U2</td>
+  <td>&nbsp;</td>
+  <td>Release order for a stock transfer requisition</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>U3</td>
+  <td>&nbsp;</td>
+  <td>Transfer requirement for simulation order</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>U4</td>
+  <td>&nbsp;</td>
+  <td>Release order for stock transport scheduling agreement</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>UB</td>
+  <td>&nbsp;</td>
+  <td>Unplanned requirement</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>UL</td>
+  <td>&nbsp;</td>
+  <td>Reservation in another plant</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>UR</td>
+  <td>&nbsp;</td>
+  <td>Stock transfer reservation</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VA</td>
+  <td>&nbsp;</td>
+  <td>Request for quotation</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VB</td>
+  <td>&nbsp;</td>
+  <td>Quotation</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VC</td>
+  <td>&nbsp;</td>
+  <td>Order</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VE</td>
+  <td>&nbsp;</td>
+  <td>SD scheduling agreement</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VF</td>
+  <td>&nbsp;</td>
+  <td>SD scheduling agreement; external service agent</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VG</td>
+  <td>&nbsp;</td>
+  <td>Contract</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VH</td>
+  <td>&nbsp;</td>
+  <td>Returns from Consignation Stock at Customer</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VI</td>
+  <td>&nbsp;</td>
+  <td>Delivery Free of Charge</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VJ</td>
+  <td>&nbsp;</td>
+  <td>Delivery</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VP</td>
+  <td>&nbsp;</td>
+  <td>Planning</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VT</td>
+  <td>&nbsp;</td>
+  <td>Returns (availability check)</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VW</td>
+  <td>&nbsp;</td>
+  <td>External sales order</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>VZ</td>
+  <td>&nbsp;</td>
+  <td>Unverified delivery</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>WA</td>
+  <td>&nbsp;</td>
+  <td>Goods issue</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>WB</td>
+  <td>&nbsp;</td>
+  <td>Plant stock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>WE</td>
+  <td>&nbsp;</td>
+  <td>Goods receipt</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>WH</td>
+  <td>&nbsp;</td>
+  <td>End replenishment period</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>DD</td>
+  <td>&nbsp;</td>
+  <td>Effective-out date</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>C3</td>
+  <td>&nbsp;</td>
+  <td>Subcontr. Customer Order Stock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>C4</td>
+  <td>&nbsp;</td>
+  <td>Subcontr. Project Stock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>C1</td>
+  <td>&nbsp;</td>
+  <td>Customer stock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>C2</td>
+  <td>&nbsp;</td>
+  <td>Subcontr. Customer Stock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>M2</td>
+  <td>&nbsp;</td>
+  <td>Material Transfer</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>SG</td>
+  <td>&nbsp;</td>
+  <td>Stock Gain</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>SD</td>
+  <td>&nbsp;</td>
+  <td>Safety Demand</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>HS</td>
+  <td>&nbsp;</td>
+  <td>SegmentBatchStock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>LS</td>
+  <td>&nbsp;</td>
+  <td>SegmentSLocStock</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>CS</td>
+  <td>&nbsp;</td>
+  <td>SegmentBatchSLoc</td>
+</tr>
+<tr class="cell">
+  <td>DELKZ</td>
+  <td>WS</td>
+  <td>&nbsp;</td>
+  <td>SegmentStock</td>
+</tr>
+<tr class="cell">
+  <td>ZMUD_PO_CATG</td>
+  <td>PU10</td>
+  <td>&nbsp;</td>
+  <td>Local</td>
+</tr>
+<tr class="cell">
+  <td>ZMUD_PO_CATG</td>
+  <td>PU20</td>
+  <td>&nbsp;</td>
+  <td>Import</td>
+</tr>
+<tr class="cell">
+  <td>ZMUD_PO_CATG</td>
+  <td>PU30</td>
+  <td>&nbsp;</td>
+  <td>Inter Company</td>
+</tr>
+<tr class="cell">
+  <td>ZMUD_PO_CATG</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>N/A</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Yes</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>No</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Yes</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>No</td>
+</tr>
+      </table>
+     </td>
+   </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>
