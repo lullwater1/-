@@ -1,0 +1,681 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>Dictionary object- ZGFS0026</title>
+<style type="text/css">
+  th{text-align:left}
+  .cell{
+     font-family:"Courier New", Courier, monospace;
+     color:#000;
+     font-size:12px;
+     background-color:#F2F4F7;
+  }
+  .cell td { border: thin solid #ccc; }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+  <table class="outerTable">
+    <tr>
+      <td><h2>Table: ZGFS0026</h2>
+  <h3>Description: [FTA] OC dash board : Sub head data layout</h3></td>
+    </tr>
+    <tr>
+      <td><!--This is where our main table begins  -->
+<table class="innerTable">
+<tr>
+  <th>Row</th>
+  <th>Field name</th>
+  <th>Position</th>
+  <th>Key</th>
+  <th>Data element</th>
+  <th>Domain</th>
+  <th>Datatype</th>
+  <th>Length</th>
+  <th>Lowercase</th>
+  <th>Domain text</th>
+</tr>
+<tr class="cell">
+  <td> 1</td>
+  <td>ICON</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>ICON_TEXT</td>
+  <td>SYCHAR132</td>
+  <td>CHAR</td>
+  <td>132</td>
+  <td>&nbsp;</td>
+  <td>Carrier field for icons</td>
+</tr>
+<tr class="cell">
+  <td> 2</td>
+  <td>HUSED_ICON</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>ICON_TEXT</td>
+  <td>SYCHAR132</td>
+  <td>CHAR</td>
+  <td>132</td>
+  <td>&nbsp;</td>
+  <td>Carrier field for icons</td>
+</tr>
+<tr class="cell">
+  <td> 3</td>
+  <td>.INCLUDE</td>
+  <td>3</td>
+  <td>&nbsp;</td>
+  <td>ZGFS0003</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>0</td>
+  <td>&nbsp;</td>
+  <td>[FTA] Determination - SUB KEY structure</td>
+</tr>
+<tr class="cell">
+  <td> 4</td>
+  <td>GUID</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_GUID_16</td>
+  <td>SYSUUID</td>
+  <td>RAW</td>
+  <td>16</td>
+  <td>&nbsp;</td>
+  <td>Primary Key as GUID in 'RAW' Format</td>
+</tr>
+<tr class="cell">
+  <td> 5</td>
+  <td>CCNGN</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_CCNGN</td>
+  <td>ZKGD_CCNGN</td>
+  <td>CHAR</td>
+  <td>17</td>
+  <td>&nbsp;</td>
+  <td>HS code ( Product LEVEL )</td>
+</tr>
+<tr class="cell">
+  <td> 6</td>
+  <td>CCNGNS</td>
+  <td>6</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_CCNGNS</td>
+  <td>ZKGD_CCNGNS</td>
+  <td>CHAR</td>
+  <td>3</td>
+  <td>&nbsp;</td>
+  <td>Sub items Classification by HS Code</td>
+</tr>
+<tr class="cell">
+  <td> 7</td>
+  <td>RSEQ</td>
+  <td>7</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_RSEQ</td>
+  <td>ZKGD_RSEQ</td>
+  <td>NUMC</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Combination rule for determination</td>
+</tr>
+<tr class="cell">
+  <td> 8</td>
+  <td>HSTYP</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_HSTYP</td>
+  <td>ZKGD_HSTYP</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>HS code TYPE</td>
+</tr>
+<tr class="cell">
+  <td> 9</td>
+  <td>CTHR</td>
+  <td>9</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_CTHR</td>
+  <td>ZKGD_CTHR</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>Change in tariff heading Rule</td>
+</tr>
+<tr class="cell">
+  <td>10</td>
+  <td>CTHCOFLG</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_CTHCOFLG</td>
+  <td>ZKGD_ORIGIN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Change in tariff heading Item Origin status</td>
+</tr>
+<tr class="cell">
+  <td>11</td>
+  <td>DMR</td>
+  <td>11</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_DMR</td>
+  <td>ZKGD_DMR</td>
+  <td>DEC</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Minimum rates of de-minimis</td>
+</tr>
+<tr class="cell">
+  <td>12</td>
+  <td>DMRCO</td>
+  <td>12</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_DMRCO</td>
+  <td>DEC3_2</td>
+  <td>DEC</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Minimum ratio of de minimis</td>
+</tr>
+<tr class="cell">
+  <td>13</td>
+  <td>DMNOVAS</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_DMNOVAS</td>
+  <td>WERTV8</td>
+  <td>CURR</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>Aggregate non-originating material value of De minimis</td>
+</tr>
+<tr class="cell">
+  <td>14</td>
+  <td>DMCOFLG</td>
+  <td>14</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_DMCOFLG</td>
+  <td>ZKGD_ORIGIN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Item Origin status of De minimis</td>
+</tr>
+<tr class="cell">
+  <td>15</td>
+  <td>DMRBF</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_DMRBF</td>
+  <td>DEC3_2</td>
+  <td>DEC</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>De minimis ratio (including Buffer)</td>
+</tr>
+<tr class="cell">
+  <td>16</td>
+  <td>DMBFFLG</td>
+  <td>16</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_DMBFFLG</td>
+  <td>ZKGD_ORIGIN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>De minimis Item Origin status (including Buffer)</td>
+</tr>
+<tr class="cell">
+  <td>17</td>
+  <td>RVC</td>
+  <td>17</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_RVC</td>
+  <td>CHAR4</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Value added criteria</td>
+</tr>
+<tr class="cell">
+  <td>18</td>
+  <td>RVCR</td>
+  <td>18</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_RVCR</td>
+  <td>DEC3_2</td>
+  <td>DEC</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Value added ratio</td>
+</tr>
+<tr class="cell">
+  <td>19</td>
+  <td>RVCRCO</td>
+  <td>19</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_RVCRCO</td>
+  <td>DEC3_2</td>
+  <td>DEC</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Value added criteria ratio (Final)</td>
+</tr>
+<tr class="cell">
+  <td>20</td>
+  <td>RVCCOFLG</td>
+  <td>20</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_RVCCOFLG</td>
+  <td>ZKGD_ORIGIN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Value added criteria Item Origin status</td>
+</tr>
+<tr class="cell">
+  <td>21</td>
+  <td>RVCRBF</td>
+  <td>21</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_RVCRBF</td>
+  <td>DEC3_2</td>
+  <td>DEC</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Value added criteria ratio (including Buffer)</td>
+</tr>
+<tr class="cell">
+  <td>22</td>
+  <td>RVCBFFLG</td>
+  <td>22</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_RVCBFFLG</td>
+  <td>ZKGD_ORIGIN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Value added criteria Item Origin status(including Buff)</td>
+</tr>
+<tr class="cell">
+  <td>23</td>
+  <td>EXNOVAS</td>
+  <td>23</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_EXNOVAS</td>
+  <td>WERTV8</td>
+  <td>CURR</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>Sum of exceptional non-originating material value</td>
+</tr>
+<tr class="cell">
+  <td>24</td>
+  <td>EXTY</td>
+  <td>24</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_EXTY</td>
+  <td>ZKGD_EXTY</td>
+  <td>CHAR</td>
+  <td>3</td>
+  <td>&nbsp;</td>
+  <td>Category of excemption criteria determination ( 91 ~ 95 )</td>
+</tr>
+<tr class="cell">
+  <td>25</td>
+  <td>EXR</td>
+  <td>25</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_EXR</td>
+  <td>ZKGD_EXR</td>
+  <td>DEC</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Rates in accordance to exemption</td>
+</tr>
+<tr class="cell">
+  <td>26</td>
+  <td>EXRCO</td>
+  <td>26</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_EXRCO</td>
+  <td>ZKGD_EXRCO</td>
+  <td>DEC</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Exceptional standardratio(Final)</td>
+</tr>
+<tr class="cell">
+  <td>27</td>
+  <td>EXCOFLG</td>
+  <td>27</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_EXCOFLG</td>
+  <td>ZKGD_ORIGIN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Exceptional standard Item Origin status</td>
+</tr>
+<tr class="cell">
+  <td>28</td>
+  <td>EXSIGN</td>
+  <td>28</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_EXSIGN</td>
+  <td>XFELD</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Exceptional Rule X/' '</td>
+</tr>
+<tr class="cell">
+  <td>29</td>
+  <td>EXIE</td>
+  <td>29</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_EXIE</td>
+  <td>ZKGD_EXIE</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Apply exceptional standard Y/N</td>
+</tr>
+<tr class="cell">
+  <td>30</td>
+  <td>NOVAS</td>
+  <td>30</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_NOVAS</td>
+  <td>WERTV8</td>
+  <td>CURR</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>Aggregate non-originating material value</td>
+</tr>
+<tr class="cell">
+  <td>31</td>
+  <td>OVAS</td>
+  <td>31</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_OVAS</td>
+  <td>WERTV8</td>
+  <td>CURR</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>Aggregate originating material value</td>
+</tr>
+<tr class="cell">
+  <td>32</td>
+  <td>WAERS</td>
+  <td>32</td>
+  <td>&nbsp;</td>
+  <td>FCIW_LCUR</td>
+  <td>WAERS</td>
+  <td>CUKY</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Currency Key for Local Currency</td>
+</tr>
+<tr class="cell">
+  <td>33</td>
+  <td>INCO1</td>
+  <td>33</td>
+  <td>&nbsp;</td>
+  <td>INCO1</td>
+  <td>INCO1</td>
+  <td>CHAR</td>
+  <td>3</td>
+  <td>&nbsp;</td>
+  <td>Incoterms (Part 1)</td>
+</tr>
+<tr class="cell">
+  <td>34</td>
+  <td>PRULE</td>
+  <td>34</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_PRULE</td>
+  <td>CHAR20</td>
+  <td>CHAR</td>
+  <td>20</td>
+  <td>&nbsp;</td>
+  <td>Standard of Determination</td>
+</tr>
+<tr class="cell">
+  <td>35</td>
+  <td>COFLG</td>
+  <td>35</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_COFLG</td>
+  <td>ZKGD_ORIGIN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Item Origin status</td>
+</tr>
+<tr class="cell">
+  <td>36</td>
+  <td>COFLGBF</td>
+  <td>36</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_COFLGBF</td>
+  <td>ZKGD_ORIGIN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Item Origin status(including Buffer)</td>
+</tr>
+<tr class="cell">
+  <td>37</td>
+  <td>HUSED</td>
+  <td>37</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_HUSED</td>
+  <td>XFIELD</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Apply Header Y/N</td>
+</tr>
+      </table>
+     </td>
+   </tr>
+<br/>
+  <table class="outerTable">
+    <tr>
+      <td><h2>Fixed Domain Values </h2>
+    </tr>
+    <tr>
+      <td><!--This is where our main table begins  -->
+<table class="innerTable">
+<tr>
+  <th>Domain Name</th>
+  <th>Value Low</th>
+  <th>Value High</th>
+  <th>Text</th>
+</tr>
+<tr class="cell">
+  <td>ZKGD_HSTYP</td>
+  <td>I</td>
+  <td>&nbsp;</td>
+  <td>##</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_HSTYP</td>
+  <td>E</td>
+  <td>&nbsp;</td>
+  <td>##</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>Y</td>
+  <td>&nbsp;</td>
+  <td>Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>Non-Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>Y</td>
+  <td>&nbsp;</td>
+  <td>Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>Non-Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>Y</td>
+  <td>&nbsp;</td>
+  <td>Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>Non-Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>Y</td>
+  <td>&nbsp;</td>
+  <td>Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>Non-Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>Y</td>
+  <td>&nbsp;</td>
+  <td>Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>Non-Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>Y</td>
+  <td>&nbsp;</td>
+  <td>Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>Non-Origin</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Yes</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>No</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_EXIE</td>
+  <td>E</td>
+  <td>&nbsp;</td>
+  <td>Exclude</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_EXIE</td>
+  <td>I</td>
+  <td>&nbsp;</td>
+  <td>Include</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>Y</td>
+  <td>&nbsp;</td>
+  <td>Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>Non-Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>Y</td>
+  <td>&nbsp;</td>
+  <td>Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>Non-Origin</td>
+</tr>
+<tr class="cell">
+  <td>XFIELD</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>No</td>
+</tr>
+<tr class="cell">
+  <td>XFIELD</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Yes</td>
+</tr>
+      </table>
+     </td>
+   </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>

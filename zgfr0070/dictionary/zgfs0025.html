@@ -1,0 +1,633 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>Dictionary object- ZGFS0025</title>
+<style type="text/css">
+  th{text-align:left}
+  .cell{
+     font-family:"Courier New", Courier, monospace;
+     color:#000;
+     font-size:12px;
+     background-color:#F2F4F7;
+  }
+  .cell td { border: thin solid #ccc; }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+  <table class="outerTable">
+    <tr>
+      <td><h2>Table: ZGFS0025</h2>
+  <h3>Description: [FTA] OC dash board : interim Determination data layout</h3></td>
+    </tr>
+    <tr>
+      <td><!--This is where our main table begins  -->
+<table class="innerTable">
+<tr>
+  <th>Row</th>
+  <th>Field name</th>
+  <th>Position</th>
+  <th>Key</th>
+  <th>Data element</th>
+  <th>Domain</th>
+  <th>Datatype</th>
+  <th>Length</th>
+  <th>Lowercase</th>
+  <th>Domain text</th>
+</tr>
+<tr class="cell">
+  <td> 1</td>
+  <td>ICON</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>ICON_TEXT</td>
+  <td>SYCHAR132</td>
+  <td>CHAR</td>
+  <td>132</td>
+  <td>&nbsp;</td>
+  <td>Carrier field for icons</td>
+</tr>
+<tr class="cell">
+  <td> 2</td>
+  <td>ICON_COFLG</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>CACSYN</td>
+  <td>CACSYN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Indicator: Yes/No (Y/N)</td>
+</tr>
+<tr class="cell">
+  <td> 3</td>
+  <td>GUID</td>
+  <td>3</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_GUID_16</td>
+  <td>SYSUUID</td>
+  <td>RAW</td>
+  <td>16</td>
+  <td>&nbsp;</td>
+  <td>Primary Key as GUID in 'RAW' Format</td>
+</tr>
+<tr class="cell">
+  <td> 4</td>
+  <td>PRETP</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_PRETP</td>
+  <td>ZKGD_PRETP</td>
+  <td>CHAR</td>
+  <td>2</td>
+  <td>&nbsp;</td>
+  <td>Determination Type</td>
+</tr>
+<tr class="cell">
+  <td> 5</td>
+  <td>SPMON</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>SPMON</td>
+  <td>MCPERIOD</td>
+  <td>NUMC</td>
+  <td>6</td>
+  <td>&nbsp;</td>
+  <td>Period to analyze - month</td>
+</tr>
+<tr class="cell">
+  <td> 6</td>
+  <td>DATUV</td>
+  <td>6</td>
+  <td>&nbsp;</td>
+  <td>DATUV</td>
+  <td>DATUM</td>
+  <td>DATS</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Valid-From Date</td>
+</tr>
+<tr class="cell">
+  <td> 7</td>
+  <td>BUKRS</td>
+  <td>7</td>
+  <td>&nbsp;</td>
+  <td>BUKRS</td>
+  <td>BUKRS</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Company Code</td>
+</tr>
+<tr class="cell">
+  <td> 8</td>
+  <td>WERKS</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>WERKS_D</td>
+  <td>WERKS</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Plant</td>
+</tr>
+<tr class="cell">
+  <td> 9</td>
+  <td>PFONA</td>
+  <td>9</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_PFONA</td>
+  <td>ZKGD_PFONA</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>FTA Agreement</td>
+</tr>
+<tr class="cell">
+  <td>10</td>
+  <td>FTANA</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_FTANA</td>
+  <td>ZKGD_FTANA</td>
+  <td>CHAR</td>
+  <td>30</td>
+  <td>&nbsp;</td>
+  <td>Name of Agreement</td>
+</tr>
+<tr class="cell">
+  <td>11</td>
+  <td>KONZS</td>
+  <td>11</td>
+  <td>&nbsp;</td>
+  <td>KONZS</td>
+  <td>KONZS</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>Group key</td>
+</tr>
+<tr class="cell">
+  <td>12</td>
+  <td>KUNAG</td>
+  <td>12</td>
+  <td>&nbsp;</td>
+  <td>KUNAG</td>
+  <td>KUNNR</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>Sold-to Party</td>
+</tr>
+<tr class="cell">
+  <td>13</td>
+  <td>NAME1</td>
+  <td>13</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_KUNAGT</td>
+  <td>NAME</td>
+  <td>CHAR</td>
+  <td>35</td>
+  <td>X</td>
+  <td>Customer Description</td>
+</tr>
+<tr class="cell">
+  <td>14</td>
+  <td>MATNR</td>
+  <td>14</td>
+  <td>&nbsp;</td>
+  <td>MATNR</td>
+  <td>MATNR</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>&nbsp;</td>
+  <td>Material Number</td>
+</tr>
+<tr class="cell">
+  <td>15</td>
+  <td>MAKTX</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>MAKTX</td>
+  <td>TEXT40</td>
+  <td>CHAR</td>
+  <td>40</td>
+  <td>X</td>
+  <td>Material Description</td>
+</tr>
+<tr class="cell">
+  <td>16</td>
+  <td>KDMAT</td>
+  <td>16</td>
+  <td>&nbsp;</td>
+  <td>KDMAT</td>
+  <td>IDNEX</td>
+  <td>CHAR</td>
+  <td>35</td>
+  <td>&nbsp;</td>
+  <td>Customer Material</td>
+</tr>
+<tr class="cell">
+  <td>17</td>
+  <td>SUBCT</td>
+  <td>17</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_SUBCT</td>
+  <td>ZKGD_SUBCT</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Toll classification</td>
+</tr>
+<tr class="cell">
+  <td>18</td>
+  <td>GOODS</td>
+  <td>18</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_GOODS</td>
+  <td>XFELD</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Commodity Y/N</td>
+</tr>
+<tr class="cell">
+  <td>19</td>
+  <td>CCNGN</td>
+  <td>19</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_CCNGN</td>
+  <td>ZKGD_CCNGN</td>
+  <td>CHAR</td>
+  <td>17</td>
+  <td>&nbsp;</td>
+  <td>HS code ( Product LEVEL )</td>
+</tr>
+<tr class="cell">
+  <td>20</td>
+  <td>COFLG</td>
+  <td>20</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_COFLG</td>
+  <td>ZKGD_ORIGIN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Item Origin status</td>
+</tr>
+<tr class="cell">
+  <td>21</td>
+  <td>COFLGBF</td>
+  <td>21</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_COFLGBF</td>
+  <td>ZKGD_ORIGIN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Item Origin status(including Buffer)</td>
+</tr>
+<tr class="cell">
+  <td>22</td>
+  <td>COFLG_PRE</td>
+  <td>22</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_COFLG_PRE</td>
+  <td>ZKGD_ORIGIN</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Previous Origin status</td>
+</tr>
+<tr class="cell">
+  <td>23</td>
+  <td>FOBPR</td>
+  <td>23</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_FOBPR</td>
+  <td>WERTV8</td>
+  <td>CURR</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>Amount of Sales value(Free on Board)</td>
+</tr>
+<tr class="cell">
+  <td>24</td>
+  <td>EXWPR</td>
+  <td>24</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_EXWPR</td>
+  <td>WERTV8</td>
+  <td>CURR</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>Amount of Sales value(Ex Works)</td>
+</tr>
+<tr class="cell">
+  <td>25</td>
+  <td>NCSPR</td>
+  <td>25</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_NCSPR</td>
+  <td>WERTV8</td>
+  <td>CURR</td>
+  <td>15</td>
+  <td>&nbsp;</td>
+  <td>Amount of Sales value(Net Cost)</td>
+</tr>
+<tr class="cell">
+  <td>26</td>
+  <td>WAERS</td>
+  <td>26</td>
+  <td>&nbsp;</td>
+  <td>FCIW_LCUR</td>
+  <td>WAERS</td>
+  <td>CUKY</td>
+  <td>5</td>
+  <td>&nbsp;</td>
+  <td>Currency Key for Local Currency</td>
+</tr>
+<tr class="cell">
+  <td>27</td>
+  <td>PRULE</td>
+  <td>27</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_PRULE</td>
+  <td>CHAR20</td>
+  <td>CHAR</td>
+  <td>20</td>
+  <td>&nbsp;</td>
+  <td>Standard of Determination</td>
+</tr>
+<tr class="cell">
+  <td>28</td>
+  <td>SALNO</td>
+  <td>28</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_SALNO</td>
+  <td>VBELN</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>Sales documents / Filing documents</td>
+</tr>
+<tr class="cell">
+  <td>29</td>
+  <td>DETP</td>
+  <td>29</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_DETP</td>
+  <td>ZKGD_DETP</td>
+  <td>CHAR</td>
+  <td>1</td>
+  <td>&nbsp;</td>
+  <td>Domestic/Export/Paid-toll payment</td>
+</tr>
+<tr class="cell">
+  <td>30</td>
+  <td>PRCTR</td>
+  <td>30</td>
+  <td>&nbsp;</td>
+  <td>PRCTR</td>
+  <td>PRCTR</td>
+  <td>CHAR</td>
+  <td>10</td>
+  <td>&nbsp;</td>
+  <td>Profit Center</td>
+</tr>
+<tr class="cell">
+  <td>31</td>
+  <td>GUID_REF</td>
+  <td>31</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_GUID_16</td>
+  <td>SYSUUID</td>
+  <td>RAW</td>
+  <td>16</td>
+  <td>&nbsp;</td>
+  <td>Primary Key as GUID in 'RAW' Format</td>
+</tr>
+<tr class="cell">
+  <td>32</td>
+  <td>GUID_PRE</td>
+  <td>32</td>
+  <td>&nbsp;</td>
+  <td>ZKGE_GUID_16</td>
+  <td>SYSUUID</td>
+  <td>RAW</td>
+  <td>16</td>
+  <td>&nbsp;</td>
+  <td>Primary Key as GUID in 'RAW' Format</td>
+</tr>
+<tr class="cell">
+  <td>33</td>
+  <td>ZIVNO</td>
+  <td>33</td>
+  <td>&nbsp;</td>
+  <td>ZGFE_IVNO_12</td>
+  <td>CHAR12</td>
+  <td>CHAR</td>
+  <td>12</td>
+  <td>&nbsp;</td>
+  <td>Invoice Number</td>
+</tr>
+<tr class="cell">
+  <td>34</td>
+  <td>VKORG</td>
+  <td>34</td>
+  <td>&nbsp;</td>
+  <td>VKORG</td>
+  <td>VKORG</td>
+  <td>CHAR</td>
+  <td>4</td>
+  <td>&nbsp;</td>
+  <td>Sales Organization</td>
+</tr>
+<tr class="cell">
+  <td>35</td>
+  <td>ZIVDT</td>
+  <td>35</td>
+  <td>&nbsp;</td>
+  <td>ZGFE_INVDAT</td>
+  <td>DATS</td>
+  <td>DATS</td>
+  <td>8</td>
+  <td>&nbsp;</td>
+  <td>Invoice Date</td>
+</tr>
+      </table>
+     </td>
+   </tr>
+<br/>
+  <table class="outerTable">
+    <tr>
+      <td><h2>Fixed Domain Values </h2>
+    </tr>
+    <tr>
+      <td><!--This is where our main table begins  -->
+<table class="innerTable">
+<tr>
+  <th>Domain Name</th>
+  <th>Value Low</th>
+  <th>Value High</th>
+  <th>Text</th>
+</tr>
+<tr class="cell">
+  <td>CACSYN</td>
+  <td>Y</td>
+  <td>&nbsp;</td>
+  <td>Yes</td>
+</tr>
+<tr class="cell">
+  <td>CACSYN</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>No</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_PRETP</td>
+  <td>00</td>
+  <td>&nbsp;</td>
+  <td>Simulation Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_PRETP</td>
+  <td>01</td>
+  <td>&nbsp;</td>
+  <td>Intermediate Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_PRETP</td>
+  <td>11</td>
+  <td>&nbsp;</td>
+  <td>Good Issue Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_PRETP</td>
+  <td>12</td>
+  <td>&nbsp;</td>
+  <td>Final Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_SUBCT</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>####</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_SUBCT</td>
+  <td>S</td>
+  <td>&nbsp;</td>
+  <td>Paid Sub-contract</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_SUBCT</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>Free Sub-contract</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>X</td>
+  <td>&nbsp;</td>
+  <td>Yes</td>
+</tr>
+<tr class="cell">
+  <td>XFELD</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>No</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>Y</td>
+  <td>&nbsp;</td>
+  <td>Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>Non-Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>Y</td>
+  <td>&nbsp;</td>
+  <td>Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>Non-Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>Y</td>
+  <td>&nbsp;</td>
+  <td>Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_ORIGIN</td>
+  <td>N</td>
+  <td>&nbsp;</td>
+  <td>Non-Origin</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_DETP</td>
+  <td>C</td>
+  <td>&nbsp;</td>
+  <td>Chargeable</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_DETP</td>
+  <td>D</td>
+  <td>&nbsp;</td>
+  <td>Domestic</td>
+</tr>
+<tr class="cell">
+  <td>ZKGD_DETP</td>
+  <td>E</td>
+  <td>&nbsp;</td>
+  <td>Export</td>
+</tr>
+      </table>
+     </td>
+   </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>
